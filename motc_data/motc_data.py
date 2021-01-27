@@ -150,7 +150,27 @@ def main():
 
   ## Extract the Mapping of SectionID to LinkID -> Dict
   section_links = extract_data('SectionLink.xml', callback=linkid_process)
- 
+
+  ## Create an inverse table from section_ids
+  last_elem = next(reversed(section_ids['S'].items()))
+  inverse_table = OrderedDict([(value['Start'], (i, key)) for i, (key, value) in enumerate(section_ids['S'].items())] + \
+                              [(last_elem[1]['End'], (len(section_ids['S']), last_elem[0]))])
+
+  ## serach 台北交流道
+  x1 = inverse_table['台北交流道']
+  ## search 新竹交流道
+  x2 = inverse_table['新竹交流道']
+
+  direction = ('S', 1) if x1[0] < x2[0] else ('N', -1)
+  
+  ## 台北交流道 到 新竹交流道
+  fix = 1 if direction[0] == 'N' else 0
+  traffic = list(section_ids[direction[0]].items())[x1[0]-fix:x2[0]-fix:direction[1]]
+  
+  ## live travel time
+  # travel_time = sum([int(live_traffic[key + (0 if direction[0] == 'S' else 1)]['TravelTime']) for key, value in traffic)])
+
+  print('Travel Time: ', sum([int(live_traffic[key]['TravelTime']) for key, value in traffic]))
 
 if __name__ == '__main__':
   main()
