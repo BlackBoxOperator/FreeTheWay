@@ -36,7 +36,7 @@ if __name__ == '__main__':
     port = int(os.environ.get("SYSPORT", 8508))
 
     #print("============ Setup ngrok ======================")
-    #ngrok.set_auth_token(decrypt_token(os.path.join('meta', 'encrypted.ngrok.token')))
+    #ngrok.set_auth_token(decrypt_token(os.path.join('meta', 'encrypted.sys.ngrok.token')))
     #hook_url = ngrok.connect(port).replace("http", "https")
     #print("Hook url: " + hook_url)
 
