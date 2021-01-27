@@ -1,0 +1,6 @@
+requests==2.23.0
+Flask==1.1.2
+ngrok==0.0.1
+pyngrok==1.4.2
+pexpect==4.7.0
+Bootstrap-Flask
