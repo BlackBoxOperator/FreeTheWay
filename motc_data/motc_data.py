@@ -5,8 +5,10 @@ import wget
 import os
 import xmltodict
 import xml.etree.ElementTree as ET
+from datetime import datetime
 from collections import OrderedDict
 from functools import partial
+import time
 
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
@@ -29,7 +31,7 @@ def download(option):
                 'ETag.xml'          # Etag information of LinkID
                 ]]
                                               
-  elif option == 'dynamic' or option == 'all':
+  if option == 'dynamic' or option == 'all':
     [wget_from_url(motc_prefix + x) 
       for x in ['LiveTraffic.xml'   # Real-time traffic information on road section
                 ]]
@@ -117,7 +119,61 @@ def id_process(root, road='000010', prefix=''):
     Dict[road_direction][section_id] = {'RoadID': road_id, 'Start': start, 'End': end, 'Length': sec_length}
   return Dict
 
+# Date, Time, Congestion, Speed
+def collect_dynamic_traffic(traffic_list, save='./data'):
+  while True:
+    allfiles = OrderedDict()
+    for traffic in traffic_list:
+      for i in traffic:
+        allfiles[i[0]] = open(f"{save}/travel_time_{i[0]}.txt", "a")
 
+    # download dynamic data
+    download('dynamic')
+    live_traffic = extract_data('LiveTraffic.xml', callback=livetraffic_process)
+
+    # record time
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+
+    for traffic in traffic_list:
+      new_traffic = []
+      for key, value in traffic:
+        if key in live_traffic:
+          new_traffic.append((key, value))
+      traffic = new_traffic
+
+      t_s = OrderedDict([(key, live_traffic[key]['TravelTime']) for key, value in traffic])
+      l_s = OrderedDict([(key, live_traffic[key]['CongestionLevel']) for key, value in traffic])
+      s_s = OrderedDict([(key, live_traffic[key]['TravelSpeed']) for key, value in traffic])
+
+      for key, _ in traffic:
+        tt = allfiles[key]
+        tt.write(f'{current_time} {t_s[key]} {l_s[key]} {s_s[key]}\n')
+        tt.flush()
+        tt.close()
+    time.sleep(120)
+
+# e.g. 台北交流道, 新竹交流道  
+def traffic_of_two_points(start, end, section_ids):
+  # e.g. section_ids = extract_data('Section.xml', callback=partial(id_process, road='000010'))
+  ## Create an inverse table from section_ids
+  last_elem = next(reversed(section_ids['S'].items()))
+
+  inverse_table = OrderedDict([(value['Start'], (i, key)) for i, (key, value) in enumerate(section_ids['S'].items())] + \
+                              [(last_elem[1]['End'], (len(section_ids['S']), last_elem[0]))])
+
+  x1 = inverse_table[start]
+  x2 = inverse_table[end]
+
+  direction = ('S', 1) if x1[0] < x2[0] else ('N', -1)
+  fix = 1 if direction[0] == 'N' else 0
+
+  traffic = list(section_ids[direction[0]].items())[x1[0]-fix:x2[0]-(fix if x2[0] != 0 else 0):direction[1]] +\
+            ([list(section_ids[direction[0]].items())[x2[0]]] if x2[0] == 0 else [])
+
+  return traffic
+
+  
 def main():
   parser = argparse.ArgumentParser(description='MOTC extractor example')
   parser.add_argument('--download', type=str, default='none', metavar='N',
@@ -125,7 +181,9 @@ def main():
   # parser.add_argument('--save-dict', action='store_true', default=False,
   #                       help='For Saving the current dict')
   parser.add_argument('--debug', action='store_true', default=False,
-                        help='For Saving the current ')                        
+                        help='Debug info')                        
+  parser.add_argument('--collect', action='store_true', default=False,
+                        help='Collect dynamic traffic to data/')
   args = parser.parse_args()
   
   if not args.debug:
@@ -151,26 +209,15 @@ def main():
   ## Extract the Mapping of SectionID to LinkID -> Dict
   section_links = extract_data('SectionLink.xml', callback=linkid_process)
 
-  ## Create an inverse table from section_ids
-  last_elem = next(reversed(section_ids['S'].items()))
-  inverse_table = OrderedDict([(value['Start'], (i, key)) for i, (key, value) in enumerate(section_ids['S'].items())] + \
-                              [(last_elem[1]['End'], (len(section_ids['S']), last_elem[0]))])
-
-  ## serach 台北交流道
-  x1 = inverse_table['台北交流道']
-  ## search 新竹交流道
-  x2 = inverse_table['新竹交流道']
-
-  direction = ('S', 1) if x1[0] < x2[0] else ('N', -1)
   
-  ## 台北交流道 到 新竹交流道
-  fix = 1 if direction[0] == 'N' else 0
-  traffic = list(section_ids[direction[0]].items())[x1[0]-fix:x2[0]-fix:direction[1]]
+  if args.collect:
+    tl = [traffic_of_two_points('基隆端', '高雄端', section_ids), traffic_of_two_points('高雄端', '基隆端', section_ids)]
+    collect_dynamic_traffic(tl)
   
-  ## live travel time
-  # travel_time = sum([int(live_traffic[key + (0 if direction[0] == 'S' else 1)]['TravelTime']) for key, value in traffic)])
 
-  print('Travel Time: ', sum([int(live_traffic[key]['TravelTime']) for key, value in traffic]))
+  # print('Travel Time: ', sum([int(live_traffic[key]['TravelTime']) for key, value in traffic]))
+
+  
 
 if __name__ == '__main__':
   main()
