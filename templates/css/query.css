@@ -1,0 +1,7714 @@
+@charset "UTF-8";
+/* file: _base */
+/* ============================================================ */
+/*                      reset                                   */
+/* ============================================================ */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 10px 0;
+  line-height: 1.2;
+}
+
+input,
+textarea,
+select,
+a {
+  outline: none;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  border: 0;
+}
+
+input {
+  border-radius: 0;
+}
+
+input[type=text], input[type=button] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  padding: 0;
+}
+
+/* ============================================================ */
+/*                     float                                   */
+/* ============================================================ */
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+
+.f_left {
+  float: left !important;
+}
+
+.f_right {
+  float: right !important;
+}
+
+/* file: _mymain */
+/* ============================================================ */
+/*                      all                                     */
+/* ============================================================ */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  color: #333333;
+  font-size: 0.9375rem;
+  letter-spacing: 2px;
+}
+
+body, html, button, input, optgroup, select, textarea, option {
+  font-family: "微軟正黑體", "Microsoft JhengHei", PingFangTC-Regular, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  color: #ee7a00;
+  text-decoration: none;
+}
+
+.show_link {
+  text-decoration: underline;
+  color: #ee7a00;
+}
+
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, ::placeholder {
+  color: #dddddd;
+}
+
+/* ============================================================ */
+/*                     component                                */
+/* ============================================================ */
+span.today_date {
+  letter-spacing: 0px;
+  font-size: 0.875rem;
+}
+
+.show_detail {
+  font-size: 0.75em;
+  height: 18px;
+  padding-top: 2px;
+}
+
+.button_ctrl {
+  color: #fff;
+  background: #8dc21f;
+  cursor: pointer;
+}
+.button_ctrl:hover {
+  color: #fff;
+}
+
+.normal_btn {
+  padding: 10px 30px;
+}
+
+.button_notdoit {
+  color: #fff;
+  background: #aaa;
+  cursor: pointer;
+}
+.button_notdoit:hover {
+  color: #fff;
+}
+
+.button_tab {
+  color: #7baf90;
+  background: #fff;
+  border: 1px solid #7baf90;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.button_tab.active, .button_tab:hover {
+  color: #fff;
+  background: #00783c;
+}
+
+.button_tab_list {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+.button_tab_list > li {
+  display: inline-block;
+  height: 100%;
+}
+.button_tab_list > li:first-child {
+  margin-left: 0;
+}
+
+.tab_list_for_4 > li {
+  width: 24.8%;
+  margin-left: -7px;
+}
+
+.tab_list_for_2 {
+  width: 49.8%;
+  margin-left: -7px;
+}
+
+/* ============================================================ */
+/*                  tab                                         */
+/* ============================================================ */
+.tab_wrapper {
+  position: relative;
+  clear: both;
+}
+
+.tab {
+  float: left;
+}
+
+.tab input[type=radio] {
+  display: none;
+}
+
+.tab_item {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tab_content {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.tab_content > * {
+  opacity: 0;
+}
+
+input[type=radio]:checked ~ .tab_item {
+  z-index: 2;
+}
+
+input[type=radio]:checked ~ .tab_item ~ .tab_content {
+  z-index: 1;
+}
+
+input[type=radio]:checked ~ .tab_item ~ .tab_content > * {
+  opacity: 1;
+}
+
+/* ============================================================ */
+/*                     road mark                                */
+/* ============================================================ */
+span.mark {
+  font-size: 0;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2px;
+  background-size: 22px 22px;
+}
+
+/* 國道 梅花圖標 11種 */
+span.mark_10010 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10010.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10018 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10018.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10019 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10019.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10020 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10020.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10030 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10030.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10031 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10031.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10040 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10040.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10050 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10050.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10060 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10060.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10080 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10080.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_10100 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10100.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+/* 南港聯絡道 */
+span.mark_10039 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10039.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+/* 港西聯外道路" 台2己 */
+span.mark_10038 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/10038.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+/* 快速道路 紅盾圖標  */
+span.mark_20620 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20620.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20640 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20640.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20660 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20660.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20680 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20680.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20720 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20720.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20740 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20740.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20741 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20741.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20760 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20760.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20780 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20780.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20820 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20820.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20840 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20840.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20860 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20860.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20880 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20880.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20610 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20610.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_2061J {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/2061J.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_2062J {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/2062J.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20650 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20650.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+/* 省道 藍盾圖標  */
+span.mark_20010 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20010.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20020 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20020.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_2002b {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/2002b.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20030 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20030.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20090 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20090.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20140 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20140.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_2014B {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/2014B.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20280 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20280.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_2061E {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/2061E.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.mark_20630 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/20630.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+/* 省道 長方形框  */
+span.mark_31180, span.mark_31360, span.mark_31390, span.mark_31440, span.mark_31480 {
+  width: 32px;
+  height: 32px;
+}
+
+span.mark_31180 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/31180.png") no-repeat center center;
+  background-size: 32px 32px;
+}
+
+span.mark_31360 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/31360.png") no-repeat center center;
+  background-size: 32px 32px;
+}
+
+span.mark_31390 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/31390.png") no-repeat center center;
+  background-size: 32px 32px;
+}
+
+span.mark_31440 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/31440.png") no-repeat center center;
+  background-size: 32px 32px;
+}
+
+span.mark_31480 {
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/31480.png") no-repeat center center;
+  background-size: 32px 32px;
+}
+
+/* 省道 彰195  */
+span.mark_31950 {
+  width: 40px;
+  height: 32px;
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/31950.png") no-repeat center center;
+  background-size: 40px 32px;
+}
+
+/* 省道 宜4匝道  */
+span.mark_3y4 {
+  width: 40px;
+  height: 32px;
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/3y4.png") no-repeat center 7px;
+  background-size: 40px 32px;
+}
+
+/* 106乙 */
+span.mark_3106e {
+  width: 40px;
+  height: 32px;
+  background: url("https://1968.freeway.gov.tw/assets/img/mark/3106e.png") no-repeat center 7px;
+  background-size: 40px 32px;
+}
+
+/* ============================================================ */
+/*                     weather icon                             */
+/* ============================================================ */
+.wthr_icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 34px;
+  height: 34px;
+}
+
+/* 13種 天氣圖示種類 白色 */
+.wthr_icon.w_sun {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/sun.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_cloud {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/cloud.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_cloud_double {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/cloud_double.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_rain {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/rain.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_cloud_sun {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/cloud_sun.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_thunder {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/thunder.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_rain_sun {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/rain_sun.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_sun_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/sun_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_cloud_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/cloud_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.wthr_icon.w_thunder_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/thunder_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_cloud_sun_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/cloud_sun_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_rain_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/rain_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon.w_rain_snow {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather/rain_snow.png);
+  background-size: 34px 34px;
+}
+
+/* ============================================================ */
+/*                       modalDialog                            */
+/* ============================================================ */
+.modalDialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  word-wrap: break-word;
+  border-radius: 0;
+  border: 0;
+  pointer-events: none;
+}
+
+.modalDialog:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal_div {
+  width: 85%;
+  max-width: 340px;
+  position: relative;
+  margin: 20% auto 0 auto;
+  background: #fff;
+  border: 3px solid #8dc21f;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.modal_close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: arial;
+  color: #333333;
+}
+.modal_close:hover {
+  color: #333333;
+}
+
+.modal_in {
+  width: 90%;
+  margin: 40px auto 30px auto;
+  text-align: left;
+  padding-left: 20px;
+}
+.modal_in p {
+  line-height: 1.5;
+  width: 96%;
+}
+
+.modal_footer {
+  width: 90%;
+  margin: 30px auto 0 auto;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.modal_btn {
+  padding: 5px 30px;
+}
+
+/* ============================================================ */
+/*                      menutop                                 */
+/* ============================================================ */
+header {
+  width: 100%;
+  border-top: 5px solid #8dc21f;
+  background: #fff;
+  min-height: 95px;
+  position: fixed;
+  z-index: 99;
+  box-shadow: 0px 0px 9px #333333;
+  top: 0;
+}
+
+header.expand {
+  display: none;
+}
+
+.menutop {
+  height: 50px;
+  background: #ebf4d7 url("https://1968.freeway.gov.tw/assets/img/menu_bg.jpg") no-repeat left top;
+}
+
+.menutop_in {
+  width: 990px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.menutop_in > * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.logo {
+  width: 200px;
+  height: 50px;
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_logo.png") no-repeat 0 0;
+  background-size: 100%;
+  font-size: 0rem;
+  margin-left: 10px;
+}
+
+.pc_menutop_right {
+  position: absolute;
+  text-align: right;
+  top: 15px;
+  right: 20px;
+}
+
+.pc_menutop_right > * {
+  display: inline-block;
+  margin-right: 0px;
+  vertical-align: middle;
+}
+
+.top_date {
+  font-size: 0.875rem;
+  vertical-align: middle;
+  letter-spacing: 0px;
+}
+
+.news_in > * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.top_news {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_speaker.png") no-repeat 0 0;
+  background-size: 20px 20px;
+  text-align: left;
+  padding-left: 24px;
+  padding-top: 1px;
+  width: 500px;
+  height: 18px;
+}
+
+.top_show_detail {
+  font-size: 0.75em;
+  width: 56px;
+  margin-left: -2px;
+  height: 18px;
+  padding-top: 2px;
+  text-align: right;
+}
+
+.marqee {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.marqee > ul {
+  position: absolute;
+  width: 3000px;
+  height: 100%;
+  display: flex;
+  animation: marqee 200s linear infinite;
+  text-align: center;
+}
+.marqee > ul > li {
+  white-space: nowrap;
+  display: inline-table;
+  margin-right: 2em;
+}
+
+.marqee:hover > ul {
+  animation-play-state: paused;
+}
+
+@keyframes marqee {
+  0% {
+    left: 100%;
+    -moz-transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+    transform: tranlateX(0%);
+  }
+  100% {
+    left: 0;
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+.mobile_news {
+  width: 100%;
+  height: 30px;
+}
+.mobile_news .news_in {
+  width: 96%;
+  margin: 5px auto 0 auto;
+  padding-left: 5px;
+}
+.mobile_news .top_date {
+  width: 101px;
+}
+.mobile_news .top_news {
+  width: calc(100% - 169px);
+}
+
+.search_box input {
+  display: inline-block;
+  vertical-align: top;
+  height: 30px;
+}
+
+.search_input {
+  border: 1px solid #00783c;
+  width: 170px;
+  margin-right: -8px;
+  padding: 5px;
+}
+
+.search_button {
+  width: 30px;
+  border: 1px solid #00783c;
+  border-left: none;
+  cursor: pointer;
+  background: #fff url("https://1968.freeway.gov.tw/assets/img/menu_search.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.top_lang_btn {
+  height: 24px;
+  padding: 4px 2px;
+  border: 1px solid #00783c;
+  color: #00783c;
+  font-size: 0.75em;
+  font-weight: bolder;
+  letter-spacing: 0px;
+}
+.top_lang_btn:hover {
+  color: #fff;
+  background: #00783c;
+}
+
+/* ============================================================ */
+/*                      breadcrumb                              */
+/* ============================================================ */
+.bcrumb_sec {
+  width: 100%;
+  text-align: center;
+  background: #f4f4f4;
+  background: linear-gradient(to bottom, #f4f4f4 0%, #fff 100%);
+  padding: 20px 0 0 40px;
+  height: 56px;
+}
+
+.bcrumb_list {
+  display: inline-block;
+  width: 990px;
+  list-style: none;
+  text-align: left;
+}
+
+.bcrumb {
+  display: inline-block;
+  font-size: 0.9375rem;
+}
+
+.bcrumb + .bcrumb:before {
+  content: "";
+  font-family: FontAwesome;
+  display: inline-block;
+  padding: 0 0.3rem 0 0;
+}
+
+/* ============================================================ */
+/*                     content wrapper                          */
+/* ============================================================ */
+.content_wrapper, .content_wrapper_with_tabmenu {
+  width: 990px;
+  height: calc(100% - 56px);
+  margin: 0 auto;
+  position: relative;
+}
+
+.content_wrapper_with_tabmenu {
+  height: calc(100% - 56px - 50px);
+}
+
+.content_longpage {
+  width: 990px;
+  margin: 0 auto;
+  height: auto;
+  min-height: 600px;
+  padding-bottom: 50px;
+}
+
+/* ============================================================ */
+/*                      pc menu                                 */
+/* ============================================================ */
+.pc_menu {
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  position: relative;
+}
+
+.pc_menu > li {
+  width: 140px;
+  display: inline-block;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  margin-right: -6px;
+}
+
+.pc_menu > li.active a, .pc_menu > li a:hover {
+  color: #ee7a00;
+  text-decoration: none;
+  border-bottom: 3px solid #ee7a00;
+}
+
+.pc_menu > li a {
+  display: inline-block;
+  width: 90%;
+  height: 99%;
+  color: #333333;
+  font-size: 1.125rem;
+  font-weight: bolder;
+  position: relative;
+  padding-left: 18px;
+}
+.pc_menu > li a:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  left: 8px;
+  position: absolute;
+  background-size: 20px 20px;
+}
+
+/* 重要路段查詢 文字較長特別處理 */
+.pc_menu > li.item_long {
+  width: 150px;
+}
+
+.pc_menu > li.item_long a {
+  width: 100%;
+  padding-left: 20px;
+}
+.pc_menu > li.item_long a:before {
+  left: 0;
+}
+
+/* ============================================================ */
+/*                      pc submenu                              */
+/* ============================================================ */
+.pc_submenu_wrapper {
+  display: none;
+}
+
+.pc_submenu_wrapper.show_pc_submenu {
+  display: block;
+  width: 100%;
+  background: #ebf4d7;
+  text-align: center;
+}
+
+.pc_submenu {
+  display: inline-block;
+  width: 990px;
+  height: 215px;
+  margin: 10px auto;
+}
+
+.pc_submenu > li {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: -6px;
+  width: 140px;
+  height: 100%;
+  border-right: 1px solid #dddddd;
+}
+.pc_submenu > li:first-child {
+  border-left: 1px solid #dddddd;
+}
+.pc_submenu > li.item_long {
+  width: 150px;
+}
+
+.pc_submenu_footer {
+  margin: 0 auto;
+  width: 100%;
+  height: 36px;
+  text-align: right;
+}
+
+.pc_submenu_btn_close {
+  width: 36px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.pc_submenu_mask {
+  display: none;
+}
+
+.pc_submenu_mask.show_pc_submenu {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+
+ul.pc_sub_col {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+}
+
+ul.pc_sub_col > li {
+  width: 100%;
+  height: 36px;
+}
+
+ul.pc_sub_col > li > a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding-left: 22px;
+  text-align: left;
+  position: relative;
+  font-size: 1rem;
+  color: #333333;
+  padding-top: 4px;
+}
+ul.pc_sub_col > li > a:before {
+  font-family: FontAwesome;
+  content: "";
+  font-size: 1rem;
+  color: #808080;
+  position: absolute;
+  top: 4px;
+  left: 8px;
+}
+
+ul.pc_sub_col > li.active > a, ul.pc_sub_col > li > a:hover {
+  color: #ee7a00;
+}
+ul.pc_sub_col > li.active > a:before, ul.pc_sub_col > li > a:hover:before {
+  color: #ee7a00;
+}
+
+/* ============================================================ */
+/*                      mobile menu                             */
+/* ============================================================ */
+.mobile_pushmenu {
+  position: fixed;
+  width: 235px;
+  height: 100%;
+  left: -235px;
+  transition: left 0.2s;
+  background: #ebf4d7;
+  overflow-y: scroll;
+}
+
+.mobile_pushmenu.mmenu_add {
+  left: 0px;
+}
+
+.mobile_mask {
+  position: fixed;
+  width: 100%;
+  right: 0;
+  height: 100%;
+  top: 0;
+  transition: all 0.2s;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+
+.mobile_mask.mmenu_add {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile_h_menu {
+  height: 37px;
+  width: 37px;
+  position: absolute;
+  top: 50%;
+  margin-top: -18px;
+  left: 0px;
+  z-index: 3;
+  padding: 10px;
+}
+
+.mobile_h_menu:before, .mobile_h_menu:after {
+  content: "";
+  display: block;
+  width: 17px;
+  height: 3px;
+  background: #8dc21f;
+  border-radius: 3px;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.mobile_h_menu span {
+  display: block;
+  width: 17px;
+  height: 3px;
+  background: #8dc21f;
+  border-radius: 3px;
+  position: relative;
+  transition: all 0.3s;
+  margin: 4px 0px;
+}
+
+.mobile_h_menu.active {
+  background: #8dc21f;
+}
+
+.mobile_h_menu.active span {
+  background: #fff;
+  opacity: 0;
+}
+
+.mobile_h_menu.active:before {
+  top: 7px;
+  transform: translateY(5px) translateX(-2px) rotate(45deg) scaleX(0.9);
+  background: #fff;
+}
+
+.mobile_h_menu.active:after {
+  top: -7px;
+  transform: translateY(-5px) translateX(-2px) rotate(-45deg) scaleX(0.9);
+  background: #fff;
+}
+
+.mobile_pushmenu {
+  z-index: 3;
+}
+
+.mobile_menu_header {
+  width: 100%;
+  border-top: solid 5px #8dc21f;
+  border-bottom: solid 1px #fff;
+  height: 48px;
+  background: #ebf4d7;
+  padding: 0 10px;
+  text-align: left;
+}
+
+.mobile_menu_header > * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mobile_menu .top_lang_btn {
+  float: right;
+  margin-top: 10px;
+}
+
+.mobile_logo {
+  width: 140px;
+  height: 35px;
+  background: url(https://1968.freeway.gov.tw/assets/img/menu_logo.png) no-repeat 0 0;
+  background-size: 100%;
+  font-size: 0rem;
+  margin-top: 3px;
+  margin-left: 6px;
+}
+
+.mobile_menu > li, .mobile_menu_goapp {
+  width: 100%;
+  display: block;
+  text-align: left;
+  line-height: 46px;
+}
+
+.mobile_menu > li > a, .mobile_menu_goapp > a {
+  display: block;
+  width: 100%;
+  height: 46px;
+  color: #333333;
+  font-size: 1.125rem;
+  font-weight: bolder;
+  position: relative;
+  padding-left: 50px;
+}
+.mobile_menu > li > a:before, .mobile_menu > li > a:after, .mobile_menu_goapp > a:before, .mobile_menu_goapp > a:after {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+.mobile_menu > li > a:before, .mobile_menu_goapp > a:before {
+  top: 12px;
+  left: 22px;
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_road.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+.mobile_menu > li > a:after, .mobile_menu_goapp > a:after {
+  top: 12px;
+  right: 22px;
+  background: url("https://1968.freeway.gov.tw/assets/img/arrow_r.png") no-repeat center center;
+  background-size: 20px 20px;
+  transition: all 0.3s;
+}
+
+.mobile_menu > li > a.subopen:after {
+  transform: rotate(90deg);
+}
+
+.mobile_menu > li.active > a, .mobile_menu > li > a:hover {
+  color: #ee7a00;
+  text-decoration: none;
+}
+
+.mobile_menu > li > a.subopen + .mobile_submenu {
+  display: block;
+}
+
+.mobile_menu_goapp > a {
+  background: #8dc21f;
+  color: #fff;
+}
+.mobile_menu_goapp > a:hover {
+  text-decoration: none;
+}
+.mobile_menu_goapp > a:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/footer_phone.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+.mobile_menu_goapp > a:after {
+  display: none;
+}
+
+/* ============================================================ */
+/*                      mobile_submenu                          */
+/* ============================================================ */
+.mobile_submenu {
+  display: none;
+}
+
+.mobile_submenu > li {
+  width: 100%;
+  height: 46px;
+  display: block;
+  background: #f4f4f4;
+  border-bottom: 1px solid #dddddd;
+}
+.mobile_submenu > li:first-child {
+  border-top: 1px solid #dddddd;
+}
+
+.mobile_submenu > li > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #333333;
+  font-size: 1rem;
+  position: relative;
+  padding-left: 50px;
+}
+.mobile_submenu > li > a:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 12px;
+  left: 22px;
+}
+
+.mobile_submenu > li.active > a, .mobile_submenu > li > a:hover {
+  color: #ee7a00;
+  text-decoration: none;
+}
+
+/* ============================================================ */
+/*                      menu icons                              */
+/* ============================================================ */
+.pc_menu > li a[data-id="menu_road"]:before, .mobile_menu > li a[data-id="menu_road"]:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_road.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li.active a[data-id="menu_road"]:before, .pc_menu > li a[data-id="menu_road"]:hover:before, .mobile_menu > li.active a[data-id="menu_road"]:before, .mobile_menu > li a[data-id="menu_road"]:hover:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_act_road.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li a[data-id="menu_news"]:before, .mobile_menu > li a[data-id="menu_news"]:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_news.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li.active a[data-id="menu_news"]:before, .pc_menu > li a[data-id="menu_news"]:hover:before, .mobile_menu > li.active a[data-id="menu_news"]:before, .mobile_menu > li a[data-id="menu_news"]:hover:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_act_news.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li a[data-id="menu_alter"]:before, .mobile_menu > li a[data-id="menu_alter"]:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_alter.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li.active a[data-id="menu_alter"]:before, .pc_menu > li a[data-id="menu_alter"]:hover:before, .mobile_menu > li.active a[data-id="menu_alter"]:before, .mobile_menu > li a[data-id="menu_alter"]:hover:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_act_alter.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li a[data-id="menu_trip"]:before, .mobile_menu > li a[data-id="menu_trip"]:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_trip.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li.active a[data-id="menu_trip"]:before, .pc_menu > li a[data-id="menu_trip"]:hover:before, .mobile_menu > li.active a[data-id="menu_trip"]:before, .mobile_menu > li a[data-id="menu_trip"]:hover:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_act_trip.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li a[data-id="menu_traffic"]:before, .mobile_menu > li a[data-id="menu_traffic"]:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_traffic.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li.active a[data-id="menu_traffic"]:before, .pc_menu > li a[data-id="menu_traffic"]:hover:before, .mobile_menu > li.active a[data-id="menu_traffic"]:before, .mobile_menu > li a[data-id="menu_traffic"]:hover:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_act_traffic.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li a[data-id="menu_info"]:before, .mobile_menu > li a[data-id="menu_info"]:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_info.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li.active a[data-id="menu_info"]:before, .pc_menu > li a[data-id="menu_info"]:hover:before, .mobile_menu > li.active a[data-id="menu_info"]:before, .mobile_menu > li a[data-id="menu_info"]:hover:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_act_info.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li a[data-id="menu_spec"]:before, .mobile_menu > li a[data-id="menu_spec"]:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_spec.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.pc_menu > li.active a[data-id="menu_spec"]:before, .pc_menu > li a[data-id="menu_spec"]:hover:before, .mobile_menu > li.active a[data-id="menu_spec"]:before, .mobile_menu > li a[data-id="menu_spec"]:hover:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/menu_act_spec.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+/* ============================================================ */
+/*                     main part                                */
+/* ============================================================ */
+.wrapper {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.page {
+  width: 100%;
+  overflow-x: hidden;
+  z-index: 1;
+  transition: all 0.52s;
+  height: 100%;
+}
+
+.page_long {
+  height: auto;
+}
+
+.page.mmenu_add {
+  transform: translateX(235px);
+  overflow-y: hidden;
+}
+
+.page_long.mmenu_add, .page_long.show_pc_submenu {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.main_wrapper {
+  margin-top: 95px;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.main_wrapper.expand {
+  margin-top: 0px;
+}
+
+.page_long .main_wrapper {
+  min-height: 930px;
+}
+
+.main_wrapper_map {
+  height: calc(100% - 133px);
+  background: #fff;
+  position: relative;
+  overflow-y: hidden;
+}
+
+.main_wrapper_map.expand {
+  height: 100%;
+}
+
+.main_side_window {
+  width: 300px;
+  height: 100%;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  transition: left 0.2s;
+}
+
+.main_roadmap_window {
+  width: 100%;
+  height: 100%;
+  background: #a4bfdd;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+/* ============================================================ */
+/*                     footer                                   */
+/* ============================================================ */
+footer {
+  width: 100%;
+  background: #ebf4d7;
+  padding: 0px 5px;
+}
+
+footer.expand {
+  display: none;
+}
+
+.footer_in {
+  width: 990px;
+  margin: 0 auto;
+  padding-left: 10px;
+}
+.footer_in .br_for_mobile {
+  display: none;
+}
+.footer_in .mobile_menu_goapp {
+  width: 75px;
+  height: 30px;
+  display: inline-block;
+  line-height: 30px;
+  text-align: left;
+}
+.footer_in .mobile_menu_goapp > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #8dc21f;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: bolder;
+  position: relative;
+  padding-left: 20px;
+  letter-spacing: 0;
+}
+.footer_in .mobile_menu_goapp > a:before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 6px;
+  left: 2px;
+  background: url("https://1968.freeway.gov.tw/assets/img/footer_phone.png") no-repeat center center;
+  background-size: 18px 18px;
+}
+
+.footer_in .block, .mobile_footer_in .block {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer_logo {
+  width: 40px;
+  height: 24px;
+  background: url("https://1968.freeway.gov.tw/assets/img/footer_logo.png") no-repeat center center;
+  background-size: 40px 24px;
+}
+
+.footer_txt {
+  letter-spacing: 0px;
+  font-size: 0.875rem;
+}
+
+.footer_mail {
+  width: 30px;
+  height: 22px;
+  background: url("https://1968.freeway.gov.tw/assets/img/footer_mail.png") no-repeat center center;
+  background-size: 30px 22px;
+  margin-right: 0px;
+  margin-left: 3px;
+}
+
+.footer_browser img {
+  width: 18px;
+  height: 18px;
+  vertical-align: text-top;
+}
+
+.mobile_footer_in {
+  padding: 14px 10px 20px 10px;
+}
+.mobile_footer_in > p {
+  margin: 5px 0;
+  letter-spacing: 1px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.mobile_footer_in .footer_browser {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.mobile_footer_in .footer_browser .footer_mail {
+  margin-left: 0;
+  margin-right: 5px;
+}
+
+.btn_go_top {
+  position: fixed;
+  right: 10px;
+  bottom: 50px;
+  width: 36px;
+  height: 36px;
+  background: url(https://1968.freeway.gov.tw/assets/img/footer_top.png) no-repeat center center;
+  background-size: 36px 36px;
+  z-index: 9;
+  opacity: 0.5;
+  display: none;
+}
+
+.footer_gohcf {
+  height: 36px;
+  display: inline-block;
+  line-height: 36px;
+}
+.footer_gohcf > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #00783c;
+  color: #fff;
+  font-weight: bolder;
+  padding: 0 6px;
+}
+
+.footer_in .footer_gohcf {
+  height: 30px;
+}
+.footer_in .footer_gohcf > a {
+  font-size: 0.875rem;
+  line-height: 30px;
+  letter-spacing: 1px;
+}
+
+/* ============================================================ */
+/*                     table content                            */
+/* ============================================================ */
+.wup_item {
+  margin-bottom: 20px;
+}
+
+.wup_title_wrapper {
+  padding: 10px 2%;
+  border-top: 3px solid #BCAE9F;
+  background: #f9f4f1;
+}
+.wup_title_wrapper > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.wup_article_wrapper {
+  padding: 20px 3% 30px 3%;
+  background: #f9f4f1;
+  border-top: 2px solid #fff;
+}
+
+.wup_article > p {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.wup_photo > img {
+  max-width: 90%;
+  max-height: auto;
+}
+
+.wup_link, .wup_photo {
+  margin-top: 30px;
+}
+
+h2.artical_h2 {
+  font-size: 1.125rem;
+}
+
+.wup_type {
+  font-size: 0.8125rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  height: 20px;
+  padding: 2px 6px 2px 8px;
+}
+
+.wup_sel_row {
+  text-align: right;
+}
+
+@media only screen and (max-width: 480px) {
+  .wup_sel_row {
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+  }
+}
+.sel_wup_order, .wup_search_box {
+  vertical-align: middle;
+}
+
+.wup_search_box {
+  display: inline-block;
+}
+.wup_search_box .search_input {
+  width: 7.5rem;
+}
+
+.myselect.sel_wup_order {
+  width: 10rem;
+  height: 30px;
+  border: 1px solid #00783c;
+}
+.myselect.sel_wup_order select {
+  top: 0;
+  left: 0;
+}
+
+.wup_type.tp_urgency {
+  background: #fff;
+  color: #808080;
+  border: 1px solid #aaa;
+}
+
+/* 最新消息 類型 */
+.wup_type.tp_rinfo {
+  background: #61b12f;
+}
+
+.wup_type.tp_event {
+  background: #ff7bac;
+}
+
+.wup_type.tp_accid {
+  background: #c1272d;
+}
+
+.wup_type.tp_cons {
+  background: #ee7a00;
+}
+
+.wup_type.tp_ctrl {
+  background: #808080;
+}
+
+.wup_type.tp_other {
+  background: #3fa9f5;
+}
+
+.wup_type.tp_distribution {
+  background: #335d9f;
+}
+
+.wup_time {
+  font-size: 0.875rem;
+  letter-spacing: 0px;
+}
+
+.wup_seemore {
+  width: 4.5rem;
+  text-align: right;
+  margin: 10px 0;
+  line-height: 1.2;
+}
+
+.wup_date_block {
+  width: 18rem;
+}
+
+.wup_title_txt {
+  width: calc(100% - 19rem);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.wup_title_txt_long {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.wup_prev_wrapper {
+  background: #f9f4f1;
+  border-top: 2px solid #fff;
+  padding: 10px 2%;
+}
+.wup_prev_wrapper > * {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.wup_prev_txt {
+  width: calc(100% - 5rem);
+  overflow: hidden;
+}
+
+/* ============================================================ */
+/*                     pagination                               */
+/* ============================================================ */
+.pager_wrapper {
+  padding: 50px 0 100px 0;
+  text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.page-link {
+  float: left;
+  color: #b29e8e;
+  border: 1px solid #b29e8e;
+  background: #fff;
+  font-size: 0.875rem;
+  letter-spacing: 0px;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  transition: background-color 0.3s;
+}
+
+.page-link:first-child, .page-link:last-child {
+  border: 0;
+}
+
+.page-link.active {
+  background: #b29e8e;
+  color: #fff;
+  border: 1px solid #b29e8e;
+}
+
+.page-link:hover:not(.active) {
+  background: #f9f4f1;
+  color: #b29e8e;
+}
+
+.button_wrapper {
+  padding: 30px 0 100px 0;
+  text-align: left;
+}
+
+/* ============================================================ */
+/*                     title  		                            */
+/* ============================================================ */
+.use_tri_icon {
+  padding-left: 22px;
+  text-align: left;
+  position: relative;
+  padding-top: 4px;
+}
+.use_tri_icon:before {
+  font-family: FontAwesome;
+  content: "";
+  font-size: 1rem;
+  color: #00783c;
+  position: absolute;
+  top: 4px;
+  left: 8px;
+}
+
+.go_link_icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.go_link_icon:before {
+  font-family: FontAwesome;
+  content: "";
+  font-size: 1.125rem;
+  color: #00783c;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.wup_in {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wup_header {
+  margin-bottom: 10px;
+}
+
+.flex_space_between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.normal {
+  font-size: 1.125rem;
+  color: #333333;
+}
+
+.page_num_memo {
+  width: 210px;
+  color: #333333;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+}
+
+.page_num_memo_short {
+  width: 100px;
+}
+
+.page_dl_memo {
+  width: 100%;
+  font-size: 0.9375rem;
+  text-align: right;
+  margin-top: 20px;
+}
+
+.ntfbr_for_mobile {
+  display: none;
+}
+
+/* ============================================================ */
+/*               select panel , note 		                    */
+/* ============================================================ */
+.sel_panel_wrapper {
+  background: #ddedbc;
+  padding: 15px 0 10px 15px;
+}
+
+.spdbr_for_mobile {
+  display: none;
+}
+
+.sel_spd_highway, .sel_spd_sec {
+  height: 30px;
+}
+
+.sel_spd_highway {
+  width: 150px;
+}
+
+.sel_spd_sec {
+  width: 150px;
+}
+
+.note_wrapper {
+  background: #f9f4f1;
+  padding: 10px 15px;
+}
+
+.shline_type_note {
+  margin: -20px auto 20px auto;
+}
+
+.shline_type {
+  font-size: 0.875rem;
+  text-indent: -84px;
+  padding-left: 84px;
+}
+
+/* ============================================================ */
+/*                     table  		                            */
+/* ============================================================ */
+.wup_table_wrapper {
+  margin: 20px auto;
+}
+
+.table_normal {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 0.9375rem;
+  word-break: break-all;
+  letter-spacing: 1px;
+  text-align: center;
+  border: 1px solid #cecece;
+}
+
+.table_normal th {
+  font-weight: normal;
+  background: #BCAE9F;
+  color: #fff;
+  border-right: 1px solid #fff;
+  padding: 8px 2px;
+}
+
+.table_normal td {
+  padding: 8px 2px;
+  border-right: 1px solid #cecece;
+}
+
+.table_normal td:last-child, .table_normal th:last-child {
+  border-right: 0;
+}
+
+tr.tbody {
+  background: #fff;
+  color: #333333;
+}
+
+tr.tbody:nth-child(even) {
+  background: #f9f4f1;
+}
+
+tr.tbody.active {
+  background: #ddedbc !important;
+}
+
+/* ============================================================ */
+/*                     specific table  		                    */
+/* ============================================================ */
+/* notify */
+.ntf_table .th, .ntf_table .td {
+  min-width: 64px;
+}
+
+.ntf_sec {
+  width: 30%;
+}
+
+.ntf_drt {
+  width: 10%;
+}
+
+.ntf_mway {
+  width: 20%;
+}
+
+.ntf_evt {
+  width: 20%;
+}
+
+.ntf_time {
+  width: 20%;
+}
+
+td.ntf_sec {
+  text-align: left;
+  padding-left: 8px;
+}
+
+/* speed */
+.spd_spd_l, .spd_spd_r {
+  width: 20%;
+}
+
+.spd_sec {
+  width: 40%;
+}
+
+.spd_link {
+  width: 20%;
+}
+
+td.spd_sec {
+  text-align: left;
+  padding-left: 20px;
+}
+
+/* traffic ranking */
+.spd_color {
+  border-top: 1px solid #fff;
+  font-size: 1.0625rem;
+}
+
+.tfr_rank {
+  width: 10%;
+}
+
+.tfr_sec {
+  width: 40%;
+}
+
+.tfr_dir {
+  width: 10%;
+}
+
+.tfr_spd {
+  width: 20%;
+}
+
+.tfr_link {
+  width: 20%;
+}
+
+td.tfr_sec {
+  text-align: left;
+  padding-left: 20px;
+}
+
+/* legend */
+td.lgd_note {
+  width: 16%;
+}
+
+td.lgd_speed {
+  width: 12%;
+}
+
+.table_normal.for_lgd_speed td {
+  padding: 2px;
+}
+
+/* shoulder line */
+.shl_sec, .shl_time, .shl_date {
+  width: 27%;
+  min-width: 80px;
+}
+
+.shl_spd, .shl_type {
+  width: 10%;
+  min-width: 34px;
+}
+
+td.shl_sec, td.shl_time {
+  text-align: left;
+  padding-left: 10px;
+}
+
+td.shl_date {
+  text-align: center;
+}
+
+/* weather */
+.wthr_sec, .wthr_info {
+  width: 35%;
+}
+
+.wthr_temprt, .wthr_rprop, .wthr_rfall {
+  width: 10%;
+}
+
+.wthr_temprt {
+  min-width: 50px;
+}
+
+td.wthr_sec, td.wthr_info {
+  text-align: left;
+  padding-left: 20px;
+}
+
+td.wthr_info {
+  padding-left: 10px;
+}
+
+td.wthr_info .wthr_icon + span {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 38px);
+  margin-left: 3px;
+}
+
+.sec_txt {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 28px);
+  margin-left: 2px;
+}
+
+/* ============================================================ */
+/*                     error  		                            */
+/* ============================================================ */
+.err_info_wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 15%;
+}
+
+.err_info {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 300;
+}
+.err_info p {
+  margin-bottom: 20px;
+}
+.err_info i {
+  font-size: 3.125rem;
+  color: #8dc21f;
+  margin-bottom: 10px;
+}
+
+.loading_wrapper {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow-y: hidden;
+  position: fixed;
+}
+
+.loading_info {
+  border-radius: 5px;
+  margin-top: 200px;
+  padding-top: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.loading_info p {
+  margin-top: 0;
+}
+.loading_info img {
+  width: 50px;
+  height: 50px;
+}
+
+/* file: _gis */
+/* for gis and network gis圖跟路網圖 */
+._div_network_only {
+  display: inline-block;
+}
+
+._div_gis_only {
+  display: inline-block;
+}
+
+._div_gis_and_network {
+  display: inline-block;
+}
+
+/* ============================================================ */
+/*                      side window 			                */
+/* ============================================================ */
+.id_main_wrapper_gis {
+  /* shift these legends */
+}
+.id_main_wrapper_gis .sw_location_btn {
+  position: relative;
+}
+.id_main_wrapper_gis .sw_toggle_gis {
+  position: absolute;
+  display: block;
+  width: 36px;
+  height: 36px;
+  right: -36px;
+  top: 10px;
+  font-family: FontAwesome;
+  font-size: 1rem;
+  background: #8dc21f;
+  color: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+}
+.id_main_wrapper_gis .sw_toggle_gis.id_sw_toggle_close:before {
+  content: "";
+}
+.id_main_wrapper_gis .sw_toggle_gis.id_sw_toggle_open:before {
+  content: "";
+}
+.id_main_wrapper_gis .rm_wrapper {
+  width: 100%;
+}
+.id_main_wrapper_gis .rm_wrapper.show_sw {
+  width: calc(100% - 300px);
+}
+.id_main_wrapper_gis .main_side_window {
+  left: -300px;
+}
+.id_main_wrapper_gis .main_side_window.show_sw {
+  left: 0;
+}
+.id_main_wrapper_gis .rm_legend_group {
+  top: 10px;
+  left: 46px;
+}
+.id_main_wrapper_gis .rm_button_info {
+  top: 50px;
+  left: auto;
+  right: -36px;
+}
+.id_main_wrapper_gis .tgos_ctrl_list {
+  left: 20px;
+}
+.id_main_wrapper_gis .rm_legend_group.show_sw {
+  left: 346px;
+}
+.id_main_wrapper_gis .tgos_ctrl_list.show_sw {
+  left: 320px;
+}
+
+.sw_location_btn {
+  height: 60px;
+  width: 100%;
+  background: #f4f4f4 url("https://1968.freeway.gov.tw/assets/img/side_window_bg.jpg") no-repeat left center;
+  padding-top: 12px;
+  text-align: center;
+}
+.sw_location_btn > * {
+  vertical-align: top;
+}
+
+.id_location_btn_list {
+  height: 36px;
+  width: 280px;
+}
+
+.id_button_sw_close {
+  width: 36px;
+  height: 36px;
+}
+
+.sw_info_wrapper {
+  width: 100%;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+}
+
+.sw_info_header {
+  height: 40px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bolder;
+  position: relative;
+  padding-top: 12px;
+  padding-left: 50px;
+  background: #ddedbc;
+}
+.sw_info_header:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  left: 22px;
+}
+
+.sw_info_body {
+  padding: 3px 0;
+}
+
+.sw_info_panel {
+  margin-bottom: 10px;
+}
+
+/* ============================================================ */
+/*                      time table                              */
+/* ============================================================ */
+.sw_info_header.netw_time_table:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_time.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.sw_info_body.netw_time_table > * {
+  margin: 10px;
+}
+
+.netw_time_table_5x5, .netw_time_table_3x3 {
+  margin: 0 auto;
+  letter-spacing: 0px;
+}
+.netw_time_table_5x5 ul, .netw_time_table_3x3 ul {
+  height: 22px;
+  display: table-row;
+  font-size: 0.875rem;
+}
+.netw_time_table_5x5 ul > li, .netw_time_table_3x3 ul > li {
+  line-height: 22px;
+  display: table-cell;
+}
+.netw_time_table_5x5 ul.th, .netw_time_table_3x3 ul.th {
+  background: #b1cc5c;
+}
+.netw_time_table_5x5 ul.td:nth-child(odd), .netw_time_table_3x3 ul.td:nth-child(odd) {
+  background: #f4f4f4;
+}
+.netw_time_table_5x5 ul.td:nth-child(even), .netw_time_table_3x3 ul.td:nth-child(even) {
+  background: #dddddd;
+}
+.netw_time_table_5x5 li.arrive, .netw_time_table_3x3 li.arrive {
+  width: 36px;
+  background: #fff;
+  color: #61b12f;
+  font-size: 1rem;
+  text-align: left;
+}
+.netw_time_table_5x5 li.arrow_r, .netw_time_table_3x3 li.arrow_r {
+  width: 35px;
+  background: #fff url("https://1968.freeway.gov.tw/assets/img/time_arrow_r.png") no-repeat top center;
+  background-size: 20px 20px;
+}
+.netw_time_table_5x5 li.tt_cell, .netw_time_table_3x3 li.tt_cell {
+  text-align: center;
+  width: 40px;
+}
+.netw_time_table_5x5 li.go, .netw_time_table_3x3 li.go {
+  width: 36px;
+  text-align: left;
+  background: #fff;
+  color: #29abe2;
+  font-size: 1rem;
+}
+.netw_time_table_5x5 li.header, .netw_time_table_3x3 li.header {
+  width: 35px;
+  background: #96deea;
+  text-align: center;
+}
+.netw_time_table_5x5 li.arrow_d, .netw_time_table_3x3 li.arrow_d {
+  background: #fff url("https://1968.freeway.gov.tw/assets/img/time_arrow_d.png") no-repeat -2px center;
+  background-size: 20px 20px;
+}
+
+/* ============================================================ */
+/*                      notify                                  */
+/* ============================================================ */
+.sw_info_header.netw_today_notify:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_notify.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+ul.netw_today_notify_table {
+  letter-spacing: 1px;
+  width: 280px;
+}
+ul.netw_today_notify_table .tnt_li {
+  display: block;
+  width: 100%;
+  border-bottom: 1px dashed #00783c;
+  padding: 5px;
+}
+ul.netw_today_notify_table .tnt_li > div {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 4px;
+}
+ul.netw_today_notify_table .tnt_highway {
+  width: calc(100% - 110px);
+}
+ul.netw_today_notify_table .tnt_time {
+  width: 100px;
+}
+ul.netw_today_notify_table .tnt_txt {
+  width: 100%;
+}
+
+.more_notify {
+  padding-top: 10px;
+  height: 40px;
+  text-align: right;
+  padding-right: 20px;
+  width: 100%;
+}
+
+/* ============================================================ */
+/*          select county, intercharge                          */
+/* ============================================================ */
+.gis_sel_panel {
+  background: #f4f4f4;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.gis_sel_row {
+  padding-left: 10px;
+}
+
+.select_label {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  font-size: 0.9375rem;
+  letter-spacing: 1px;
+}
+
+.select_normal {
+  width: 155px;
+  height: 30px;
+}
+
+.myselect {
+  display: inline-block;
+  background: #fff;
+  padding: 0;
+  vertical-align: middle;
+  border: 1px solid #dddddd;
+  letter-spacing: 1px;
+  position: relative;
+  margin: 0;
+}
+
+.myselect select {
+  position: absolute;
+  z-index: 1;
+  background: url("https://1968.freeway.gov.tw/assets/img/cart.png") no-repeat;
+  background-position: right 10px center;
+  background-size: 14px 14px;
+  padding: 0 0 0 10px;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+.myselect select option {
+  font-size: 0.9375rem;
+}
+
+.caret {
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 2px);
+  z-index: 0;
+  display: none;
+}
+
+.go_btn {
+  height: 30px;
+  padding: 0 6px;
+}
+
+.select_intercharge {
+  margin-left: 66px;
+}
+
+/* ============================================================ */
+/*                       gis info set                          */
+/* ============================================================ */
+p.web_version {
+  display: block;
+  width: 90%;
+  margin: 1rem auto;
+  padding-top: 1rem;
+  padding-left: 0.5rem;
+  color: #808080;
+  border-top: 1px solid #dddddd;
+}
+
+.sw_info_header.gis_info_set:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_setting.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.gis_info_set_table {
+  width: 94%;
+  margin: 0 auto;
+}
+
+.gis_info {
+  display: inline-block;
+  width: 48%;
+  height: 36px;
+  color: #808080;
+  font-size: 1rem;
+  font-weight: 300;
+  position: relative;
+  padding-left: 48px;
+  margin-top: 10px;
+  opacity: 1;
+  cursor: pointer;
+}
+.gis_info > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.gis_info:before {
+  content: "";
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  left: 6px;
+  top: 0;
+}
+
+.gis_info.active {
+  color: #000;
+}
+
+.gis_info.locked {
+  opacity: 0.3;
+}
+
+.info_1km.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_1km.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_1km:before, .info_1km.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_1km.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_alter.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_alter.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_alter:before, .info_alter.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_alter.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_cctv.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_cctv.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_cctv:before, .info_cctv.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_cctv.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_crowd.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_crowd.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_crowd:before, .info_crowd.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_crowd.png") no-repeat center center;
+  background-size: 34px 34px;
+  transform: scale(1);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.2);
+  }
+  20% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  40% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.mkr_msgbox_crowd h2.msg_in {
+  font-size: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  margin: 6px 0;
+}
+.mkr_msgbox_crowd h3.msg_in {
+  font-size: 1.0625rem;
+  background: #ddedbc;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  margin: 5px 0;
+}
+.mkr_msgbox_crowd h3.msg_in a {
+  font-size: inherit;
+  background: inherit;
+  color: inherit;
+  line-height: 1.2;
+}
+.mkr_msgbox_crowd .msg_note {
+  margin-top: 5px;
+  line-height: 1.3;
+  font-size: 12px;
+  opacity: 0.7;
+  text-align: justify;
+}
+.mkr_msgbox_crowd p.msg_in {
+  margin: 5px 0;
+}
+.mkr_msgbox_crowd p.msg_in_crowd {
+  line-height: 36px;
+  vertical-align: middle;
+  color: #ff7bac;
+  margin: 0;
+}
+.mkr_msgbox_crowd .info_crowd_high:before, .mkr_msgbox_crowd .info_crowd_medium:before, .mkr_msgbox_crowd .info_crowd_low:before {
+  content: "";
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-bottom: -10px;
+}
+.mkr_msgbox_crowd .info_crowd_high:before, .mkr_msgbox_crowd .info_crowd_high:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/mkr_crowd_red.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+.mkr_msgbox_crowd .info_crowd_medium:before, .mkr_msgbox_crowd .info_crowd_medium:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/mkr_crowd_yello.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+.mkr_msgbox_crowd .info_crowd_low:before, .mkr_msgbox_crowd .info_crowd_low:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/mkr_crowd_green.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_cms.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_cms.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_cms:before, .info_cms.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_cms.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_ntf.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_ntf.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_ntf:before, .info_ntf.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_ntf.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_sa.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_sa.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_sa:before, .info_sa.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_sa.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_shdr.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_shdr.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_shdr:before, .info_shdr.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_shdr.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_wthr.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_wthr.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_wthr:before, .info_wthr.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_wthr.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_jam.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_jam.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_jam:before, .info_jam.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_jam.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_exit.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_exit.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_exit:before, .info_exit.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_exit.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_bluet.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_bluet.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_bluet:before, .info_bluet.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_bluet.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_radar.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_radar.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_radar:before, .info_radar.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_radar.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_rain.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_rain.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.info_rain:before, .info_rain.locked:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_rain.png") no-repeat center center;
+  background-size: 34px 34px;
+}
+
+.gis_info_long {
+  font-size: 0.875rem;
+  letter-spacing: 0px;
+}
+
+/* ============================================================ */
+/*                      map window                              */
+/* ============================================================ */
+.rm_wrapper {
+  width: calc(100% - 300px);
+  height: 100%;
+  position: relative;
+  float: right;
+}
+
+.rm_map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #a4bfdd;
+  z-index: 0;
+}
+
+.rm_map > * {
+  width: 100%;
+  height: 100%;
+}
+
+.right_mask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.rm_switch_gis_network {
+  width: 180px;
+  height: 36px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 1;
+}
+
+.id_gis_network_btn_list {
+  width: 100%;
+  height: 100%;
+}
+
+.rm_legend_group {
+  width: 180px;
+  height: auto;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 1;
+}
+
+.rm_legend {
+  width: 180px;
+  height: 65px;
+  background: url("https://1968.freeway.gov.tw/assets/img/legend_speed_color.png") no-repeat center center;
+  background-size: 180px 65px;
+}
+
+.rm_legend_crowd {
+  width: 180px;
+  height: 68px;
+  background: url("https://1968.freeway.gov.tw/assets/img/legend_crowd_v48.png") no-repeat center center;
+  background-size: 180px 68px;
+  margin-top: 0px;
+}
+
+.rm_button_info {
+  position: absolute;
+  left: 20px;
+  top: 90px;
+  z-index: 2;
+}
+.rm_button_info > * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.button_sw_ctrl {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #fff;
+}
+.button_sw_ctrl i {
+  font-size: 1.25rem;
+}
+
+.rm_network_map {
+  width: auto;
+  height: 100%;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.rm_network_map_img {
+  width: auto;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+  background: #a4bfdd;
+}
+
+/* map_img size: 900x650px */
+.rm_network_map_img > img {
+  margin-left: calc(50% - 450px);
+  margin-top: 20px;
+}
+
+/* ============================================================ */
+/*                     tgos map                               */
+/* ============================================================ */
+.rm_gis_map {
+  width: 100%;
+  height: 100%;
+  background: #a4bfdd;
+}
+
+.tgos_ctrl_mapswitch {
+  position: absolute;
+  left: 60px;
+  bottom: 80px;
+  z-index: 1;
+  width: 60px;
+  height: 60px;
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_map_real.jpg") no-repeat center center;
+  background-size: 60px 60px;
+  cursor: pointer;
+}
+
+.tgos_ctrl_mapswitch.tgos_tohw {
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_map_highway.jpg") no-repeat center center;
+  background-size: 60px 60px;
+}
+
+.tgos_ctrl_list {
+  position: absolute;
+  left: 20px;
+  bottom: 80px;
+  z-index: 1;
+  box-shadow: 1px 1px 3px #333333;
+}
+
+.tgos_ctrl_list.zoomin_lock {
+  left: 56px;
+}
+
+.tgos_ctrl_list.zoomout_lock {
+  left: 90px;
+}
+
+.tgos_ctrl {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.tgos_zoomin {
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_zoomin.png") no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.tgos_zoomin.lock, .tgos_zoomin.lock.click {
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_zoomin_lock.png") no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.tgos_zoomin.click {
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_zoomin_click.png") no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.tgos_zoomout {
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_zoomout.png") no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.tgos_zoomout.lock, .tgos_zoomout.lock.click {
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_zoomout_lock.png") no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.tgos_zoomout.click {
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_zoomout_click.png") no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.tgos_here {
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_here.png") no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.tgos_here.click {
+  background: url("https://1968.freeway.gov.tw/assets/img/tgos_here_click.png") no-repeat center center;
+  background-size: 100% 100%;
+}
+
+/* ============================================================ */
+/*                     last update time                         */
+/* ============================================================ */
+/* 資料更新- 右上 */
+.rm_time_and_reload {
+  width: 190px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+}
+
+.rm_time_and_reload.rm_tar_scale2x {
+  transform: scale(2) translateY(25%);
+  transform-origin: right;
+}
+
+/* 資料更新- 右下 */
+.rm_time_and_reload.rm_tar_right_bottom {
+  top: auto;
+  left: auto;
+  bottom: 20px;
+  right: 20px;
+}
+
+.rm_time_and_reload.rm_tar_right_bottom.rm_tar_scale2x {
+  transform: scale(2) translateY(-25%);
+  transform-origin: right;
+}
+
+/* 資料更新- 左下 */
+.rm_time_and_reload.rm_tar_left_bottom {
+  top: auto;
+  left: 20px;
+  bottom: 80px;
+  right: auto;
+}
+
+.rm_time_and_reload.rm_tar_left_bottom.rm_tar_scale2x {
+  transform: scale(2) translateY(-25%);
+  transform-origin: left;
+}
+
+.rm_time_and_reload > * {
+  display: inline-block;
+}
+
+.rm_last_time {
+  width: 100%;
+  padding: 5px;
+  font-size: 0.75em;
+  letter-spacing: 0px;
+}
+
+.id_button_reload_now {
+  font-size: 1rem;
+  letter-spacing: 1px;
+  height: 20px;
+  padding-left: 24px;
+  padding-right: 4px;
+  position: relative;
+}
+.id_button_reload_now:before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  left: 4px;
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_reload.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.button_ctrl.onclick {
+  background: #00783c;
+}
+
+.rm_reload_choice_check_box {
+  font-size: 0.75em;
+  letter-spacing: 1px;
+  width: 50%;
+}
+.rm_reload_choice_check_box > * {
+  display: inline-block;
+  verticle-align: top;
+}
+.rm_reload_choice_check_box input[type=text] {
+  height: 14px;
+}
+
+/* ============================================================ */
+/*                      gis map msgbox                          */
+/* ============================================================ */
+.mkr_msgbox {
+  margin-top: 10px;
+  max-height: 400px;
+  width: 260px;
+  padding-left: 2px;
+}
+
+h1.msg_in {
+  font-size: 0.9375rem;
+  margin: 5px 0;
+  border-bottom: 1px dotted #8dc21f;
+  padding-bottom: 8px;
+  display: inline-block;
+  width: 100%;
+  word-break: break-all;
+}
+
+h2.msg_in {
+  font-size: 0.9375rem;
+  background: #ddedbc;
+  margin: 8px 0;
+  display: inline-block;
+  width: 100%;
+  word-break: break-all;
+}
+
+.msg_in i {
+  margin-right: 2px;
+}
+
+.msg_in_btn {
+  letter-spacing: 1px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 4px 5px;
+  margin-right: 5px;
+}
+
+p.msg_in {
+  margin: 5px 0;
+  word-break: break-all;
+}
+
+p.msg_in_focus {
+  color: #ff7bac;
+}
+
+p.msg_in a {
+  display: inline-block;
+  margin: 5px 0;
+}
+
+.mkr_msgbox_crowd {
+  letter-spacing: 0;
+}
+.mkr_msgbox_crowd p.msg_in span, .mkr_msgbox_crowd p.msg_in_focus {
+  font-weight: bold;
+}
+
+/* 設置起迄點 msgbox */
+.mkr_msgbox.msg_tplan {
+  width: 200px;
+  padding-left: 0px;
+}
+
+h1.msg_tplan_h1 {
+  font-size: 1.2rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  background: #00783c;
+  color: #fff;
+  padding-left: 0.75rem;
+  font-weight: 300;
+}
+
+.msg_tplan_li, .note_wrapper .msg_tplan_li {
+  margin-top: 0.75rem;
+  padding-left: 0.5rem;
+  cursor: pointer;
+}
+
+.msg_tplan_li.active {
+  background: #ddedbc;
+}
+
+.msg_tplan_li:not(.active) .mark_sec_start {
+  background: #fff;
+  border: 1px solid #7f7f7f;
+  color: #7f7f7f;
+}
+.msg_tplan_li:not(.active) .mark_sec_end {
+  background: #fff;
+  border: 1px solid #a57b51;
+  color: #a57b51;
+}
+
+.msg_in_datasrc {
+  font-size: 0.875rem;
+  color: #00783c;
+  margin-top: 20px;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+.msg_in_rdlink {
+  font-size: 0.875rem;
+  font-weight: 400;
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.msg_in_cctv {
+  width: 250px;
+  height: 170px;
+}
+.msg_in_cctv > img {
+  width: 100%;
+  height: auto;
+}
+
+.msg_in_cms {
+  width: 100%;
+  padding: 2px 0px 2px 10px;
+  border-radius: 5px;
+  background: #000;
+  color: #0f0;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+.msg_in_cms p {
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.msg_gmap_btn {
+  display: inline-block;
+  background: url(https://1968.freeway.gov.tw/assets/img/btn_gmap.png) no-repeat center center;
+  background-size: 80px 28px;
+  width: 80px;
+  height: 28px;
+  color: transparent;
+  cursor: pointer;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.msg_gmap_btn:hover {
+  color: transparent;
+}
+
+.msg_gmap_btn.msg_gmap_btn_twoway {
+  color: #000;
+  width: 120px;
+  margin-right: 8px;
+  padding-left: 80px;
+  background-color: #ddedbc;
+  background-position: 0 center;
+}
+
+.legend_hide {
+  display: none;
+}
+
+/* file: _roadinfo */
+/* ============================================================ */
+/*                  rinfo side window 			                */
+/* ============================================================ */
+.rinfo_side_window {
+  width: 440px;
+  background: #ebf4d7;
+  height: 100%;
+  overflow-y: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  transition: left 0.2s;
+  padding: 20px 0 20px 0;
+}
+
+.rinfo_main {
+  width: 550px;
+  background: #fff;
+  border: 1px solid #8dc21f;
+  height: 100%;
+  overflow-y: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.bmb_header {
+  width: 100%;
+  padding: 0 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  position: -webkit-sticky;
+  position: sticky;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.bmb_content {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 130px;
+  z-index: 0;
+  padding-bottom: 30px;
+}
+
+.bmb_wrapper {
+  width: 316px;
+  margin: 0 auto;
+}
+
+.bmb_mask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.rinfo_sw_header {
+  width: 400px;
+  margin: -16px auto 10px auto;
+  text-align: right;
+}
+
+.rinfo_go_btn {
+  width: 70px;
+  height: 30px;
+  float: right;
+}
+
+.rinfo_panel {
+  width: 400px;
+  margin: 10px auto;
+  clear: both;
+}
+
+.rinfo_panel > * {
+  vertical-align: middle;
+}
+
+.rinfo_header {
+  height: 36px;
+}
+
+.rinfo_tab {
+  text-align: center;
+  padding: 0;
+  font-size: 1.0625rem;
+}
+.rinfo_tab:after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 1px;
+  height: 36px;
+  visibility: hidden;
+}
+
+p.tab_with_icon {
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 36px;
+}
+p.tab_with_icon:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  margin-top: -3px;
+  margin-right: 5px;
+  background-size: 20px 20px;
+}
+
+.rinfo_body {
+  background: #fff;
+  border: 1px solid #8dc21f;
+  padding: 20px 20px 0 20px;
+}
+
+.rinfo_h2 {
+  font-size: 0.9375rem;
+  background: #ddedbc;
+  padding-left: 10px;
+  margin: 0;
+}
+
+.rinfo_in {
+  width: 352px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* ============================================================ */
+/*                  cctv & location tabs                        */
+/* ============================================================ */
+.tab_wrapper.tab_group_cctvmap {
+  height: 390px;
+  width: 400px;
+}
+
+.tab_item {
+  width: 200px;
+  color: #7baf90;
+  background: #fff;
+  border: 1px solid #7baf90;
+  height: 36px;
+}
+
+input[type=radio]:checked ~ .tab_item {
+  color: #fff;
+  background: #00783c;
+}
+
+.rinfo_tab_cctv:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_cctv.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+input[type=radio]:checked ~ .rinfo_tab .rinfo_tab_cctv:before, .rinfo_tab_cctv.active:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_act_cctv.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.rinfo_tab_map:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_loc.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+input[type=radio]:checked ~ .rinfo_tab .rinfo_tab_map:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_act_loc.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.id_rinfo_map {
+  line-height: 20px;
+}
+.id_rinfo_map:before {
+  content: "";
+  font-family: FontAwesome;
+  width: 20px;
+  height: 20px;
+  font-size: 0.875rem;
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  left: 2px;
+  background: none;
+}
+
+.rinfo_body.rinfo_tab_map {
+  padding: 0 0 20px 0;
+}
+
+.rinfo_in.rinfo_tab_map {
+  width: 100%;
+}
+
+.rinfo_h2.rinfo_tab_map {
+  background: #fff;
+}
+
+.rinfo_cctv_content {
+  width: 352px;
+  height: 240px;
+}
+.rinfo_cctv_content img {
+  width: 100%;
+  height: auto;
+}
+
+/* ============================================================ */
+/*                  notify & cms tabs                           */
+/* ============================================================ */
+.tab_wrapper.tab_group_ntfcms {
+  min-height: 600px;
+  width: 400px;
+}
+
+.tab_content.tab_group_ntfcms, .tab_content.tab_group_cctvmap {
+  top: 36px;
+}
+
+.rinfo_tab_ntf:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_ntf.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+input[type=radio]:checked ~ .rinfo_tab .rinfo_tab_ntf:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_act_ntf.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.rinfo_tab_cms:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_cms.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+input[type=radio]:checked ~ .rinfo_tab .rinfo_tab_cms:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_act_cms.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+/* ============================================================ */
+/*                  notify content                              */
+/* ============================================================ */
+.rinfo_highway_title {
+  border-bottom: 4px solid #ddedbc;
+  padding-top: 0;
+  padding-bottom: 5px;
+}
+.rinfo_highway_title > div {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.rinfo_hw_date {
+  letter-spacing: 0px;
+}
+
+.rinfo_hw_highway {
+  width: calc(100% - 100px);
+}
+
+.rinfo_ntf_table {
+  margin-top: 5px;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+.rinfo_ntf_li, .rinfo_cms_li {
+  border-bottom: 1px dashed #00783c;
+  display: block;
+  width: 100%;
+  padding: 10px 4px;
+  clear: both;
+}
+.rinfo_ntf_li > div, .rinfo_cms_li > div {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.rinfo_cms_li > li {
+  vertical-align: middle;
+}
+
+.rinfo_ntf_txt {
+  width: calc(100% - 45px);
+}
+
+.rinfo_ntf_time {
+  margin-left: 0px;
+  text-align: center;
+  font-size: 0.875rem;
+  letter-spacing: 0px;
+}
+
+.rinfo_ntf_mile {
+  width: 45%;
+}
+
+.rinfo_ntf_miletxt {
+  width: 50%;
+  text-align: left;
+}
+
+.rinfo_cms_mile {
+  width: 40%;
+}
+
+.rinfo_cms_miletxt {
+  margin-left: 8px;
+  width: 55%;
+}
+
+/* ============================================================ */
+/*                  bamboo  header                              */
+/* ============================================================ */
+.bmb_header_row {
+  text-align: right;
+  width: 100%;
+  clear: both;
+  margin-top: 5px;
+  width: 96%;
+  margin-left: 2%;
+  min-height: 40px;
+}
+
+.bmb_header_row > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.bmb_compass {
+  float: left;
+  width: 80px;
+  height: 60px;
+  background: url("https://1968.freeway.gov.tw/assets/img/legent_north.png") no-repeat center center;
+  background-size: 60px 60px;
+}
+
+.bmb_compass.bmb_west {
+  background: url("https://1968.freeway.gov.tw/assets/img/legent_west.png") no-repeat center center;
+  background-size: 60px 60px;
+}
+
+.bmb_legend {
+  width: 166px;
+  height: 60px;
+  background: url("https://1968.freeway.gov.tw/assets/img/legend_speed_color.png") no-repeat center center;
+  background-size: 166px 60px;
+}
+
+.bmb_time_and_reload {
+  float: right;
+  width: 190px;
+  padding: 5px;
+  background: #f4f4f4;
+  text-align: left;
+}
+
+.bmb_time_and_reload > * {
+  display: inline-block;
+}
+
+.bmb_button_info {
+  float: left;
+  padding-top: 2px;
+  width: 90px;
+  height: 40px;
+  text-align: left;
+}
+.bmb_button_info > * {
+  vertical-align: top;
+}
+
+.bmb_highway_title {
+  width: 180px;
+  height: 40px;
+  text-align: center;
+  font-size: 1.125rem;
+  padding-top: 10px;
+  font-weight: bold;
+}
+
+.bmb_highway_title .title {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.bmb_highway_title:before {
+  content: "";
+  width: 1px;
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.bmb_switch_sec_1km {
+  float: right;
+  width: 190px;
+  height: 36px;
+}
+
+/* ============================================================ */
+/*                  rinfo cctv - select                         */
+/* ============================================================ */
+.cctv_hw_title {
+  width: calc(100% - 300px);
+}
+
+.rinfo_sel_panel {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.rinfo_cctv_go_btn {
+  width: 48px;
+  height: 30px;
+  vertical-align: top;
+  margin-left: -5px;
+}
+
+.sel_block {
+  margin-bottom: 5px;
+  display: inline-block;
+}
+.sel_block > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sel_rinfo_label {
+  width: 36px;
+  height: 36px;
+}
+
+.sel_rinfo_highway, .sel_rinfo_start, .sel_rinfo_end {
+  height: 30px;
+}
+
+.sel_rinfo_highway {
+  width: 300px;
+}
+
+.sel_rinfo_start {
+  width: 125px;
+}
+
+.sel_rinfo_end {
+  width: 125px;
+}
+
+.mark_sec {
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  border-radius: 18px;
+  padding-top: 12px;
+  text-align: center;
+}
+
+.mark_sec_start, .mark_sec_end {
+  padding-left: 2px;
+  font-size: 0.75em;
+  font-weight: 300px;
+  color: #fff;
+}
+
+.mark_sec_start {
+  background: #7f7f7f;
+}
+
+.mark_sec_end {
+  background: #a57b51;
+}
+
+/* ============================================================ */
+/*                  rinfo cctv - content                        */
+/* ============================================================ */
+.cctv_wrapper {
+  width: 95%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.cms_wrapper {
+  width: 90%;
+  max-width: none;
+}
+
+.cctv_content {
+  top: 120px;
+}
+
+.cms_content {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.cctv_row {
+  width: 100%;
+}
+
+.cctv_row > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cctv_interchange {
+  width: 100%;
+  height: auto;
+  padding: 8px;
+  padding-top: 10px;
+  border-radius: 5px;
+  background: #96deea;
+  text-align: center;
+}
+.cctv_interchange > * {
+  vertical-align: top;
+}
+
+.cctv_in_item {
+  width: 40%;
+  text-align: center;
+}
+.cctv_in_item > * {
+  display: inline;
+}
+
+.cctv_in_name {
+  margin-left: -5px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.cctv_tin_item {
+  width: 28%;
+  height: 100%;
+}
+.cctv_tin_item > * {
+  display: inline;
+}
+
+.cctv_tin_name {
+  margin-left: -5px;
+  font-size: 0.875rem;
+}
+
+.cctv_tin_left {
+  text-align: left;
+}
+
+.cctv_tin_right {
+  text-align: right;
+}
+
+.txt_rd_mark_indent {
+  text-indent: -22px;
+  padding-left: 22px;
+}
+
+.cctv_prev {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  clear: both;
+}
+
+.cctv_prev_item {
+  width: calc(50% - 5px);
+  margin: 5px 0;
+  height: 90%;
+  cursor: pointer;
+}
+
+.cctv_prev_item > * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.cctv_prev_left {
+  float: left;
+}
+
+.cctv_prev_right {
+  float: right;
+}
+
+.cctv_prev_mline {
+  width: 5px;
+  height: 100%;
+  background: #dddddd;
+}
+
+.cctv_prev_txt {
+  width: calc(100% - 140px);
+  height: 100%;
+  padding: 10px;
+  background: #ddedbc;
+  word-break: break-all;
+  letter-spacing: 1px;
+}
+
+.cms_prev_txt {
+  width: 36%;
+}
+
+.cctv_prev_left .cctv_prev_txt {
+  margin-left: -3px;
+}
+
+.cctv_prev_right .cctv_prev_txt {
+  margin-right: -3px;
+}
+
+.cctv_prev_item.active .cctv_prev_txt, .cctv_prev_item:hover .cctv_prev_txt {
+  background: #00783c;
+  color: #fff;
+}
+
+.cctv_prev_txt > * {
+  height: 50%;
+  display: block;
+  padding-top: 10%;
+}
+
+.cctv_prev_img {
+  width: 55%;
+  height: 100%;
+}
+.cctv_prev_img > img {
+  width: auto;
+  height: 100%;
+}
+
+.cms_prev_msg {
+  width: 60%;
+}
+
+.cms_prev_msg .msg_in_cms {
+  height: 100%;
+}
+
+.cctv_prev_img.add_cctv_play_btn {
+  position: relative;
+}
+.cctv_prev_img.add_cctv_play_btn:before {
+  content: "";
+  font-family: FontAwesome;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 2px solid #fff;
+  font-size: 0.75em;
+  padding-top: 7px;
+  padding-left: 4px;
+  text-align: center;
+  color: #fff;
+  background: #00783c;
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  right: 5px;
+  opacity: 0.8;
+}
+
+/* ============================================================ */
+/*                     cms                                      */
+/* ============================================================ */
+.cms_content_wrapper {
+  position: relative;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  max-width: 990px;
+  background: #fff;
+  border: 1px solid #8dc21f;
+}
+
+.cms_header_row {
+  min-height: 60px;
+}
+
+/* file: _roadinfo_leftlist */
+/* ============================================================ */
+/*                           cctv list                          */
+/* ============================================================ */
+.tab_content.tab_group_cctvmap.hide_border {
+  border-bottom: 1px solid #fff;
+}
+
+.tab_wrapper.tab_group_cctvmap {
+  height: 390px;
+}
+
+.rinfo_cctvlist {
+  margin-top: -30px;
+}
+.rinfo_cctvlist .rinfo_body {
+  border-top: 0;
+  padding-bottom: 20px;
+}
+.rinfo_cctvlist .rinfo_h2 {
+  padding: 10px 20px;
+}
+.rinfo_cctvlist a.id_tpnote_close {
+  padding: 5px 10px 0 0;
+}
+
+@media only screen and (max-width: 490px) {
+  .rinfo_cctvlist {
+    margin-top: -20px;
+  }
+}
+.rinfo_cctv_table {
+  margin-top: 5px;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+.rinfo_cctv_li {
+  border-bottom: 1px dashed #00783c;
+  display: inline-block;
+  vertical-align: top;
+  width: 48.8%;
+}
+.rinfo_cctv_li:hover {
+  background: #ddedbc;
+}
+.rinfo_cctv_li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.rinfo_cctv_li.active {
+  background: #ddedbc;
+}
+
+/* file: _bamboo */
+/* ============================================================ */
+/*                  bamboo component                            */
+/* ============================================================ */
+.bmb_row {
+  width: 316px;
+  border: 1px solid #fff;
+}
+.bmb_row > * {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.bmb_row > *:not(:first-child) {
+  margin-left: -5px;
+}
+
+.bmb_interchange {
+  background: #96deea;
+  width: 138px;
+  height: 58px;
+  border-radius: 5px;
+  clear: both;
+}
+
+.bmb_interchange_transfer {
+  height: 90px;
+  padding-top: 20px;
+}
+
+.bmb_interchange.active, .bmb_transfer_in.active {
+  border: 3px solid #1b1464;
+}
+.bmb_interchange.active .bmb_in_title, .bmb_transfer_in.active .bmb_in_title {
+  margin-top: 2px;
+}
+
+.bmb_in_title {
+  width: 70px;
+  display: inline-block;
+  margin-left: 30px;
+  margin-top: 5px;
+  font-size: 0.875rem;
+  text-align: center;
+  letter-spacing: 1px;
+  overflow: hidden;
+}
+.bmb_in_title > * {
+  display: block;
+}
+
+.bmb_in_name {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 30px;
+}
+
+.bmb_in_mileage {
+  margin-top: 2px;
+}
+
+.bmb_transfer_col {
+  width: 50px;
+}
+.bmb_transfer_col:first-child {
+  margin-left: -4px;
+}
+
+.bmb_transfer_in {
+  background: #96deea;
+  width: 50px;
+  height: 90px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.bmb_tin_title {
+  width: 48px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  overflow: hidden;
+}
+.bmb_tin_title > * {
+  display: block;
+}
+
+.bmb_tin_name {
+  margin-top: 3px;
+}
+
+/* ============================================================ */
+/*                 bamboo component - road                      */
+/* ============================================================ */
+.bmb_trd_col {
+  width: 33px;
+}
+
+.bmb_trd, .bmb_trd_mark {
+  width: 100%;
+  height: 24px;
+  display: block;
+  font-size: 0.875rem;
+  letter-spacing: 0px;
+  text-align: center;
+  line-height: 24px;
+  margin-bottom: 3px;
+}
+
+.bmb_trd > i {
+  margin-left: 3px;
+}
+
+.bmb_rd_80plus {
+  background: #61b12f;
+  color: #000;
+}
+
+.bmb_rd_60_80 {
+  background: #eeea39;
+  color: #000;
+}
+
+.bmb_rd_40_60 {
+  background: #ed9027;
+  color: #000;
+}
+
+.bmb_rd_20_40 {
+  background: #e80a15;
+  color: #fff;
+}
+
+.bmb_rd_0_20 {
+  background: #7f0ce9;
+  color: #fff;
+}
+
+.bmb_rd_closure {
+  background: #000;
+  color: #fff;
+}
+
+.bmb_rd_noinfo {
+  background: #fff;
+  color: #333333;
+  border: 1px solid #dddddd;
+}
+
+.bmb_road_wrapper {
+  width: 140px;
+  height: 80px;
+  display: inline-block;
+  margin-left: 76px;
+  text-align: center;
+}
+.bmb_road_wrapper > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.bmb_rd_col {
+  height: 100%;
+}
+
+.bmb_rd {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  width: 24px;
+  font-size: 0.875rem;
+  letter-spacing: 0px;
+  text-align: center;
+  padding-top: 20px;
+}
+.bmb_rd:not(:first-child) {
+  margin-left: -5px;
+  border-left: 1px solid #fff;
+}
+
+.bmb_rd.bmb_rd_noinfo, .bmb_rd.bmb_rd_closure {
+  padding-top: 0;
+}
+
+.bmb_rd > i, .bmb_trd > i {
+  font-size: 1.125rem;
+}
+
+.bmb_rd > i {
+  display: block;
+}
+
+/* ============================================================ */
+/*                 bamboo component - ramp                      */
+/* ============================================================ */
+.bmb_ramp_col {
+  display: inline-block;
+  width: 14px;
+  height: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.bmb_ramp {
+  display: inline-block;
+}
+
+.bmb_ramp_up {
+  display: inline-block;
+  vertical-align: top;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 20px 12px 0 0;
+  border-color: #000 transparent transparent transparent;
+}
+
+.bmb_ramp_up.rd_80plus {
+  border-color: #61b12f transparent transparent transparent;
+}
+
+.bmb_ramp_up.rd_60_80 {
+  border-color: #eeea39 transparent transparent transparent;
+}
+
+.bmb_ramp_up.rd_40_60 {
+  border-color: #ed9027 transparent transparent transparent;
+}
+
+.bmb_ramp_up.rd_20_40 {
+  border-color: #e80a15 transparent transparent transparent;
+}
+
+.bmb_ramp_up.rd_0_20 {
+  border-color: #7f0ce9 transparent transparent transparent;
+}
+
+.bmb_ramp_up.rd_closure {
+  border-color: #000 transparent transparent transparent;
+}
+
+.bmb_ramp_up.rd_noinfo {
+  position: relative;
+  z-index: 1;
+  border-color: #808080 transparent transparent transparent;
+}
+
+.bmb_ramp_up.rd_noinfo:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  top: -19px;
+  left: 1px;
+  border-style: solid;
+  border-width: 16px 8px 0 0;
+  border-color: #fff transparent transparent transparent;
+}
+
+.bmb_ramp_down {
+  display: inline-block;
+  vertical-align: bottom;
+  padding-top: 58px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 20px 12px;
+  border-color: transparent transparent #000 transparent;
+}
+
+.bmb_ramp_down.rd_80plus {
+  border-color: transparent transparent #61b12f transparent;
+}
+
+.bmb_ramp_down.rd_60_80 {
+  border-color: transparent transparent #eeea39 transparent;
+}
+
+.bmb_ramp_down.rd_40_60 {
+  border-color: transparent transparent #ed9027 transparent;
+}
+
+.bmb_ramp_down.rd_20_40 {
+  border-color: transparent transparent #e80a15 transparent;
+}
+
+.bmb_ramp_down.rd_0_20 {
+  border-color: transparent transparent #7f0ce9 transparent;
+}
+
+.bmb_ramp_down.rd_closure {
+  border-color: transparent transparent #000 transparent;
+}
+
+.bmb_ramp_down.rd_noinfo {
+  position: relative;
+  z-index: 1;
+  border-color: transparent transparent #808080 transparent;
+}
+
+.bmb_ramp_down.rd_noinfo:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  top: 61px;
+  left: -9px;
+  border-style: solid;
+  border-width: 0 0 16px 8px;
+  border-color: transparent transparent #fff transparent;
+}
+
+/* ============================================================ */
+/*                 bamboo component - info icon                 */
+/* ============================================================ */
+.bmb_rd_icon_col {
+  width: 24px;
+  height: 100%;
+}
+
+.bmb_rd_icon_item {
+  display: block;
+  margin-top: 2px;
+}
+
+.bmb_rd_icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+}
+
+/* 3種 路段資訊圖示種類 */
+.bmb_rd_icon.rd_icon_cctv {
+  background: url(https://1968.freeway.gov.tw/assets/img/info/btn_act_cctv.png);
+  background-size: 24px 24px;
+}
+
+.bmb_rd_icon.rd_icon_cms {
+  background: url(https://1968.freeway.gov.tw/assets/img/info/btn_act_cms.png);
+  background-size: 24px 24px;
+}
+
+.bmb_rd_icon.rd_icon_ntf {
+  background: url(https://1968.freeway.gov.tw/assets/img/info/btn_act_ntf.png);
+  background-size: 24px 24px;
+}
+
+/* ============================================================ */
+/*                  bamboo info window                          */
+/* ============================================================ */
+.bmb_road_wrapper {
+  position: relative;
+}
+
+.bmb_col {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+.bmb_rd_icon_col_left {
+  left: 8px;
+}
+
+.bmb_ramp_col_left {
+  left: 34px;
+}
+
+.bmb_rd_col_center {
+  left: 50px;
+}
+
+.bmb_ramp_col_right {
+  right: 24px;
+}
+
+.bmb_rd_icon_col_right {
+  right: -2px;
+}
+
+.click_open_infow {
+  cursor: pointer;
+}
+
+.click_open_infow:hover {
+  opacity: 0.8;
+}
+
+.bmb_cctv_infow_wrapper {
+  display: none;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
+.bmb_cctv_infow {
+  position: relative;
+  width: 160px;
+  padding: 15px 5px 5px 10px;
+  background: #fff;
+  border: 1px solid #8dc21f;
+}
+
+.bmb_cctv_infow_wrapper.infow_for_left {
+  left: 42px;
+}
+
+.bmb_cctv_infow_wrapper.infow_for_right {
+  right: 32px;
+}
+
+.bmb_cctv_infow:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-right: 1px solid #8dc21f;
+  border-bottom: 1px solid #8dc21f;
+}
+
+.bmb_cctv_infow_wrapper.infow_for_left .bmb_cctv_infow:before {
+  right: 154px;
+  transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.bmb_cctv_infow_wrapper.infow_for_right .bmb_cctv_infow:before {
+  left: auto;
+  right: -7px;
+  transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.bmb_cctv_infow_close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 2;
+  cursor: pointer;
+  background: #fff;
+}
+
+.bmb_cctv_infow {
+  text-align: left;
+}
+
+.bmb_cctv_infow_title {
+  font-weight: 600;
+}
+
+.bmb_cctv_infow_item.active, .bmb_cctv_infow_item:hover {
+  background: #ddedbc;
+}
+
+.bmb_cctv_infow_item:hover {
+  color: #ee7a00;
+  cursor: pointer;
+}
+
+.bmb_cctv_infow a {
+  cursor: pointer;
+}
+
+/* ============================================================ */
+/*             bamboo component - weather                       */
+/* ============================================================ */
+.bmb_in_wthr {
+  width: 36px;
+  margin-right: 2px;
+  margin-left: -6px;
+  line-height: 58px;
+  float: right;
+}
+
+.wthr_icon_bmb {
+  display: inline-block;
+  vertical-align: middle;
+  width: 34px;
+  height: 34px;
+}
+
+/* 13種 天氣圖示種類 白色 */
+.wthr_icon_bmb.w_sun {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/sun.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_cloud {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/cloud.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_cloud_double {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/cloud_double.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_rain {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/rain.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_cloud_sun {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/cloud_sun.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_thunder {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/thunder.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_rain_sun {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/rain_sun.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_sun_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/sun_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_cloud_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/cloud_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_thunder_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/thunder_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_cloud_sun_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/cloud_sun_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_rain_foggy {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/rain_foggy.png);
+  background-size: 34px 34px;
+}
+
+.wthr_icon_bmb.w_rain_snow {
+  background: url(https://1968.freeway.gov.tw/assets/img/weather_w/rain_snow.png);
+  background-size: 34px 34px;
+}
+
+/* file: _alterroad */
+/* ============================================================ */
+/*                alter road                                    */
+/* ============================================================ */
+.tabmenu_sec {
+  width: 100%;
+}
+
+.tabmenu_sec_in {
+  width: 990px;
+  margin: 0 auto;
+}
+
+.tabmenu {
+  width: 660px;
+  height: 35px;
+  margin-bottom: 15px;
+}
+.tabmenu .tab_list_for_2 {
+  box-sizing: border-box;
+  width: calc(50% - 2px);
+}
+.tabmenu .tab_list_for_2:first-child {
+  margin-right: 4px;
+}
+.tabmenu .button_tab:after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+  width: 1px;
+  visibility: hidden;
+}
+.tabmenu .button_tab p {
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1.0625rem;
+  letter-spacing: 2px;
+}
+.tabmenu .withicon {
+  position: relative;
+  padding-left: 26px;
+}
+.tabmenu .withicon:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.bmb_header_row.for_alterroad {
+  min-height: 55px;
+}
+
+.content_wrapper_for_alterroad {
+  width: 990px;
+  margin: 0 auto;
+  height: 1300px;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+/* alter side window */
+.rinfo_sw_header.alter_info_header {
+  width: 100%;
+}
+
+.button_ctrl.id_button_sw_close {
+  background: transparent;
+  font-size: 1.875rem;
+  color: #8dc21f;
+}
+
+.alter_info_in {
+  width: 100%;
+  margin: 0 auto 0px auto;
+}
+
+.alter_info_img img {
+  border: 1px solid #aaa;
+  width: 100%;
+  height: auto;
+}
+
+.alter_link_out {
+  width: 100%;
+  height: 30px;
+  margin-top: -3px;
+  display: flex;
+}
+.alter_link_out .alter_link_half {
+  width: 50%;
+}
+.alter_link_out .alter_link_half a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 5px 0;
+  text-align: center;
+}
+.alter_link_out .alter_link_half a.msg_gmap_btn {
+  border-left: #fff solid 1px;
+  margin: 0;
+  float: none;
+  background: url(https://1968.freeway.gov.tw/assets/img/btn_gmap_white.png) no-repeat center center #8dc21f;
+  background-size: 80px 28px;
+}
+.alter_link_out .alter_link_half a.msg_gmap_btn.msg_gmap_btn_twoway {
+  color: #fff;
+  padding-left: 75px;
+  background-position: 5px center;
+}
+
+.alter_h2 {
+  font-size: 0.9375rem;
+}
+
+.alter_info_time {
+  width: 200px;
+  text-align: right;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+}
+
+.alter_info_txt {
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.dir_i:before {
+  font-family: FontAwesome;
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+.dir_i_right:before {
+  content: "";
+}
+
+.dir_i_left:before {
+  content: "";
+}
+
+.dir_i_twoway:before {
+  content: "";
+}
+
+.dir_i_down:before {
+  content: "";
+}
+
+.dir_i_up:before {
+  content: "";
+}
+
+/* alter table */
+.ard_table_wrapper {
+  width: 96%;
+  margin: 0 auto 10px auto;
+}
+
+.ard_table {
+  width: 100%;
+}
+
+.ard_no {
+  width: 30px;
+}
+
+td.ard_highway, td.ard_provway {
+  text-align: left;
+  padding: 5px 5px 5px 10px;
+  vertical-align: top;
+}
+
+.ard_highway {
+  width: calc(60% - 15px);
+  min-width: 200px;
+}
+
+.ard_provway {
+  width: calc(40% - 15px);
+  min-width: 200px;
+}
+
+.ard_txt, .ard_time {
+  margin: 5px 0;
+}
+
+.ard_item {
+  cursor: pointer;
+}
+.ard_item:hover {
+  background: #ddedbc !important;
+}
+
+.for_alterroad .bmb_time_and_reload {
+  width: 190px;
+}
+
+/* file: _tripplan */
+/* ============================================================ */
+/*          tripplan tab menu                                   */
+/* ============================================================ */
+.button_tab .withicon.sht_rd:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_sht_rd.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+.button_tab .withicon.sht_time:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_sht_time.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.button_tab.active .withicon.sht_rd:before, .button_tab:hover .withicon.sht_rd:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_act_sht_rd.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+.button_tab.active .withicon.sht_time:before, .button_tab:hover .withicon.sht_time:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/tab_act_sht_time.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+.toggle_header {
+  width: 200px;
+  height: 36px;
+  position: relative;
+  cursor: pointer;
+}
+.toggle_header:after {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  background: url(https://1968.freeway.gov.tw/assets/img/arrow_r.png) no-repeat center center;
+  background-size: 20px 20px;
+  transform: rotate(90deg);
+  transition: all 0.3s;
+}
+.toggle_header h1 {
+  height: 100%;
+}
+
+.toggle_header.no_toggle {
+  cursor: default;
+}
+.toggle_header.no_toggle:after {
+  display: none;
+}
+
+.toggle_header.tg_hide:after {
+  transform: rotate(0deg);
+}
+
+/* ============================================================ */
+/*         tripplan select panel                               */
+/* ============================================================ */
+.sel_plan_highway, .sel_plan_sec, .sel_plan_gotime, .sel_plan_date {
+  width: 150px;
+  height: 36px;
+}
+
+.sel_double_wrapper {
+  width: calc(150px + 20px);
+  padding-left: 5px;
+}
+.sel_double_wrapper .myselect {
+  margin-bottom: 5px;
+}
+
+.sel_plan_date input {
+  outline: none;
+  position: absolute;
+  z-index: 1;
+  background: transparent;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  border: 0;
+}
+
+.sel_plan_date i, .sel_plan_gotime i {
+  position: absolute;
+  left: 10px;
+  top: calc(50% - 8px);
+  z-index: 0;
+}
+
+.sel_plan_gotime select, .sel_plan_date input {
+  padding: 0 0 0 30px;
+}
+
+.daterangepicker {
+  display: none;
+}
+.daterangepicker td, .daterangepicker th {
+  width: 36px;
+  height: 36px;
+}
+
+.daterangepicker.dropdown-menu {
+  border: 1px solid #ccc;
+}
+
+.tripplan_btn {
+  width: 100%;
+  height: 30px;
+  letter-spacing: 2px;
+  line-height: 30px;
+}
+.tripplan_btn i {
+  font-size: 1.25rem;
+  margin-left: 2px;
+}
+
+.plan_default_box {
+  width: 100%;
+  padding: 20px 20px 50px 20px;
+}
+
+.plan_rst_box {
+  width: 100%;
+  border: 4px solid #ddedbc;
+  padding: 30px 10px 20px 20px;
+}
+
+.plan_rst_col {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 10px;
+}
+
+.plan_rst_col > * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.prst_sec {
+  margin-left: 22px;
+}
+
+/* map selection 圖像式選取 */
+.tp_note_map {
+  position: relative;
+  width: 100%;
+  height: 600px;
+}
+
+.tp_note_map_wrapper {
+  background: #ddedbc;
+  padding: 0 0 0 0;
+}
+
+@media only screen and (max-width: 990px) {
+  .tp_note_map_wrapper {
+    padding: 0 1rem 1rem 1rem;
+  }
+}
+.btn_icon_close, .btn_icon_open {
+  display: inline-block;
+  margin-right: 0.25rem;
+}
+.btn_icon_close:before, .btn_icon_open:before {
+  font-family: FontAwesome;
+}
+
+.btn_icon_close:before {
+  content: "";
+}
+
+.btn_icon_open:before {
+  content: "";
+}
+
+.toggle_map_btn {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+  padding-right: 1rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  color: #00783c;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.toggle_map_btn:hover {
+  color: #00783c;
+}
+
+/* alice test */
+.DisplayToggleButton {
+  position: absolute;
+  z-index: 90;
+  top: 10px;
+  left: 10px;
+}
+
+.DisplayToggleButton .button_sw_ctrl {
+  width: 36px;
+  height: 36px;
+}
+
+.DisplayToggleButton .id_button_map .fa-expand {
+  display: block;
+}
+
+.DisplayToggleButton .id_button_map .fa-compress {
+  display: none;
+}
+
+.tp_note_map_wrapper {
+  position: relative;
+}
+
+.marginTop {
+  margin-top: 0 !important;
+}
+
+.minHeight {
+  min-height: inherit !important;
+}
+
+.widthMax {
+  width: 100%;
+}
+
+.heightMax {
+  height: 100%;
+}
+
+.paddingBottom {
+  padding-bottom: inherit;
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.tp_note_map {
+  z-index: 2;
+}
+
+/* ============================================================ */
+/*         tripplan content                                    */
+/* ============================================================ */
+.use_plan_icon {
+  padding-left: 28px;
+  text-align: left;
+  position: relative;
+  padding-top: 2px;
+}
+.use_plan_icon:before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  top: 0;
+  left: 2px;
+}
+
+.plan_icon_rst:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_plan_rst.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+.plan_icon_route:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_plan_route.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+.plan_icon_ntf:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_ntf.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+.plan_icon_cctv:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/info/btn_act_cctv.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+.plan_icon_time:before {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_plan_time.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+/* result summary */
+span.icon_prst_time {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_plan_time.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.icon_prst_route {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_plan_route.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.icon_prst_mile {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_plan_mile.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+span.icon_prst_reload {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_plan_reload.png") no-repeat center center;
+  background-size: 22px 22px;
+}
+
+.plan_rst_row:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.plan_rst_row > * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.plan_rst_row span.mark {
+  margin-right: 5px;
+}
+
+.prst_summary_double {
+  width: 350px;
+}
+
+.prst_summary {
+  width: 100%;
+  line-height: 40px;
+  height: 40px;
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+}
+.prst_summary .ps_time {
+  letter-spacing: 0px;
+}
+
+.prst_num {
+  font-size: 1.875rem;
+  margin: 0 2px;
+}
+
+.prst_summary_double:first-child {
+  border-right: 1px solid #000;
+  margin-right: 20px;
+}
+
+.plan_rst_note {
+  background: #dddddd;
+  padding: 5px;
+}
+
+/* note */
+a.id_tpnote_showmore {
+  float: right;
+}
+
+a.id_tpnote_close {
+  display: block;
+  width: 100%;
+  text-align: right;
+}
+
+/* route */
+td.proute_sec {
+  text-align: left;
+  padding-left: 20px;
+  width: 40%;
+}
+
+td.proute_time, td.proute_spd, td.proute_wthr, td.proute_temprt, td.proute_rprop {
+  width: 12%;
+}
+
+td.proute_sec.fture {
+  width: 50%;
+}
+
+td.proute_wthr.fture, td.proute_temprt.fture {
+  width: 25%;
+}
+
+.tr_sec_change {
+  background: #f4f4f4;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.tr_sec_change td {
+  height: 20px;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-right: 0;
+}
+
+.proute_table .tbody td {
+  border-bottom: 1px dotted #cecece;
+}
+
+.proute_table .tbody:nth-child(even) {
+  background: #fff;
+}
+
+span.mark_change_sec {
+  background: url("https://1968.freeway.gov.tw/assets/img/icon_plan_change.png") no-repeat center center;
+  background-size: 20px 20px;
+}
+
+/* cctv part */
+.pcctv_content_wrapper {
+  width: 960px;
+  height: 400px;
+  display: flex;
+}
+
+.pcctv_side_win {
+  width: 40%;
+  height: 100%;
+  background: #ddedbc;
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+.pcctv_main {
+  width: 60%;
+  height: 100%;
+  background: #fff;
+  border: 1px solid #8dc21f;
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+.pcctv_info_body, .pcctv_img {
+  width: 352px;
+}
+
+.pcctv_info_body {
+  margin: 0 auto;
+}
+
+.pcctv_h2 {
+  font-size: 0.9375rem;
+  padding: 5px;
+  margin: 0;
+}
+
+.pcctv_img {
+  height: 240px;
+  margin: 5px 0;
+}
+.pcctv_img img {
+  width: 100%;
+  height: auto;
+}
+
+.note_wrapper p {
+  margin: 5px 0;
+}
+
+.pcctv_wrapper {
+  width: 95%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.cctv_prev.for_plan_cctv {
+  height: 40px;
+}
+
+.cctv_prev_item.for_plan_cctv {
+  height: 30px;
+}
+
+.cctv_prev_txt.for_plan_cctv {
+  width: 100%;
+  height: 100%;
+  padding-top: 6px;
+}
+
+.cctv_prev_txt.for_plan_cctv > * {
+  width: auto;
+  display: inline;
+}
+
+.cctv_prev_txt.for_plan_cctv {
+  position: relative;
+}
+.cctv_prev_txt.for_plan_cctv:before {
+  content: "";
+  font-family: FontAwesome;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  border: 1px solid #fff;
+  font-size: 0.625rem;
+  padding-top: 5px;
+  padding-left: 2px;
+  text-align: center;
+  color: #fff;
+  background: #00783c;
+  position: absolute;
+  top: 3px;
+  right: 5px;
+}
+
+/* ============================================================ */
+/*      future tripplan content                                 */
+/* ============================================================ */
+.prst_future_summary {
+  color: #fff;
+  background: #10527e;
+  display: inline-block;
+  padding: 10px;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+.prst_future_summary > * {
+  vertical-align: middle;
+}
+
+.plan_future_graph_wrapper {
+  margin-top: 5px;
+  padding: 10px 0;
+  border: 1px solid #cecece;
+  text-align: center;
+}
+
+.plan_future_graph {
+  width: 95%;
+  margin: 0 auto;
+}
+
+h2.fgraph_h1 {
+  letter-spacing: 1px;
+  font-weight: normal;
+  margin: 10px 0 0 0;
+}
+
+.fgraph_number {
+  background: #9adbed;
+  color: #000;
+  padding: 0 10px;
+  line-height: 36px;
+}
+
+.fgraph_box {
+  width: 96%;
+  height: 400px;
+  margin: 0 auto;
+  border: 0px solid #f7f7f7;
+}
+.fgraph_box img {
+  width: 100%;
+  height: 100%;
+}
+
+.mark_for_travel {
+  padding-top: 6px;
+  padding-left: 2px;
+  background: #fff;
+}
+
+.ftt_dir_icon {
+  height: 100%;
+}
+
+.ftt_dir_icon:before {
+  font-family: FontAwesome;
+  display: inline-block;
+  font-size: 1.625rem;
+  text-align: center;
+  content: "";
+  padding-top: 0;
+}
+
+.future_time_table {
+  width: 100%;
+}
+
+.ftt_block {
+  display: inline-block;
+  vertical-align: top;
+}
+.ftt_block:not(:first-child) {
+  margin-left: -8px;
+}
+
+.ftt_header {
+  width: 24%;
+  background: #fff;
+  border: 1px solid #cecece;
+}
+
+.ftt_body {
+  width: 10.9%;
+  background: #9adbed;
+  border-top: 1px solid #9adbed;
+  border-bottom: 1px solid #9adbed;
+}
+
+.ftt_body.user_sel_time {
+  color: #fff;
+  background: #10527e;
+}
+
+.ftt_td_item, .ftt_th_item {
+  letter-spacing: 1px;
+  height: 40px;
+}
+
+.ftt_th_txt {
+  display: inline-block;
+  height: 100%;
+  line-height: 40px;
+  vertical-align: top;
+}
+
+.ftt_th_item {
+  padding-left: 10px;
+}
+.ftt_th_item:not(:last-child) {
+  border-bottom: 1px dotted #cecece;
+}
+
+.ftt_td_item {
+  line-height: 40px;
+  text-align: center;
+}
+.ftt_td_item:not(:last-child) {
+  border-bottom: 1px solid #fff;
+}
+
+.ftt_td_item:nth-child(2) {
+  line-height: 1.1;
+}
+.ftt_td_item:nth-child(2) > span {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: -1px;
+  width: 99%;
+}
+.ftt_td_item:nth-child(2):before {
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  width: 1px;
+  height: 100%;
+  visible: hidden;
+}
+
+/* file: _cmptable */
+/* ============================================================ */
+/*                     cmp table                                */
+/* ============================================================ */
+.row {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.col {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.col_50 {
+  width: 49%;
+  margin-right: 1%;
+}
+.col_50:last-child {
+  margin-right: 0;
+}
+
+.cmp_title {
+  width: 40%;
+}
+
+.cmp_data {
+  width: 30%;
+}
+
+.cmp_table td, .cmp_table th {
+  border: 1px solid #ccc;
+}
+
+.cmp_data .dir_i {
+  margin: 0px 5px;
+}
+
+.cmp_table {
+  border-top: 2px solid #cecece;
+  border-bottom: 2px solid #cecece;
+  border-right: 0;
+  border-left: 0;
+}
+.cmp_table th, .cmp_table td {
+  border: 0;
+}
+.cmp_table th {
+  color: #333333;
+  background: #fff;
+  border-bottom: 1px solid #cecece;
+  height: 60px;
+}
+.cmp_table .data_strong {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.cmp_table td.cmp_title, .cmp_table th.cmp_title {
+  background: #f4f4f4;
+}
+.cmp_table tr {
+  height: 40px;
+  border-bottom: 1px dashed #cecece;
+}
+
+td.cmp_data.spd_color {
+  border-right: 1px dashed #cecece;
+}
+
+.cmp_table td.need_spaceline {
+  border-right: 1px dashed #cecece;
+}
+
+/* ============================================================ */
+/*                     special road                             */
+/* ============================================================ */
+.h1_hlight {
+  color: #00783c;
+}
+
+.num_hlight {
+  font-size: 1.0625rem;
+}
+
+.sp_h1 {
+  font-size: 1.0625rem;
+  background: #ebf4d7;
+  padding: 10px 0 10px 10px;
+  margin: 0;
+}
+.sp_h1 span {
+  margin-top: -3px;
+}
+
+.sp_table th {
+  background: #fff;
+  color: #333333;
+  border-color: #cecece;
+  border-bottom: 1px dashed #cecece;
+}
+.sp_table tr.tbody:nth-child(even) {
+  background: #f4f4f4;
+}
+.sp_table tr.tbody {
+  height: 40px;
+}
+
+.sp_table.sp_table_inverse tr.tbody:nth-child(odd) {
+  background: #f4f4f4;
+}
+.sp_table.sp_table_inverse tr.tbody:nth-child(even) {
+  background: #fff;
+}
+
+.sp_start {
+  width: 35%;
+}
+
+.sp_time {
+  width: 30%;
+}
+
+.sp_end {
+  width: 35%;
+}
+
+td.sp_start, td.txt_lft, th.txt_lft {
+  text-align: left;
+  padding-left: 20px;
+}
+
+td.txt_cntr, th.txt_cntr, .wv_main_wrapper td.sp_start.txt_cntr {
+  text-align: center;
+  padding-left: 2px;
+}
+
+.tr_underline {
+  border-bottom: 1px dashed #cecece;
+}
+
+.sp_row2_even {
+  background: #fff;
+}
+
+.sp_ng_time {
+  min-width: 60px;
+}
+
+.sp_line_sec {
+  width: 70%;
+}
+
+.sp_line_sec {
+  width: 40%;
+}
+
+.tbody_title {
+  font-weight: 600;
+  border-bottom: 1px dashed #cecece;
+  border-top: 1px dashed #cecece;
+}
+
+.footer_note {
+  text-align: right;
+  font-size: 0.875rem;
+  padding: 10px 0 10px 0;
+  color: #808080;
+  letter-spacing: 0px;
+}
+.footer_note i {
+  font-size: 1rem;
+  vertical-align: bottom;
+  margin-right: 2px;
+}
+
+.sp_start.for_kaohs {
+  min-width: 140px;
+}
+
+.sp_city_img {
+  border: 1px solid #ccc;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 118%;
+}
+.sp_city_img .sp_tainan_rd_txt {
+  position: absolute;
+  width: 40%;
+  height: 6%;
+  z-index: 2;
+  letter-spacing: 1px;
+  font-size: 200%;
+}
+.sp_city_img .toS_YunKan {
+  top: 20%;
+  left: 45%;
+  padding: 2% 0 0 3%;
+  color: #4c81bd;
+}
+.sp_city_img .toS_DaWan {
+  top: 48%;
+  left: 47%;
+  padding: 2% 0 0 3%;
+  color: #c1514e;
+}
+.sp_city_img .toS_TaiNan {
+  top: 74%;
+  left: 50%;
+  padding: 2% 0 0 3%;
+  color: #9cbc59;
+}
+.sp_city_img .toN_YunKan {
+  top: 10%;
+  left: 50%;
+  padding: 2% 0 0 3%;
+  color: #4c81bd;
+}
+.sp_city_img .toN_TaiNanA {
+  top: 40%;
+  left: 47%;
+  padding: 2% 0 0 3%;
+  color: #506228;
+}
+.sp_city_img .toN_TaiNanB {
+  top: 65%;
+  left: 46%;
+  padding: 2% 0 0 3%;
+  color: #9cbc59;
+}
+.sp_city_img .sp_tainan_refresh_txt {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 0px;
+  left: 0;
+  z-index: 2;
+  font-size: 0.75em;
+  letter-spacing: 1px;
+  padding-left: 5px;
+}
+.sp_city_img img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.footer_with_line {
+  margin-top: 10px;
+  border-top: 1px dashed #cecece;
+}
+
+.row_title {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.row_h1 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  display: table;
+  padding: 0 10px;
+  margin-bottom: 30px;
+}
+.row_h1:before, .row_h1:after {
+  border-top: 1px solid #333333;
+  content: "";
+  display: table-cell;
+  position: relative;
+  top: 10px;
+  width: 50px;
+}
+.row_h1:before {
+  right: 10px;
+}
+.row_h1:after {
+  left: 10px;
+}
+
+/* for hw5 */
+a.hw5_gmap_btn {
+  display: block;
+  width: 70px;
+  height: 25px;
+  background: url(https://1968.freeway.gov.tw/assets/img/btn_gmap_green.png) no-repeat center center;
+  background-size: 70px auto;
+  font-size: 0;
+  margin: 5px auto 0 auto;
+}
+
+tr.tbody.idSpecialHw5Row td {
+  color: #000;
+  background: #ffffb2;
+  border-bottom: 1px dashed #aaa;
+}
+tr.tbody.idSpecialHw5Row td.sp_ng_pass {
+  padding-left: 3px;
+  padding-right: 3px;
+  text-align: center;
+}
+
+.sp_table span.mark, .sp_ng_table span.mark, .sp_table_4col span.mark {
+  vertical-align: bottom;
+}
+
+.sp_ng_table .sp_ng_start {
+  width: 28%;
+}
+.sp_ng_table .sp_ng_end {
+  width: 20%;
+}
+.sp_ng_table .sp_ng_end .mark {
+  margin-bottom: 5px;
+}
+.sp_ng_table .sp_ng_pass {
+  width: 30%;
+}
+.sp_ng_table .sp_ng_time {
+  width: 20%;
+}
+
+.sp_table.sp_table_4col .sp_start, .sp_table.sp_table_4col .sp_end, .sp_table.sp_table_4col .sp_time, .sp_table.sp_table_4col .sp_queue {
+  padding-left: 8px;
+}
+.sp_table.sp_table_4col .sp_start {
+  width: 25%;
+}
+.sp_table.sp_table_4col .sp_time {
+  width: 10%;
+}
+.sp_table.sp_table_4col .sp_end {
+  width: 30%;
+}
+.sp_table.sp_table_4col td.sp_queue {
+  text-align: center;
+  width: 35%;
+}
+
+/* ============================================================ */
+/*                 Q and A table                                */
+/* ============================================================ */
+.toggle_header.full_width {
+  width: 100%;
+  height: auto;
+}
+.toggle_header.full_width:after {
+  height: 100%;
+}
+
+.qna_item {
+  margin-bottom: 30px;
+}
+
+.qna_ques h1 {
+  color: #2d9a38;
+  font-size: 1.0625rem;
+  font-weight: bold;
+  width: calc(100% - 40px);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.qna_ques {
+  height: 100%;
+  margin: 10px 0 10px 0;
+}
+
+.qna_circle_q {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  color: #fff;
+  background: #2d9a38;
+  width: 1.75rem;
+  height: 1.75rem;
+  line-height: 1.75rem;
+  border-radius: 50%;
+  font-size: 1.125rem;
+  font-weight: 300;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.qna_ans {
+  background: #f4f4f4;
+  padding: 20px 30px;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+/* ============================================================ */
+/*                 Links                                        */
+/* ============================================================ */
+.link_box_content {
+  width: 100%;
+}
+
+.link_box_col {
+  width: 25%;
+  padding-bottom: 30px;
+  display: inline-block;
+  vertical-align: top;
+}
+.link_box_col:not(:nth-child(4n+1)) {
+  margin-left: -7px;
+}
+
+.link_box {
+  margin: 0 auto;
+  width: 220px;
+  border: 4px solid #ddedbc;
+  background: #fff;
+  box-shadow: 7px 7px #f4f4f4;
+}
+
+.link_box_a {
+  display: block;
+  cursor: pointer;
+  width: 90%;
+  margin: 5% 0 5% 5%;
+  padding-bottom: 25px;
+  position: relative;
+}
+.link_box_a img {
+  width: 100%;
+  height: auto;
+}
+.link_box_a p {
+  margin: 10px 0px 0px 5px;
+  line-height: 1.3;
+  min-height: 36px;
+}
+
+.link_box_a:after {
+  content: "Go!";
+  display: inline-block;
+  vertical-align: middle;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  color: #fff;
+  background: #8dc21f;
+  width: 1.75rem;
+  height: 1.75rem;
+  line-height: 1.75rem;
+  border-radius: 50%;
+  letter-spacing: 0;
+  font-size: 0.875rem;
+  font-weight: 300;
+  font-style: italic;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.link_box_a:hover:after {
+  background: #ee7a00;
+}
+
+/* ============================================================ */
+/*             1968 service                                     */
+/* ============================================================ */
+.article_content {
+  background: #f4f4f4;
+  font-size: 1rem;
+  padding: 20px 20px 20px 40px;
+}
+.article_content p {
+  margin-bottom: 20px;
+}
+
+.article_list {
+  padding-left: 20px;
+  margin: 30px 0;
+}
+.article_list li {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.qna_circle_q.inli {
+  padding-left: 2px;
+}
+
+.hlight {
+  color: #2d9a38;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.hlight.prst_num {
+  font-size: 1.875rem;
+}
+
+/* ============================================================ */
+/*                     search rst                               */
+/* ============================================================ */
+.srch_rst_hlight {
+  font-weight: 600;
+  color: #c1272d;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.srch_rst_prev_txt {
+  background: #fff;
+  border-top: none;
+}
+
+.wup_title_wrapper.srch_rst_prev_txt {
+  border-top: 1px dashed #808080;
+}
+
+/* ============================================================ */
+/*                     sitemap                                */
+/* ============================================================ */
+.stmap_box {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.stmap_list li {
+  padding: 6px 0 6px 20px;
+}
+
+.sm_th {
+  font-weight: 400;
+  color: #2d9a38;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #2d9a38;
+  margin-bottom: 10px;
+}
+
+.stmap_no.main {
+  padding-left: 6px;
+}
+
+.stmap_no {
+  width: 40px;
+  display: inline-block;
+  letter-spacing: 0px;
+}
+
+.sm_th, .stmap_no.main {
+  font-size: 1.125rem;
+}
+
+.sm_td {
+  font-size: 0.9375rem;
+}
+
+/* ============================================================ */
+/*                     app                                      */
+/* ============================================================ */
+/* app download */
+.app_dl_row, .app_intro_row {
+  display: table;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.app_dl_col {
+  display: table-cell;
+  width: 50%;
+  padding: 10px 20px;
+  vertical-align: middle;
+}
+
+.style_frame {
+  background: #fff;
+  border: 4px solid #f4f4f4;
+}
+
+.style_fill {
+  background: #f4f4f4;
+}
+
+.app_dl_col > * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.app_icon_wrapper {
+  width: 30%;
+  padding: 20px 0 4% 4%;
+}
+.app_icon_wrapper img {
+  max-width: 100px;
+  width: 100%;
+  height: auto;
+}
+
+.app_icon_txt {
+  width: 68%;
+  padding-left: 2.5%;
+}
+.app_icon_txt p {
+  line-height: 1.5;
+}
+
+.app_hlight {
+  font-weight: 300;
+  color: #2d9a38;
+  letter-spacing: 1px;
+  font-size: 1.25rem;
+}
+
+.span_marker {
+  background: #ddedbc;
+  padding: 0 2px;
+}
+
+.app_dl_btn {
+  width: 48%;
+}
+.app_dl_btn p {
+  text-align: center;
+}
+
+.dl_btn {
+  width: 90%;
+  max-width: 170px;
+  height: auto;
+}
+
+.dl_qr {
+  width: 90%;
+  max-width: 130px;
+  height: auto;
+}
+
+/* app intro */
+.app_intro_col {
+  display: table-cell;
+  width: 25%;
+  padding: 10px;
+  vertical-align: top;
+}
+.app_intro_col > * {
+  margin: 0 auto;
+}
+
+.appi_title img {
+  width: 28px;
+  height: auto;
+  margin-left: 4px;
+}
+.appi_title > * {
+  vertical-align: middle;
+}
+
+.appi_img_wrapper {
+  width: 98%;
+}
+.appi_img_wrapper img {
+  width: 100%;
+  height: auto;
+}
+
+.appi_txt {
+  width: 90%;
+  padding-left: 5px;
+}
+.appi_txt .app_hlight {
+  letter-spacing: 2px;
+}
+.appi_txt p {
+  line-height: 1.5;
+}
+
+/* file: _queries */
+/* ============================================================ */
+/*                      menutop                                 */
+/* ============================================================ */
+.mobile_news {
+  display: none;
+}
+
+.mobile_h_menu {
+  display: none;
+}
+
+@media only screen and (max-width: 990px) {
+  header {
+    min-height: 75px;
+  }
+
+  .pc_menutop_right {
+    display: none;
+  }
+
+  .pc_menu {
+    display: none;
+  }
+
+  .pc_submenu_wrapper.show_pc_submenu {
+    display: none;
+  }
+
+  .mobile_h_menu {
+    display: block;
+  }
+
+  .menutop_in {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mobile_news {
+    display: inline-block;
+  }
+
+  .pc_submenu_mask.show_pc_submenu {
+    display: none;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .mobile_news .news_in {
+    width: 100%;
+  }
+}
+/* ============================================================ */
+/*                      main part                                 */
+/* ============================================================ */
+@media only screen and (max-width: 1200px) {
+  .main_wrapper {
+    margin-top: 95px;
+  }
+
+  .page_long .main_wrapper {
+    min-height: 890px;
+  }
+
+  .btn_go_top {
+    bottom: 10px;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .main_wrapper {
+    margin-top: 85px;
+  }
+
+  .page_long .main_wrapper {
+    min-height: auto;
+  }
+
+  .main_wrapper_map {
+    height: calc(100% - 85px);
+  }
+
+  footer {
+    display: none;
+  }
+
+  .pager_wrapper {
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+
+  .button_wrapper {
+    padding-bottom: 50px;
+  }
+
+  .main_wrapper.expand {
+    margin-top: 0px;
+  }
+
+  .main_wrapper_map.expand {
+    height: 100%;
+  }
+}
+/* ============================================================ */
+/*                      side window                             */
+/* ============================================================ */
+.id_button_sw_open {
+  display: none;
+}
+
+.id_button_sw_close {
+  display: none;
+}
+
+@media only screen and (max-width: 990px) {
+  .rm_wrapper {
+    width: 100%;
+  }
+
+  .id_button_sw_open {
+    display: inline-block;
+  }
+
+  .id_button_sw_close {
+    display: inline-block;
+  }
+
+  .main_side_window {
+    left: -300px;
+  }
+
+  .main_side_window.show_sw {
+    left: 0;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .id_main_wrapper_gis .rm_wrapper.show_sw {
+    width: 100%;
+  }
+}
+/* ============================================================ */
+/*                rinfo side window                             */
+/* ============================================================ */
+@media only screen and (max-width: 990px) {
+  .bcrumb_sec {
+    padding-left: 20px;
+    height: 36px;
+    padding-top: 10px;
+    overflow-y: hidden;
+  }
+
+  .bcrumb_sec_longtitle {
+    height: 58px;
+    overflow-y: hidden;
+  }
+
+  .bcrumb_list {
+    width: 100%;
+  }
+
+  .content_wrapper {
+    width: 100%;
+    height: calc(100% - 36px);
+  }
+
+  .content_wrapper_with_tabmenu {
+    width: 100%;
+    height: calc(100% - 36px - 50px);
+  }
+
+  .main_wrapper_for_alterroad {
+    height: calc(100% - 85px);
+    background: #ccc;
+  }
+
+  .content_wrapper_for_alterroad {
+    width: 100%;
+    height: calc(100% - 36px);
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .bmb_button_info.for_alterroad {
+    display: inline-block;
+    width: 50px;
+  }
+
+  .tabmenu_sec_in {
+    width: 100%;
+  }
+
+  .tabmenu {
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 5px;
+  }
+
+  .content_longpage {
+    width: 100%;
+  }
+
+  .rinfo_main {
+    width: 100%;
+  }
+
+  .rinfo_main.show_sw {
+    overflow-y: hidden;
+  }
+
+  .rinfo_side_window {
+    left: -440px;
+  }
+
+  .rinfo_side_window.show_sw {
+    left: 0;
+    box-shadow: 7px 0px 7px -7px #333333;
+  }
+
+  .bmb_mask.show_sw {
+    opacity: 1;
+  }
+}
+@media only screen and (max-width: 490px) {
+  .sel_rinfo_highway, .sel_rinfo_start, .sel_rinfo_end {
+    width: 180px;
+  }
+
+  .rinfo_cctv_go_btn {
+    margin-left: 0px;
+  }
+
+  .rinfo_side_window {
+    width: 300px;
+    left: -300px;
+  }
+
+  .rinfo_sw_header {
+    width: 280px;
+  }
+
+  .rinfo_panel {
+    width: 280px;
+  }
+
+  .rinfo_in {
+    width: 250px;
+  }
+
+  .rinfo_body {
+    padding: 10px 10px 0 10px;
+  }
+
+  .rinfo_panel > .select_normal {
+    width: 200px;
+    margin-left: 5px;
+    margin-bottom: 8px;
+  }
+
+  .rinfo_cctv_content {
+    width: 250px;
+    height: 170px;
+  }
+
+  .tab_wrapper.tab_group_ntfcms {
+    min-height: 600px;
+    width: 280px;
+  }
+
+  .tab_wrapper.tab_group_cctvmap {
+    width: 280px;
+    height: 300px;
+  }
+
+  .tab_item.tab_group_ntfcms, .tab_item.tab_group_cctvmap {
+    width: 140px;
+  }
+
+  .rinfo_tab {
+    font-size: 0.9375rem;
+    letter-spacing: 1px;
+  }
+  .rinfo_tab:before {
+    left: 2px;
+  }
+
+  .rinfo_cms_miletxt {
+    margin-left: 8px;
+    width: 52%;
+  }
+
+  .bmb_header {
+    padding: 0;
+  }
+
+  .bmb_header_row {
+    text-align: left;
+  }
+
+  .bmb_content, .cctv_content {
+    top: 150px;
+  }
+
+  .cms_content {
+    margin-top: 50px;
+  }
+
+  .bmb_compass, .bmb_compass.bmb_west {
+    width: 50px;
+    height: 50px;
+    background-size: 50px 50px;
+  }
+
+  .bmb_legend {
+    width: 140px;
+    height: 50px;
+    background-size: 140px 50px;
+  }
+
+  .bmb_time_and_reload {
+    width: 160px;
+    padding-bottom: 6px;
+  }
+
+  .bmb_button_info {
+    width: 80px;
+  }
+
+  .bmb_highway_title {
+    width: 100px;
+    text-align: left;
+    font-size: 0.875rem;
+    padding-top: 0;
+  }
+  .bmb_highway_title .title {
+    display: inline-block;
+    vertical-align: middle;
+    width: 70px;
+    line-height: 1.1;
+  }
+
+  .bmb_switch_sec_1km {
+    width: calc(95% - 180px);
+  }
+  .bmb_switch_sec_1km .button_tab {
+    font-size: 0.875rem;
+  }
+
+  .bmb_time_and_reload.cctv_t_reload {
+    width: calc(50% - 50px);
+  }
+
+  .bmb_highway_title.cctv_hw_title {
+    width: 50%;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 490px) {
+  .cctv_interchange {
+    padding: 5px 0;
+  }
+
+  .cctv_in_item {
+    width: 33%;
+    text-align: center;
+    margin-left: -3px;
+    margin-right: -3px;
+  }
+
+  .cctv_tin_item {
+    width: 30%;
+    height: 100%;
+  }
+  .cctv_tin_item > * {
+    display: inline;
+  }
+
+  .cctv_tin_left {
+    text-align: left;
+  }
+
+  .cctv_tin_right {
+    text-align: left;
+  }
+
+  .cctv_prev {
+    width: 100%;
+    height: 130px;
+  }
+
+  .cctv_prev_item {
+    width: calc(50% - 5px);
+    margin: 5px 0;
+    height: calc(100% - 10px);
+    text-align: center;
+  }
+
+  .cctv_prev_item > * {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .cctv_prev_img {
+    display: block;
+    width: auto;
+    height: 80%;
+  }
+  .cctv_prev_img > img {
+    width: auto;
+    height: 100%;
+  }
+
+  .cms_prev_msg {
+    display: block;
+    width: 100%;
+    height: 80%;
+  }
+
+  .cctv_prev_txt {
+    display: block;
+    width: 100%;
+    max-width: 140px;
+    height: 20%;
+    padding: 5px;
+    margin: 2px 0;
+  }
+
+  .cms_prev_txt {
+    max-width: none;
+  }
+
+  .cctv_prev_left > * {
+    float: right;
+  }
+
+  .cctv_prev_right > * {
+    float: left;
+  }
+
+  .cctv_prev_txt > * {
+    width: auto;
+    height: auto;
+    display: inline;
+  }
+
+  .cctv_prev_right .cms_prev_txt {
+    margin-top: 98px;
+  }
+
+  .cctv_prev_right .cms_prev_msg {
+    margin-top: -124px;
+  }
+
+  .cctv_prev_right .cctv_prev_txt {
+    margin-top: 98px;
+  }
+
+  .cctv_prev_right .cctv_prev_img {
+    margin-top: -124px;
+  }
+}
+@media only screen and (max-width: 490px) {
+  .cctv_prev_txt.for_plan_cctv {
+    text-align: left;
+  }
+
+  .cctv_prev_right .cctv_prev_txt.for_plan_cctv {
+    margin-top: 5px;
+  }
+}
+/* ============================================================ */
+/*                      map                                     */
+/* ============================================================ */
+.br_for_mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 990px) {
+  .rm_switch_gis_network {
+    width: 100px;
+    height: 24px;
+    left: 10px;
+    top: 10px;
+  }
+  .rm_switch_gis_network .button_tab {
+    font-size: 0.875rem;
+  }
+
+  .rm_legend_group {
+    width: 100px;
+    height: auto;
+    left: 10px;
+    top: 15px;
+  }
+
+  .rm_legend {
+    width: 100px;
+    height: 36px;
+    background-size: 100px 36px;
+  }
+
+  .rm_legend_crowd {
+    width: 100px;
+    height: 38px;
+    background-size: 100px 38px;
+    margin-top: 5px;
+  }
+
+  .rm_button_info {
+    position: absolute;
+    left: 10px;
+  }
+
+  .rm_time_and_reload {
+    top: auto;
+    bottom: 20px;
+    width: 105px;
+  }
+
+  .rm_time_and_reload > * {
+    width: 100%;
+  }
+
+  .rm_last_time {
+    padding: 4px;
+    font-size: 0.75em;
+    letter-spacing: 0px;
+  }
+
+  .id_button_reload_now {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    height: 20px;
+    padding-left: 24px;
+  }
+
+  .id_rinfo_map {
+    width: auto;
+  }
+
+  .br_for_mobile {
+    display: block;
+    height: 0;
+  }
+
+  .rm_reload_choice_check_box {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .rm_reload_choice_check_box input[type=checkbox] {
+    width: 14px;
+    height: 14px;
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  .right_mask.show_sw {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .id_main_wrapper_gis {
+    /* shift these legends */
+  }
+  .id_main_wrapper_gis .rm_legend_group {
+    left: 46px;
+  }
+  .id_main_wrapper_gis .tgos_ctrl_list {
+    left: 20px;
+  }
+  .id_main_wrapper_gis .rm_legend_group.show_sw {
+    left: 346px;
+  }
+  .id_main_wrapper_gis .rm_button_info.show_sw {
+    left: 300px;
+  }
+  .id_main_wrapper_gis .tgos_ctrl_list.show_sw {
+    left: 320px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* don't shift these legends */
+  .id_main_wrapper_gis .rm_legend_group.show_sw {
+    left: 0;
+  }
+  .id_main_wrapper_gis .tgos_ctrl_list.show_sw {
+    left: 0;
+  }
+}
+/* ============================================================ */
+/*                      footer                                  */
+/* ============================================================ */
+@media only screen and (max-width: 767px) {
+  .footer_in {
+    width: 100%;
+    padding: 5px 5px;
+  }
+  .footer_in .footer_app {
+    display: none;
+  }
+  .footer_in .right1, .footer_in .right2 {
+    width: 100%;
+  }
+  .footer_in p.block {
+    display: inline;
+    line-height: 28px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .footer_in {
+    letter-spacing: 0px;
+    padding: 0;
+  }
+  .footer_in p.block {
+    line-height: 20px;
+  }
+  .footer_in .footer_txt {
+    font-size: 0.75em;
+  }
+  .footer_in .br_for_mobile {
+    display: inline;
+  }
+  .footer_in .line {
+    display: none;
+  }
+}
+/* ============================================================ */
+/*                     gis map msgbox                           */
+/* ============================================================ */
+@media only screen and (max-width: 480px) {
+  .mkr_msgbox {
+    width: 210px;
+    max-height: 400px;
+    padding-left: 2px;
+  }
+
+  .modal_div {
+    margin-top: 40%;
+  }
+
+  .modal_in {
+    width: 95%;
+    padding-left: 15px;
+  }
+}
+/* ============================================================ */
+/*                     table content                            */
+/* ============================================================ */
+@media only screen and (max-width: 990px) {
+  .wup_in {
+    width: 96%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .sel_block.plan_btn {
+    width: 100%;
+  }
+
+  .sel_double_wrapper.plan_btn {
+    width: 590px;
+  }
+
+  .tripplan_btn {
+    margin-left: 43px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .wup_date_block {
+    width: 100%;
+  }
+
+  .wup_title_txt {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .wup_title_txt_long {
+    width: 100%;
+  }
+
+  .wup_title_txt {
+    vertical-align: top;
+  }
+
+  td.ntf_sec, td.spd_sec, td.wthr_sec, td.wthr_info, td.shl_sec, td.shl_time, td.shl_mway, td.ard_highway, td.ard_provway, td.proute_sec, td.tfr_sec {
+    padding-left: 5px;
+  }
+
+  td.txt_lft, th.txt_lft {
+    padding-left: 10px;
+  }
+
+  td.lgd_note, td.lgd_speed {
+    font-size: 0.75em;
+    padding: 2px;
+  }
+
+  .tfr_rank {
+    width: 10%;
+  }
+
+  .tfr_sec {
+    width: 50%;
+  }
+
+  .tfr_dir {
+    width: 10%;
+  }
+
+  .tfr_spd {
+    width: 15%;
+  }
+
+  .tfr_link {
+    width: 15%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .spdbr_for_mobile {
+    display: block;
+    height: 0px;
+  }
+
+  .sel_spd_highway, .sel_spd_sec {
+    width: calc(100% - 100px);
+  }
+
+  .sel_block_100, .sel_block.plan_btn {
+    width: 97%;
+  }
+
+  .sel_block_50 {
+    width: 100%;
+  }
+
+  .sel_plan_highway, .sel_plan_sec {
+    width: 100%;
+  }
+
+  .sel_double_wrapper, .sel_double_wrapper.plan_btn {
+    width: calc(100% - 40px);
+    margin-left: -3px;
+  }
+
+  .sel_block.plan_time {
+    width: 100%;
+  }
+
+  .sel_plan_date, .sel_plan_gotime {
+    width: 100%;
+    display: block;
+  }
+
+  .sel_double_wrapper .myselect {
+    display: inline-block;
+    width: 49%;
+  }
+  .sel_double_wrapper .myselect:last-child {
+    margin-left: -5px;
+  }
+
+  .not_flex_when_mobile {
+    display: inherit;
+  }
+
+  .page_dl_memo {
+    width: 100%;
+    text-align: left;
+    padding-left: 30px;
+    text-indent: -10px;
+    margin-top: 20px;
+  }
+
+  .m_col_100 {
+    width: 96%;
+    margin-left: 2%;
+  }
+
+  .col_50:first-child {
+    padding-bottom: 20px;
+  }
+
+  .row {
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .row_title {
+    justify-content: center;
+  }
+
+  .footer_note_wrapper {
+    background: #ccc;
+    width: calc(100% - 160px);
+  }
+}
+@media only screen and (max-width: 480px) {
+  .ntfbr_for_mobile {
+    display: block;
+    height: 0px;
+  }
+
+  .sel_panel_wrapper {
+    padding: 10px;
+  }
+
+  .sel_ntf_label {
+    margin-bottom: 5px;
+  }
+
+  .sel_ntf_highway {
+    width: calc(100% - 54px);
+  }
+
+  .table_normal th, .table_normal td {
+    letter-spacing: 0;
+  }
+
+  .table_normal {
+    font-size: 0.875rem;
+  }
+
+  .spd_spd_l, .spd_spd_r {
+    width: 12%;
+  }
+
+  .spd_sec {
+    width: 64%;
+  }
+
+  .spd_link {
+    width: 12%;
+  }
+
+  .ard_highway {
+    min-width: 130px;
+  }
+
+  .ard_provway {
+    min-width: 120px;
+  }
+
+  .qna_item {
+    margin-bottom: 0px;
+  }
+
+  .qna_ans {
+    width: 95%;
+    padding: 20px;
+    margin-left: 2.5%;
+  }
+
+  .sp_table.sp_table_4col .sp_start, .sp_table.sp_table_4col .sp_end, .sp_table.sp_table_4col .sp_time, .sp_table.sp_table_4col .sp_queue {
+    padding-left: 4px;
+  }
+  .sp_table.sp_table_4col .sp_start {
+    width: 27%;
+  }
+  .sp_table.sp_table_4col .sp_time {
+    width: 15%;
+  }
+  .sp_table.sp_table_4col .sp_end {
+    width: 30%;
+  }
+  .sp_table.sp_table_4col .sp_queue {
+    width: 30%;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .page_num_memo {
+    width: 200px;
+  }
+
+  .page_num_memo_short {
+    width: 100px;
+  }
+
+  .shl_sec, .shl_mway, .shl_time {
+    min-width: 50px;
+  }
+
+  .tabmenu p.withicon {
+    font-size: 1rem;
+    letter-spacing: 0;
+    padding-left: 22px;
+  }
+}
+@media only screen and (max-width: 340px) {
+  .sel_plan_date i, .sel_plan_gotime i {
+    left: 5px;
+    top: calc(50% - 8px);
+    z-index: 0;
+  }
+
+  .sel_plan_gotime select, .sel_plan_date input {
+    padding: 0 0 0 22px;
+  }
+
+  .sp_table.sp_table_4col .sp_start {
+    width: 30%;
+  }
+  .sp_table.sp_table_4col .sp_time {
+    width: 15%;
+  }
+  .sp_table.sp_table_4col .sp_end {
+    width: 25%;
+  }
+  .sp_table.sp_table_4col .sp_queue {
+    width: 30%;
+  }
+
+  .sp_ng_table .sp_ng_start {
+    width: 35%;
+  }
+  .sp_ng_table .sp_ng_end {
+    width: auto;
+  }
+  .sp_ng_table .sp_ng_start, .sp_ng_table .sp_ng_end {
+    padding-left: 4px;
+  }
+}
+/* ============================================================ */
+/*                     trip plan                                */
+/* ============================================================ */
+@media only screen and (max-width: 990px) {
+  .pcctv_content_wrapper {
+    width: 100%;
+  }
+
+  .pcctv_content_wrapper {
+    height: auto;
+    display: inline-block;
+  }
+
+  .pcctv_side_win {
+    width: 100%;
+    height: auto;
+  }
+
+  .pcctv_main {
+    width: 100%;
+    height: auto;
+  }
+
+  .pcctv_info_body {
+    max-width: 360px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .future_time_table {
+    width: 100%;
+  }
+
+  .ftt_block {
+    width: 90%;
+  }
+  .ftt_block:not(:first-child) {
+    margin-left: 0;
+  }
+
+  .ftt_header, .ftt_body {
+    width: 100%;
+    display: flex;
+  }
+
+  .ftt_body {
+    border-bottom: 1px solid #fff;
+  }
+
+  .ftt_th_item, .ftt_td_item {
+    text-align: center;
+    width: 33%;
+    height: auto;
+    padding: 5px 0;
+  }
+
+  .ftt_th_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ftt_th_item:not(:last-child) {
+    border-bottom: 0;
+  }
+
+  .ftt_dir_icon:before {
+    content: "";
+  }
+
+  .ftt_th_txt {
+    height: auto;
+    line-height: normal;
+  }
+
+  .ftt_td_item {
+    line-height: normal;
+  }
+  .ftt_td_item:not(:last-child) {
+    border-bottom: 0;
+  }
+
+  h2.fgraph_h1 {
+    font-size: 0.9375rem;
+    letter-spacing: 0px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .ftt_th_item {
+    text-align: center;
+    line-height: 1;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .pcctv_info_body, .pcctv_img {
+    width: 250px;
+  }
+
+  .pcctv_img {
+    height: 172px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .plan_rst_box {
+    padding: 15px 10px 15px 10px;
+  }
+
+  .prst_summary {
+    height: auto;
+  }
+
+  .prst_summary_double {
+    width: 100%;
+  }
+
+  .prst_summary_double:first-child {
+    border-right: 0;
+    margin-right: 0;
+  }
+}
+/* ============================================================ */
+/*                     box content                            */
+/* ============================================================ */
+@media only screen and (max-width: 990px) {
+  .link_box_col {
+    width: 33.33%;
+    padding-top: 0;
+  }
+  .link_box_col:not(:nth-child(4n+1)) {
+    margin-left: 0;
+  }
+  .link_box_col:not(:nth-child(3n+1)) {
+    margin-left: -7px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .link_box_col {
+    width: 50%;
+  }
+  .link_box_col:not(:nth-child(4n+1)), .link_box_col:not(:nth-child(3n+1)) {
+    margin-left: 0;
+  }
+  .link_box_col:not(:nth-child(2n+1)) {
+    margin-left: -7px;
+  }
+}
+@media only screen and (max-width: 490px) {
+  .link_box {
+    width: 95%;
+    box-shadow: 5px 5px #f4f4f4;
+  }
+
+  .link_box_a {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 2.5%;
+  }
+
+  .stmap_list li {
+    padding: 10px 0 10px 0;
+  }
+
+  .stmap_no {
+    width: 33px;
+  }
+
+  .stmap_no + a {
+    display: inline-block;
+    width: calc(100% - 33px);
+    vertical-align: top;
+  }
+
+  .sm_th, .stmap_no.main {
+    font-size: 1.125rem;
+  }
+
+  .sm_td {
+    font-size: 0.9375rem;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .link_box_col {
+    padding-bottom: 20px;
+  }
+
+  .article_content {
+    width: 95%;
+    margin-left: 2.5%;
+    padding: 20px 10px 10px 20px;
+  }
+
+  .article_list {
+    padding-left: 0;
+  }
+
+  .normal_btn {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+/* ============================================================ */
+/*                      main part                                 */
+/* ============================================================ */
+@media only screen and (max-width: 960px) {
+  .app_icon_wrapper {
+    margin-left: 1%;
+    width: 25%;
+    padding: 15px 0 0 0;
+    text-align: center;
+  }
+
+  .app_icon_txt {
+    width: 70%;
+    margin-left: 1%;
+    padding: 0 0 0 5px;
+  }
+
+  .app_intro_col {
+    padding: 0px;
+  }
+
+  .appi_txt {
+    width: 100%;
+    padding: 0px 5px;
+  }
+
+  .app_hlight {
+    letter-spacing: 1px;
+    font-size: 1.125rem;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .dl_qrcode {
+    display: none;
+  }
+
+  .app_dl_btn.dl_link {
+    width: 100%;
+  }
+
+  .app_dl_col.style_frame {
+    width: 60%;
+  }
+
+  .app_dl_col.style_fill {
+    width: 36%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .app_intro_row {
+    display: block;
+    width: 100%;
+  }
+
+  .app_intro_col {
+    display: inline-block;
+    width: 48%;
+  }
+}
+@media only screen and (max-width: 490px) {
+  .app_dl_row {
+    display: block;
+    width: 80%;
+    margin: 0 auto 30px auto;
+  }
+
+  .app_intro_row {
+    margin: 30px auto 0 auto;
+  }
+
+  .app_dl_col.style_frame, .app_dl_col.style_fill {
+    display: block;
+    width: 100%;
+  }
+
+  .app_dl_col.style_frame {
+    border: 0;
+    padding: 30px 0 20px 0;
+  }
+
+  .app_icon_wrapper, .app_icon_txt {
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .app_dl_txt {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .appi_title {
+    padding-left: 3px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .appi_txt .app_hlight {
+    font-size: 1.0625rem;
+    letter-spacing: 0px;
+  }
+}
+/* ============================================================ */
+/*                     tainan city                             */
+/* ============================================================ */
+@media only screen and (max-width: 768px) {
+  .sp_city_img .sp_tainan_rd_txt {
+    font-size: 150%;
+  }
+}
+/* ============================================================ */
+/*                english                                       */
+/* ============================================================ */
+.en_txt {
+  font-weight: normal;
+}
+
+.pc_menu.en_txt > li a {
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+  letter-spacing: 0;
+  text-align: center;
+  padding-left: 0;
+  position: relative;
+}
+.pc_menu.en_txt > li a:before {
+  width: 0px;
+  height: 0px;
+  background: none;
+}
+.pc_menu.en_txt > li a:after {
+  content: "";
+  width: 1px;
+  height: 60%;
+  background-color: #ccc;
+  position: absolute;
+  top: 20%;
+  right: 0;
+}
+
+.pc_menu.en_txt > li:first-child {
+  position: relative;
+}
+.pc_menu.en_txt > li:first-child:before {
+  content: "";
+  width: 1px;
+  height: 60%;
+  background-color: #ccc;
+  background-image: none;
+  position: absolute;
+  top: 20%;
+  left: 0;
+}
+
+.pc_menu.en_txt > li.pc_menu_en_left a {
+  text-align: center;
+  padding-left: 0;
+}
+
+/* 重要路段查詢  */
+.pc_menu.en_txt > li.item_long a {
+  padding-left: 0;
+}
+
+/* 子選單  */
+ul.pc_sub_col.en_txt > li {
+  height: 30px;
+}
+
+ul.pc_sub_col.en_txt > li.pc_sub_en_longx2 {
+  height: 50px;
+}
+
+ul.pc_sub_col.en_txt > li.pc_sub_en_longx3 {
+  height: 60px;
+}
+
+ul.pc_sub_col.en_txt > li > a {
+  font-size: 0.9375rem;
+  letter-spacing: 0;
+}
+
+/* mobile menu  */
+.mobile_menu.en_txt {
+  letter-spacing: 0;
+}
+
+.mobile_menu.en_txt > li > a, .mobile_menu_goapp.en_txt > a {
+  font-size: 1rem;
+  padding-left: 20px;
+}
+.mobile_menu.en_txt > li > a:before, .mobile_menu_goapp.en_txt > a:before {
+  width: 0;
+  height: 0;
+  display: none;
+}
+.mobile_menu.en_txt > li > a:after, .mobile_menu_goapp.en_txt > a:after {
+  right: 14px;
+}
+
+li.mobile_sub_en_longx2 {
+  line-height: 1.5;
+}
+
+.mobile_submenu > li > a {
+  padding-left: 40px;
+}
+
+/* footer  */
+.footer_in.en_txt {
+  font-weight: normal;
+  overflow-y: hidden;
+  padding-left: 5px;
+}
+
+.footer_txt.en_txt {
+  letter-spacing: 0px;
+}
+
+.stmap_list li {
+  font-weight: 400;
+  letter-spacing: 0px;
+  padding: 6px 0 6px 45px;
+  text-indent: -45px;
+}
+
+@media only screen and (max-width: 490px) {
+  .link_box_col {
+    width: 100%;
+  }
+
+  .link_box_col:not(:nth-child(2n+1)) {
+    margin-left: 0;
+  }
+
+  .stmap_no + a {
+    width: calc(100% - 45px);
+    text-indent: 0;
+  }
+}
+.stmap_no.main {
+  padding-left: 10px;
+}
+
+.stmap_no {
+  text-indent: 0px;
+  padding-left: 5px;
+  width: 45px;
+}
+
+/* file: _webview */
+/* ============================================================ */
+/*                general UI                                    */
+/* ============================================================ */
+.wv_btn {
+  display: block;
+  max-width: 50%;
+  border-radius: 5px;
+  padding: 6px 20px;
+  color: #fff;
+  background: linear-gradient(25deg, #6b9923, #6e9c65, #65a09d, #41a5d5);
+  text-align: center;
+  font-size: 1rem;
+  margin: -10px auto 50px auto;
+}
+.wv_btn:hover {
+  color: #fff;
+}
+
+.wv_header {
+  padding: 20px 0 10px 0;
+}
+
+.wv_menu {
+  width: 98%;
+  margin: 0 auto;
+  display: table;
+}
+.wv_menu .li_box {
+  width: 33%;
+  display: table-cell;
+  text-align: center;
+  font-size: 1rem;
+  padding: 6px 0;
+  border: 1px solid #7baf90;
+  background: #fff;
+  color: #7baf90;
+}
+.wv_menu .li_box.active, .wv_menu .li_box:hover {
+  background: linear-gradient(25deg, #6b9923, #6e9c65, #65a09d, #41a5d5);
+  color: #fff;
+}
+.wv_menu .li_hw5 {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: none;
+}
+.wv_menu .li_cks {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: none;
+}
+
+.wv_footer_note {
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* overwrite some style */
+.bmb_time_and_reload.wv_reload {
+  width: 190px;
+  margin: 10px 0;
+  padding: 5px;
+  text-align: left;
+}
+
+.wv_main_wrapper td.sp_start {
+  padding-left: 10px;
+}
+
+/* ============================================================ */
+/*                special road index                            */
+/* ============================================================ */
+.wv_idx_wrapper {
+  width: 100%;
+  margin: 50px 0;
+}
+
+.wv_box {
+  display: block;
+  width: 90%;
+  margin: 30px auto;
+  border-radius: 5px;
+  padding: 20px;
+  background: linear-gradient(25deg, #6b9923, #6e9c65, #65a09d, #41a5d5);
+  position: relative;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 4px;
+}
+.wv_box:hover {
+  color: #fff;
+}
+.wv_box:after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 52px;
+  height: 52px;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  opacity: 0.5;
+}
+
+.wv_box.wv_city:after {
+  background: url(https://1968.freeway.gov.tw/assets/img/wv_city.png) no-repeat center center;
+  background-size: 50px 50px;
+}
+
+.wv_box.wv_cks:after {
+  background: url(https://1968.freeway.gov.tw/assets/img/wv_cks.png) no-repeat center center;
+  background-size: 50px 50px;
+}
+
+.wv_box.wv_hw5:after {
+  background: url(https://1968.freeway.gov.tw/assets/img/wv_hw5.png) no-repeat center center;
+  background-size: 50px 50px;
+}
+
+/* ============================================================ */
+/*      smart banner for android                                */
+/* ============================================================ */
+.smart-banner {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 60px;
+  padding: 5px;
+  background: #f2f2f2;
+}
+.smart-banner .btn-close-small {
+  float: left;
+  margin: 0px;
+  position: relative;
+  width: 30px;
+  height: 60px;
+  background: 0;
+  text-align: left;
+  text-indent: -119988px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.smart-banner .btn-close-small:before {
+  content: "X";
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  text-indent: 0;
+  font-size: 1rem;
+  line-height: 30px;
+  color: #666;
+  text-align: center;
+}
+.smart-banner .btn-app-install {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+}
+
+.app-install-link {
+  position: relative;
+  float: left;
+  width: 190px;
+  height: 50px;
+  overflow: hidden;
+  color: #666;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.app-install-link:before {
+  content: "";
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background: url(https://1968.freeway.gov.tw/assets/img/appicon.png) no-repeat center center;
+  background-size: 50px 50px;
+  margin-right: 10px;
+}
+
+.app-text {
+  position: absolute;
+  display: inline-block;
+  top: 4px;
+  letter-spacing: 0px;
+}
+
+.btn-app-install {
+  color: #3e70d1;
+  border-radius: 4px;
+  height: 36px;
+  width: 80px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 36px;
+  background-color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 1px;
+}
+
+a.btn-app-install:hover {
+  color: #3e70d1;
+}
+
+/* for smart banner */
+body.smartbanner_add {
+  position: fixed;
+}
+
+.smart-banner.smartbanner_add {
+  display: block;
+}
+
+header.smartbanner_add {
+  top: auto;
+}
+
+.wrapper.smartbanner_add {
+  margin-top: 60px;
+  height: calc(100% - 60px);
+}
+
+.page.smartbanner_add {
+  margin-top: 0px;
+  transition: none;
+}
+
+.page.smartbanner_add.mmenu_add header {
+  top: 0;
+}
+
+.mobile_pushmenu.smartbanner_add {
+  top: 60px;
+  height: calc(100% - 60px);
+}
+
+.main_wrapper.smartbanner_add {
+  margin-top: 85px;
+}
+
+.main_wrapper_map.smartbanner_add {
+  height: calc(100% - 85px);
+}
+
+.main_wrapper.smartbanner_add.expand {
+  margin-top: 0px;
+}
+
+.main_wrapper_map.smartbanner_add.expand {
+  height: 100%;
+}
+
+.smart-banner.smartbanner_add.expand {
+  display: none;
+}
+
+.page.smartbanner_add.expand {
+  margin-top: 0;
+}
+
+.wrapper.smartbanner_add.expand {
+  margin-top: 0;
+  height: 100%;
+}
+
+/* file: _fixfont_nohcf */
+/* ============================================================ */
+/*                      fix font size                           */
+/* ============================================================ */
+body,
+html {
+  font-size: 15px;
+}
