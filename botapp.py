@@ -66,6 +66,10 @@ def send_dist(path):
 def send_css(path):
     return send_from_directory(os.path.join('templates', 'css'), path)
 
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory(os.path.join('templates', 'js'), path)
+
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
