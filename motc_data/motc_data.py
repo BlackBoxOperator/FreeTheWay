@@ -24,15 +24,15 @@ def wget_from_url(url, name=None):
 def download(option):
   motc_prefix = 'https://tisvcloud.freeway.gov.tw/history/motc20/'
   if option == 'static' or option == 'all':
-    [wget_from_url(motc_prefix + x) 
+    [wget_from_url(motc_prefix + x)
       for x in ['Section.xml',      # Basic information of road section
                 'SectionShape.xml', # Map shape information of road section (wkt info)
                 'SectionLink.xml',  # SectionID to LinkIDs information
                 'ETag.xml'          # Etag information of LinkID
                 ]]
-                                              
+
   if option == 'dynamic' or option == 'all':
-    [wget_from_url(motc_prefix + x) 
+    [wget_from_url(motc_prefix + x)
       for x in ['LiveTraffic.xml'   # Real-time traffic information on road section
                 ]]
 
@@ -48,15 +48,15 @@ def extract_data(xml_file, callback=None):
   root = tree.getroot()
   prefix = root.tag.split('}', 1)[0] + '}'
   return callback(root=root, prefix=prefix)
-  
+
 def shapes_process(root, prefix=''):
   Dict = {}
   for child in root.find(prefix + 'SectionShapes'):
     section_id = child.find(prefix + 'SectionID').text
     shape = child.find(prefix + 'Geometry').text
-    
+
     logging.debug(f' SectionID: {section_id}, Shape: {shape}')
-    
+
     Dict[section_id] = shape
   return Dict
 
@@ -67,7 +67,7 @@ def livetraffic_process(root, prefix=''):
     travel_time = child.find(prefix + 'TravelTime').text
     congestion_level = child.find(prefix + 'CongestionLevel').text
     travel_speed = child.find(prefix + 'TravelSpeed').text
-    
+
     logging.debug(f' SectiondID: {section_id}, travel time: {travel_time}, congestion: {congestion_level}, travel speed: {travel_speed}')
 
     Dict[section_id] = {'TravelTime': travel_time, 'CongestionLevel': congestion_level, 'TravelSpeed': travel_speed}
@@ -79,12 +79,12 @@ def linkid_process(root, prefix=''):
     sec_id = child.find(prefix + 'SectionID').text
     link_ids = child.find(prefix + 'LinkIDs')
     result = [l.text for l in link_ids.findall(prefix + 'LinkID')]
-    
+
     logging.debug(f' SectionID: {sec_id}, linkIDs: {result}')
-    
+
     Dict[sec_id] = result
   return Dict
-    
+
 def etag_process(root, prefix=''):
   Dict = {}
   for child in root.find(prefix + 'ETags'):
@@ -93,17 +93,17 @@ def etag_process(root, prefix=''):
     road_id = child.find(prefix + 'RoadID').text
 
     logging.debug(f' Etag: {etag_id}, LinkID: {link_id}, RoadID: {road_id}')
-    
+
     Dict [etag_id] = {'LinkID': link_id, 'RoadID': road_id}
   return Dict
-  
+
 # The default road for id_process is 國道 1 號 (000010)
 def id_process(root, road='000010', prefix=''):
   Dict = {'N': OrderedDict(), 'S': OrderedDict()}
-    
+
   for child in root.find(prefix + 'Sections'):
     road_id = child.find(prefix + 'RoadID').text
-    
+
     # only the giving road will be processed
     if road_id != road:
       continue
@@ -115,7 +115,7 @@ def id_process(root, road='000010', prefix=''):
     sec_length = child.find(prefix + 'SectionLength').text
 
     logging.debug(f' SectionID: {section_id}, RoadID: {road_id}, ({start}, {end}), Length: {sec_length}')
-    
+
     Dict[road_direction][section_id] = {'RoadID': road_id, 'Start': start, 'End': end, 'Length': sec_length}
   return Dict
 
@@ -153,7 +153,7 @@ def collect_dynamic_traffic(traffic_list, save='./data'):
         tt.close()
     time.sleep(120)
 
-# e.g. 台北交流道, 新竹交流道  
+# e.g. 台北交流道, 新竹交流道
 def traffic_of_two_points(start, end, section_ids):
   # e.g. section_ids = extract_data('Section.xml', callback=partial(id_process, road='000010'))
   ## Create an inverse table from section_ids
@@ -173,7 +173,8 @@ def traffic_of_two_points(start, end, section_ids):
 
   return traffic
 
-  
+logging.disable(logging.DEBUG)
+
 def main():
   parser = argparse.ArgumentParser(description='MOTC extractor example')
   parser.add_argument('--download', type=str, default='none', metavar='N',
@@ -181,13 +182,13 @@ def main():
   # parser.add_argument('--save-dict', action='store_true', default=False,
   #                       help='For Saving the current dict')
   parser.add_argument('--debug', action='store_true', default=False,
-                        help='Debug info')                        
+                        help='Debug info')
   parser.add_argument('--collect', action='store_true', default=False,
                         help='Collect dynamic traffic to data/')
   args = parser.parse_args()
-  
-  if not args.debug:
-    logging.disable(logging.DEBUG)
+
+  if args.debug:
+    logging.enable(logging.DEBUG)
 
   # Usage
   ## Download the data from motc (static / dynamic / all)
@@ -209,15 +210,15 @@ def main():
   ## Extract the Mapping of SectionID to LinkID -> Dict
   section_links = extract_data('SectionLink.xml', callback=linkid_process)
 
-  
+
   if args.collect:
     tl = [traffic_of_two_points('基隆端', '高雄端', section_ids), traffic_of_two_points('高雄端', '基隆端', section_ids)]
     collect_dynamic_traffic(tl)
-  
+
 
   # print('Travel Time: ', sum([int(live_traffic[key]['TravelTime']) for key, value in traffic]))
 
-  
+
 
 if __name__ == '__main__':
   main()
