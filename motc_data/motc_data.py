@@ -136,6 +136,12 @@ def collect_dynamic_traffic(traffic_list, save='./data'):
     current_time = now.strftime("%H:%M:%S")
 
     for traffic in traffic_list:
+      new_traffic = []
+      for key, value in traffic:
+        if key in live_traffic:
+          new_traffic.append((key, value))
+      traffic = new_traffic
+
       t_s = OrderedDict([(key, live_traffic[key]['TravelTime']) for key, value in traffic])
       l_s = OrderedDict([(key, live_traffic[key]['CongestionLevel']) for key, value in traffic])
       s_s = OrderedDict([(key, live_traffic[key]['TravelSpeed']) for key, value in traffic])
@@ -175,7 +181,9 @@ def main():
   # parser.add_argument('--save-dict', action='store_true', default=False,
   #                       help='For Saving the current dict')
   parser.add_argument('--debug', action='store_true', default=False,
-                        help='For Saving the current ')                        
+                        help='Debug info')                        
+  parser.add_argument('--collect', action='store_true', default=False,
+                        help='Collect dynamic traffic to data/')
   args = parser.parse_args()
   
   if not args.debug:
@@ -202,12 +210,12 @@ def main():
   section_links = extract_data('SectionLink.xml', callback=linkid_process)
 
   
-
-  tl = [traffic_of_two_points('基隆端', '高雄端', section_ids), traffic_of_two_points('高雄端', '基隆端', section_ids)]
-  # collect_dynamic_traffic(tl)
+  if args.collect:
+    tl = [traffic_of_two_points('基隆端', '高雄端', section_ids), traffic_of_two_points('高雄端', '基隆端', section_ids)]
+    collect_dynamic_traffic(tl)
   
 
-  print('Travel Time: ', sum([int(live_traffic[key]['TravelTime']) for key, value in traffic]))
+  # print('Travel Time: ', sum([int(live_traffic[key]['TravelTime']) for key, value in traffic]))
 
   
 
