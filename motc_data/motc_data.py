@@ -5,8 +5,10 @@ import wget
 import os
 import xmltodict
 import xml.etree.ElementTree as ET
+from datetime import datetime
 from collections import OrderedDict
 from functools import partial
+import time
 
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
@@ -117,6 +119,34 @@ def id_process(root, road='000010', prefix=''):
     Dict[road_direction][section_id] = {'RoadID': road_id, 'Start': start, 'End': end, 'Length': sec_length}
   return Dict
 
+# Date, Time, Congestion, Speed
+def collect_dynamic_traffic(traffic_list, save='./data'):
+  while True:
+    allfiles = OrderedDict()
+    for traffic in traffic_list:
+      for i in traffic:
+        allfiles[i[0]] = open(f"{save}/travel_time_{i[0]}.txt", "a")
+
+    # download dynamic data
+    download('dynamic')
+    live_traffic = extract_data('LiveTraffic.xml', callback=livetraffic_process)
+
+    # record time
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+
+    for traffic in traffic_list:
+      t_s = OrderedDict([(key, live_traffic[key]['TravelTime']) for key, value in traffic])
+      l_s = OrderedDict([(key, live_traffic[key]['CongestionLevel']) for key, value in traffic])
+      s_s = OrderedDict([(key, live_traffic[key]['TravelSpeed']) for key, value in traffic])
+
+      for key, _ in traffic:
+        tt = allfiles[key]
+        tt.write(f'{current_time} {t_s[key]} {l_s[key]} {s_s[key]}\n')
+        tt.flush()
+        tt.close()
+    time.sleep(120)
+
 # e.g. 台北交流道, 新竹交流道  
 def traffic_of_two_points(start, end, section_ids):
   # e.g. section_ids = extract_data('Section.xml', callback=partial(id_process, road='000010'))
@@ -173,8 +203,9 @@ def main():
 
   
 
-  traffic = traffic_of_two_points('高雄端', '基隆端', section_ids)
-  print(traffic)
+  tl = [traffic_of_two_points('基隆端', '高雄端', section_ids), traffic_of_two_points('高雄端', '基隆端', section_ids)]
+  # collect_dynamic_traffic(tl)
+  
 
   print('Travel Time: ', sum([int(live_traffic[key]['TravelTime']) for key, value in traffic]))
 
