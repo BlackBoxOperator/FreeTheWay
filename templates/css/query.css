@@ -3576,6 +3576,7 @@ input[type=radio]:checked ~ .rinfo_tab .rinfo_tab_cms:before {
 }
 
 .bmb_legend {
+  zoom: 1.5;
   width: 166px;
   height: 60px;
   background: url("https://1968.freeway.gov.tw/assets/img/legend_speed_color.png") no-repeat center center;
@@ -3606,6 +3607,7 @@ input[type=radio]:checked ~ .rinfo_tab .rinfo_tab_cms:before {
 }
 
 .bmb_highway_title {
+  zoom:1.5;
   width: 180px;
   height: 40px;
   text-align: center;
@@ -7712,4 +7714,16 @@ header.smartbanner_add {
 body,
 html {
   font-size: 15px;
+}
+
+.dateTimePicker {
+  top: 2.5%;
+  left: 10%;
+  text-align: center;
+  position: fixed;
+  zoom:3;
+  /*
+  width: 60%;
+  height: 5%;
+  */
 }
