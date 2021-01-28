@@ -116,8 +116,7 @@ def message_text(event):
         )
 
 if __name__ == '__main__':
-
-    port = int(os.environ.get("BOTPORT", 8501))
+    port = int(os.environ.get("BOTPORT", 443))
 
     #print("============ Setup ngrok ======================")
     #ngrok.set_auth_token(decrypt_token(os.path.join('meta', 'encrypted.bot.ngrok.token')))
@@ -129,5 +128,7 @@ if __name__ == '__main__':
 
     if not HOST: HOST = f'http://localhost:{port}'
 
+    sslcert, sslkey = os.getenv('SSL_CERT', None), os.getenv('SSL_KEY', None)
+
     print("============ App run ==========================")
-    app.run(debug=True, port=port)
+    app.run(host="0.0.0.0", debug=False, port=port, ssl_context=(sslcert, sslkey))

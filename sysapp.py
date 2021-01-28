@@ -27,7 +27,7 @@ bootstrap = Bootstrap(app)
 
 
 HOST = None
-BOT_HOST = 'http://localhost:8501'
+BOT_HOST = 'http://localhost:443'
 
 @app.route('/')
 def index():
