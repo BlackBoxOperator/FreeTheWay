@@ -6,6 +6,7 @@ from flask import (
     abort
 )
 
+from argparse import ArgumentParser
 from flask_bootstrap import Bootstrap
 from decrypt import decrypt_token
 from pyngrok import ngrok
@@ -27,18 +28,31 @@ bootstrap = Bootstrap(app)
 HOST = None
 SYSTEM_HOST = 'http://localhost:8508'
 
-# get channel_secret and channel_access_token from your environment variable
-channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
-channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
-if channel_secret is None:
-    print('Specify LINE_CHANNEL_SECRET as environment variable.')
-    exit(1)
-if channel_access_token is None:
-    print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
-    exit(1)
+if __name__ == '__main__':
 
-line_bot_api = LineBotApi(channel_access_token)
-handler = WebhookHandler(channel_secret)
+    arg_parser = ArgumentParser(
+        usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
+    )
+    arg_parser.add_argument('-p', '--port', default=443, help='port')
+    arg_parser.add_argument('-d', '--debug', default=True, help='debug')
+    arg_parser.add_argument('-n', '--nobot', default=False, help='nobot')
+    options = arg_parser.parse_args()
+
+    port = int(os.environ.get("BOTPORT", options.port))
+
+    if not options.nobot:
+        # get channel_secret and channel_access_token from your environment variable
+        channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
+        channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
+        if channel_secret is None:
+            print('Specify LINE_CHANNEL_SECRET as environment variable.')
+            exit(1)
+        if channel_access_token is None:
+            print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
+            exit(1)
+
+        line_bot_api = LineBotApi(channel_access_token)
+        handler = WebhookHandler(channel_secret)
 
 @app.route('/')
 def index():
@@ -87,40 +101,40 @@ def callback():
 
     return 'OK'
 
-@handler.add(MessageEvent, message=TextMessage)
-def message_text(event):
-    text = event.message.text
-    data = text.split()
-    if "@query" in text:
-        if len(data) == 3:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text="https://www.google.com/search?q="+data[1]+data[2])
-            )
+if not options.nobot:
+    @handler.add(MessageEvent, message=TextMessage)
+    def message_text(event):
+        text = event.message.text
+        data = text.split()
+        if "@query" in text:
+            if len(data) == 3:
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="https://www.google.com/search?q="+data[1]+data[2])
+                )
+            else:
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="格式錯誤，請以空格隔開時間與@query，\n 查詢請輸入 @query + 時間 \n(ex: 1/31 12:00) ，\n 申報請輸入 @report + 時間 + 交流道 \n(ex: 1/31 12:00 新竹交流道)")
+                )
+        elif "@report" in text:
+            if len(data) == 4:
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="https://www.google.com/search?q="+data[1]+data[2]+data[3])
+                )
+            else:
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="格式錯誤，請以空格隔開時間與@report，\n 查詢請輸入 @query + 時間 \n(ex: 1/31 12:00) ，\n 申報請輸入 @report + 時間 + 交流道 \n(ex: 1/31 12:00 新竹交流道)")
+                )
         else:
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="格式錯誤，請以空格隔開時間與@query，\n 查詢請輸入 @query + 時間 \n(ex: 1/31 12:00) ，\n 申報請輸入 @report + 時間 + 交流道 \n(ex: 1/31 12:00 新竹交流道)")
+                TextSendMessage(text="格式錯誤，\n 查詢請輸入 @query + 時間 \n(ex: 1/31 12:00) ，\n 申報請輸入 @report + 時間 + 交流道 \n(ex: 1/31 12:00 新竹交流道)")
             )
-    elif "@report" in text:
-        if len(data) == 4:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text="https://www.google.com/search?q="+data[1]+data[2]+data[3])
-            )
-        else:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text="格式錯誤，請以空格隔開時間與@report，\n 查詢請輸入 @query + 時間 \n(ex: 1/31 12:00) ，\n 申報請輸入 @report + 時間 + 交流道 \n(ex: 1/31 12:00 新竹交流道)")
-            )
-    else:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text="格式錯誤，\n 查詢請輸入 @query + 時間 \n(ex: 1/31 12:00) ，\n 申報請輸入 @report + 時間 + 交流道 \n(ex: 1/31 12:00 新竹交流道)")
-        )
 
 if __name__ == '__main__':
-    port = int(os.environ.get("BOTPORT", 443))
 
     #print("============ Setup ngrok ======================")
     #ngrok.set_auth_token(decrypt_token(os.path.join('meta', 'encrypted.bot.ngrok.token')))
@@ -135,4 +149,8 @@ if __name__ == '__main__':
     sslcert, sslkey = os.getenv('SSL_CERT', None), os.getenv('SSL_KEY', None)
 
     print("============ App run ==========================")
-    app.run(host="0.0.0.0", debug=False, port=port, ssl_context=(sslcert, sslkey))
+
+    if sslcert and sslkey:
+        app.run(host="0.0.0.0", debug=options.debug, port=port, ssl_context=(sslcert, sslkey))
+    else:
+        app.run(host="0.0.0.0", debug=options.debug, port=port)
