@@ -73,6 +73,10 @@ def index():
 def query():
     return render_template("query.html")
 
+@app.route('/history')
+def history():
+    return render_template("history.html")
+
 @app.route('/psys')
 def psys():
     return render_template("psys.html")
@@ -122,7 +126,7 @@ if not options.nobot:
             if len(label["Error"])==0:
                 line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text="https://www.google.com/search?q="+label["date"]+label["time"]+label["loc"])
+                    TextSendMessage(text=f"https://liff.line.me/1655616509-K5V7eoER#{label['loc']}?m=q&date={label['date']}&time={label['time']}")
                 )
             else:
                 rtn = ""
@@ -141,6 +145,8 @@ if not options.nobot:
         elif label["type"] == "report":
             print(label["type"] == "report",label["type"])
             if len(label["Error"])==0:
+                # report directly
+                # TODO
                 line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text="https://www.google.com/search?q="+label["date"]+label["time"]+label["loc_from"]+label["loc_to"])
@@ -388,8 +394,8 @@ def traffic_at_time():
 
 
 
-@app.route('/sysquery', methods=['POST'])
-def sysquery():
+@app.route('/reported', methods=['POST'])
+def reported():
     global section_ids
     global user_db
     rcol= user_db['Report']
