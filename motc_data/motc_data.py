@@ -28,12 +28,14 @@ def download(option):
       for x in ['Section.xml',      # Basic information of road section
                 'SectionShape.xml', # Map shape information of road section (wkt info)
                 'SectionLink.xml',  # SectionID to LinkIDs information
-                'ETag.xml'          # Etag information of LinkID
+                'ETag.xml',         # Etag information of LinkID
+                'ETagPair.xml'
                 ]]
 
   if option == 'dynamic' or option == 'all':
     [wget_from_url(motc_prefix + x)
-      for x in ['LiveTraffic.xml'   # Real-time traffic information on road section
+      for x in ['LiveTraffic.xml',  # Real-time traffic information on road section
+                'ETagPairLive.xml'
                 ]]
 
   else:
@@ -95,6 +97,53 @@ def etag_process(root, prefix=''):
     logging.debug(f' Etag: {etag_id}, LinkID: {link_id}, RoadID: {road_id}')
 
     Dict [etag_id] = {'LinkID': link_id, 'RoadID': road_id}
+  return Dict
+
+def etag_pair_live_process(root, prefix=''):
+  Dict = {}
+  for child in root.find(prefix + 'ETagPairLives'):
+    etag_pair_id = child.find(prefix + 'ETagPairID').text
+    start_status = child.find(prefix + 'StartETagStatus').text
+    end_status = child.find(prefix + 'EndETagStatus').text
+
+    count = 0
+    flows = {}
+    for flow in child.find(prefix + 'Flows'):
+      vehicle_type = flow.find(prefix + 'VehicleType').text
+      vehicle_count = flow.find(prefix + 'VehicleCount').text
+      count += int(vehicle_count)
+      
+      flows[vehicle_type] = {'VehicleCount': vehicle_count}
+
+    # logging.debug(f' Etag: {etag_id}, LinkID: {link_id}, RoadID: {road_id}')
+
+    Dict [etag_pair_id] = {'StartETagStatus': start_status, 
+                           'EndETagStatus': end_status, 
+                           'VehicleCount': count,
+                           'Flows': flows 
+                          }
+  return Dict
+
+def etag_pair_process(root, prefix=''):
+  Dict = OrderedDict()
+  for child in root.find(prefix + 'ETagPairs'):
+    etag_pair_id = child.find(prefix + 'ETagPairID').text
+    start_etag = child.find(prefix + 'StartETagGantryID').text
+    end_etag = child.find(prefix + 'EndETagGantryID').text
+    description = child.find(prefix + 'Description').text
+    distance = child.find(prefix + 'Distance').text
+    start_link_id = child.find(prefix + 'StartLinkID').text
+    end_link_id = child.find(prefix + 'EndLinkID').text    
+    
+    logging.debug(f' Etag: {etag_pair_id}, description: {description}')
+
+    Dict [etag_pair_id] = {'StartETagGantryID': start_etag,
+                           'EndETagGantryID': end_etag,
+                           'Description': description,
+                           'Distance': distance,
+                           'StartLinkID': start_link_id,
+                           'EndLinkID': end_link_id
+                          }
   return Dict
 
 # The default road for id_process is 國道 1 號 (000010)
@@ -209,6 +258,16 @@ def main():
 
   ## Extract the Mapping of SectionID to LinkID -> Dict
   section_links = extract_data('SectionLink.xml', callback=linkid_process)
+
+  etag_pair_live = extract_data('ETagPairLive.xml', callback=etag_pair_live_process)
+
+  etag_pair = extract_data('ETagPair.xml', callback=etag_pair_process)  
+  
+  etag_description_to_count = {}
+  for key, value in etag_pair_live.items():
+    if key in etag_pair:
+      etag_description_to_count[etag_pair[key]['Description']] = value['VehicleCount']
+  # print(etag_description_to_count)
 
 
   if args.collect:
