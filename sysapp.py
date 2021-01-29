@@ -75,6 +75,11 @@ def traffic_at_time():
     d = int(day[1])
     tag = str(m + d)
 
+    if tag not in travel_time_dict:
+        travel_time_dict[tag] = {}
+        travel_time_dict[tag] = init_travel_time(travel_time_dict[tag])
+
+    _travel_time_dict = travel_time_dict[tag]
     db = client['traffic_db_'+tag]
 
     cols = [(db[key], key) for key, _ in section_ids[direction].items()]
@@ -85,7 +90,7 @@ def traffic_at_time():
 
     for key, value in section_ids[direction].items():
         tt = str(int(w/strip))
-        time = travel_time_dict[key][tt]
+        time = _travel_time_dict[key][tt]
         rec = {'time': time,
                'start': value['Start'],
                'end': value['End'] }
@@ -188,6 +193,12 @@ def report():
     reportid = userid+r+sec
     maxv = int(24 * 60 / strip)
 
+    if tag not in travel_time_dict:
+        travel_time_dict[tag] = {}
+        travel_time_dict[tag]  = init_travel_time(travel_time_dict[tag])
+
+    _travel_time_dict = travel_time_dict[tag]
+
     # report rate = 5%
     # 4500 * 10% = 450
     bound = 200
@@ -199,7 +210,7 @@ def report():
         report_num = tcol[tt].find({}).count()
         print(report_num)
 
-        w +=  travel_time_dict[key][tt] / 60
+        w +=  _travel_time_dict[key][tt] / 60
 
 
         # if report_num + 1 > bound:
@@ -373,15 +384,11 @@ def predict(db):
 
 
 
-def init_travel_time_db(db):
-    global travel_time_dict
+def init_travel_time(travel_time_dict):
     global speed_levels
     global section_ids
-    global client
 
-    travel_time_dict = {}
-    trave_time_dict = {}
-    speed_levels = [90, 40]
+    speed_levels = [90, 60, 40]
 
     l1 = list(section_ids['S'].items())
     l2 = list(section_ids['N'].items())
@@ -397,6 +404,7 @@ def init_travel_time_db(db):
         for i in range(0, maxv + 1):
             travel_time_dict[key][str(i)] = float(length) * 60 * 60 / speed_levels[0]
 
+    return travel_time_dict
     # 4.1km
     # for x in l:
 
@@ -454,6 +462,8 @@ def unix_time_secs(dt):
     return (dt - epoch).total_seconds() * 1
 
 if __name__ == '__main__':
+    global travel_time_dict
+    travel_time_dict = {}
     port = int(os.environ.get("SYSPORT", 8508))
     global client
     client = pymongo.MongoClient("localhost", 27017)
@@ -486,7 +496,7 @@ if __name__ == '__main__':
     print(datelist)
 
 
-    init_travel_time_db(travel_time_db)
+    # init_travel_time_db(travel_time_db)
 
     print("============ App run ==========================")
     app.run(debug=True, port=port)
