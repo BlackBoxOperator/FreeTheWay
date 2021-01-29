@@ -79,7 +79,7 @@ def psys():
 @app.route('/ssys', methods=['GET'])
 def ssys():
     SYSTEM_HOST = request.values.get('host')
-    # print(f'SYSTEM_HOST = {SYSTEM_HOST}')
+    print(f'SYSTEM_HOST = {SYSTEM_HOST}')
     return 'OK'
 
 @app.route('/dist/<path:path>')
@@ -265,7 +265,7 @@ def pbot():
 @app.route('/sbot', methods=['GET'])
 def sbot():
     BOT_HOST = request.values.get('host')
-    # print(f'BOT_HOST = {BOT_HOST}')
+    print(f'BOT_HOST = {BOT_HOST}')
     return 'OK'
 
 @app.route('/traffic', methods=['POST'])
@@ -419,7 +419,7 @@ def sysquery():
 
 
 
-def fix_time(tcol, key, tt, num):
+def fix_time(tcol, key, tt, num, tag):
     global bound
     global bound2
     global travel_time_dict
@@ -436,7 +436,9 @@ def fix_time(tcol, key, tt, num):
     length = section_ids[direction][key]['Length']
     # sec, value = section_ids[direction][key]
 
-    travel_time_dict[key][tt] = (float(length) * 60 * 60 / speed_levels[level], level + 1)
+    _travel_time_dict = travel_time_dict[tag]
+    _travel_time_dict[key][tt] = (float(length) * 60 * 60 / speed_levels[level], level + 1)
+
 
 
 
@@ -445,11 +447,11 @@ def fix_time(tcol, key, tt, num):
     # for x in:
     #     print(x)
 
-    # # if report_num + num > bound2:
-    # #     num = int((report_num + num) / 2)
-    # #     # affetch the next timeline
-    # #     next_time = str(int(tt) + 1)
-    # #     fix_time(tcol, key, next_time, num)
+    if report_num + num > bound2:
+        num = int((report_num + num) / 2)
+        # affetch the next timeline
+        next_time = str(int(tt) + 1)
+        fix_time(tcol, key, next_time, num, tag)
 
 
 
@@ -536,7 +538,7 @@ def report():
             num = int((report_num + 1) / 2)
             # affetch the next timeline
             next_time = str(int(tt) + 1)
-            fix_time(tcol, key, next_time, num)
+            fix_time(tcol, key, next_time, num, tag)
 
 
     # # all location
