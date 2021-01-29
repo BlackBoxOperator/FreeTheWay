@@ -180,7 +180,7 @@ def parse_date(data,i,label):
         if (i != 0 or i != len(data)-1) and data[i-1].isnumeric() and data[i+1].isnumeric():
             try:
                 year = datetime.date.today().year
-                datetime.date(year,data[i-1],data[i+1])
+                datetime.date(year,int(data[i-1]),int(data[i+1]))
                 label["time"] = data[i-1] + "/" + data[i+1]
             except:
                 label["Error"].append("date") 
@@ -191,7 +191,7 @@ def parse_date(data,i,label):
         if len(date_data) == 2 and date_data[0].isnumeric() and date_data[1].isnumeric():
             try:
                 year = datetime.date.today().year
-                datetime.date(year,date_data[i-1],date_data[i+1])
+                datetime.date(year,int(date_data[0]),int(date_data[1]))
                 label["date"] = date_data[0] + "/" + date_data[1]
             except:
                 label["Error"].append("date") 
