@@ -66,8 +66,8 @@ def traffic_at_time():
 
     direction = data['direction'] if 'direction' in data else None
 
-    dl = reportid.split('.')
 
+    dl = reportid.split('.') if 'reportid' in data else None
     time = data['time'] if 'time' in data else dl[1]+'/'+dl[2]+' '+'0:00'
 
     # print(time)
@@ -202,6 +202,10 @@ def query():
     return jsonify(ret)
 
 
+def fix_time(db, key, time):
+
+    pass
+
 @app.route('/report', methods=['POST'])
 def report():
     global client
@@ -262,24 +266,26 @@ def report():
 
     _travel_time_dict = travel_time_dict[tag]
 
-    # report rate = 5%
+    # report rate = 10%
     # 4500 * 10% = 450
-    bound = 200
+    bound = 400
+    bound2 = 450
     for tcol, key in cols:
         tt = str(int(w/strip))
         rec = { 'reportid': reportid, "userid": userid, "time": time }
         tcol[tt].insert_one(rec)
 
-        # report_num = tcol[tt].find({}).count()
+        report_num = tcol[tt].find({}).count()
         # print(report_num)
         t_time, level = _travel_time_dict[key][tt]
 
         w += t_time / 60
 
-
-        # if report_num + 1 > bound:
-        #     # affetch the next timeline
-        #     next_time = str(int(tt) + 1)
+        if report_num + 1 > bound and bound != -1:
+            bound = bound2
+            # affetch the next timeline
+            next_time = str(int(tt) + 1)
+            fix_time(db, key, next_time)
 
 
 
