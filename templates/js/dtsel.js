@@ -32,7 +32,7 @@
      * @property {Number} cancelBlur
      */
 
-    /** 
+    /**
      * @typedef {Object} Config
      * @property {String} dateFormat
      * @property {String} timeFormat
@@ -46,8 +46,8 @@
 
     /**
      * @class
-     * @param {HTMLElement} elem 
-     * @param {Config} config 
+     * @param {HTMLElement} elem
+     * @param {Config} config
      */
     function DTS(elem, config) {
         var config = config || {};
@@ -80,7 +80,8 @@
         this.dateFormatRegEx = new RegExp("yyyy|yy|mm|dd", "gi");
         this.timeFormatRegEx = new RegExp("hh|mm|ss|a", "gi");
         this.inputElem = elem;
-        this.dtbox = null;
+        //this.dtbox = null;
+        this.dtbox = new DTBox(elem, this);
         this.setup();
     }
     DTS.prototype.setup = function () {
@@ -108,8 +109,8 @@
     }
     /**
      * @class
-     * @param {HTMLElement} elem 
-     * @param {DTS} settings 
+     * @param {HTMLElement} elem
+     * @param {DTS} settings
      */
     function DTBox(elem, settings) {
         /** @type {DTBox} */
@@ -122,8 +123,8 @@
         var localState = {};
 
         /**
-         * @param {String} key 
-         * @param {*} default_val 
+         * @param {String} key
+         * @param {*} default_val
          */
         function getterSetter(key, default_val) {
             return {
@@ -278,7 +279,7 @@
                 self.el.wrapper.style.top = '';
             } else {
                 self.el.wrapper.style.top = `${top}px`;
-                self.el.wrapper.style.bottom = ''; 
+                self.el.wrapper.style.bottom = '';
             }
         }
 
@@ -397,7 +398,7 @@
                     var cell = grid.children[i].children[j];
                     var month = adjusted.getMonth();
                     var date = adjusted.getDate();
-                    
+
                     cell.innerText = date;
                     cell.classList.remove(classes[0], classes[1], classes[2]);
                     if (month != this.month) {
@@ -432,7 +433,7 @@
             this.cancelBlur += 1;
             return;
         }
-        
+
         var el = e.target;
         this[el.name] = parseInt(el.value) || 0;
         this.setupFooter();
@@ -450,7 +451,7 @@
             var footer = document.createElement("div");
             var handler = this.onTimeChange.bind(this);
             var self = this;
-            
+
             function makeRow(label, name, range, changeHandler) {
                 var row = document.createElement("div");
                 row.classList.add('cal-time');
@@ -586,14 +587,14 @@
 
 
     /**
-     * @param {HTMLElement} elem 
+     * @param {HTMLElement} elem
      * @returns {{left:number, top:number}}
      */
     function getOffset(elem) {
         var box = elem.getBoundingClientRect();
-        var left = window.pageXOffset !== undefined ? window.pageXOffset : 
+        var left = window.pageXOffset !== undefined ? window.pageXOffset :
             (document.documentElement || document.body.parentNode || document.body).scrollLeft;
-        var top = window.pageYOffset !== undefined ? window.pageYOffset : 
+        var top = window.pageYOffset !== undefined ? window.pageYOffset :
             (document.documentElement || document.body.parentNode || document.body).scrollTop;
         return { left: box.left + left, top: box.top + top };
     }
@@ -615,8 +616,8 @@
         this._funcs = {};
     }
     /**
-     * @param {string} key 
-     * @param {Function} func 
+     * @param {string} key
+     * @param {Function} func
      */
     hookFuncs.prototype.add = function(key, func){
         if (!this._funcs[key]){
@@ -625,7 +626,7 @@
         this._funcs[key].push(func)
     }
     /**
-     * @param {String} key 
+     * @param {String} key
      * @returns {Function[]} handlers
      */
     hookFuncs.prototype.get = function(key){
@@ -633,8 +634,8 @@
     }
 
     /**
-     * @param {Array.<string>} arr 
-     * @param {String} string 
+     * @param {Array.<string>} arr
+     * @param {String} string
      * @returns {Array.<string>} sorted string
      */
     function sortByStringIndex(arr, string) {
@@ -657,8 +658,8 @@
 
     /**
      * Remove keys from array that are not in format
-     * @param {string[]} keys 
-     * @param {string} format 
+     * @param {string[]} keys
+     * @param {string} format
      * @returns {string[]} new filtered array
      */
     function filterFormatKeys(keys, format) {
@@ -676,10 +677,10 @@
 
     /**
      * @template {StringNumObj} FormatObj
-     * @param {string} value 
-     * @param {string} format 
-     * @param {FormatObj} formatObj 
-     * @param {function(Object.<string, hookFuncs>): null} setHooks 
+     * @param {string} value
+     * @param {string} format
+     * @param {FormatObj} formatObj
+     * @param {function(Object.<string, hookFuncs>): null} setHooks
      * @returns {FormatObj} formatObj
      */
     function parseData(value, format, formatObj, setHooks) {
@@ -750,8 +751,8 @@
     }
 
     /**
-     * @param {String} value 
-     * @param {DTS} settings 
+     * @param {String} value
+     * @param {DTS} settings
      * @returns {Date} date object
      */
     function parseDate(value, settings) {
@@ -777,8 +778,8 @@
     }
 
     /**
-     * @param {String} value 
-     * @param {DTS} settings 
+     * @param {String} value
+     * @param {DTS} settings
      * @returns {Number} time in milliseconds <= (24 * 60 * 60 * 1000) - 1
      */
     function parseTime(value, settings) {
@@ -811,8 +812,8 @@
     }
 
     /**
-     * @param {Date} value 
-     * @param {DTS} settings 
+     * @param {Date} value
+     * @param {DTS} settings
      * @returns {String} date string
      */
     function renderDate(value, settings) {
@@ -834,8 +835,8 @@
     }
 
     /**
-     * @param {Date} value 
-     * @param {DTS} settings 
+     * @param {Date} value
+     * @param {DTS} settings
      * @returns {String} date string
      */
     function renderTime(value, settings) {
@@ -865,21 +866,21 @@
 
     /**
      * checks if two dates are equal
-     * @param {Date} date1 
-     * @param {Date} date2 
+     * @param {Date} date1
+     * @param {Date} date2
      * @returns {Boolean} true or false
      */
     function isEqualDate(date1, date2) {
         if (!(date1 && date2)) return false;
-        return (date1.getFullYear() == date2.getFullYear() && 
-                date1.getMonth() == date2.getMonth() && 
+        return (date1.getFullYear() == date2.getFullYear() &&
+                date1.getMonth() == date2.getMonth() &&
                 date1.getDate() == date2.getDate());
     }
 
     /**
-     * @param {Number} val 
-     * @param {Number} pad 
-     * @param {*} default_val 
+     * @param {Number} val
+     * @param {Number} pad
+     * @param {*} default_val
      * @returns {String} padded string
      */
     function padded(val, pad, default_val) {
@@ -892,8 +893,8 @@
     /**
      * @template X
      * @template Y
-     * @param {X} obj 
-     * @param {Y} objDefaults 
+     * @param {X} obj
+     * @param {Y} objDefaults
      * @returns {X|Y} merged object
      */
     function setDefaults(obj, objDefaults) {

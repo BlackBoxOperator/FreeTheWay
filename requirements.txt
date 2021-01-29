@@ -5,3 +5,5 @@ pyngrok==1.4.2
 pexpect==4.7.0
 Bootstrap-Flask
 line-bot-sdk
+wget
+xmltodict

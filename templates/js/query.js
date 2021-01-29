@@ -1,29 +1,20 @@
 var liffID = '1655616509-K5V7eoER';
 
-//liff.init({
-//  liffId: liffID
-//}).then(function() {
-//  console.log('LIFF init');
-//
-//  // 這邊開始寫使用其他功能
-//
-//}).catch(function(error) {
-//  console.log(error);
-//});
+liff.init({
+  liffId: liffID
+}).then(function() {
+  console.log('LIFF init');
 
-//$(document).ready(function(){
-//  instance = new dtsel.DTS('input[name="dateTimePicker"]',  {
-//    direction: 'BOTTOM',
-//    dateFormat: "yyyy-mm-dd",
-//    showTime: true,
-//    timeFormat: "HH:MM:SS"
-//  });
-//})
+  // 這邊開始寫使用其他功能
 
-function getToFind(){
-}
+}).catch(function(error) {
+  console.log(error);
+});
 
 function cctvChange(){
+}
+
+function cctv_box(){
 }
 
 document.addEventListener('touchstart', handleTouchStart, false);
@@ -44,6 +35,8 @@ function handleTouchStart(evt) {
 };
 
 function handleTouchMove(evt) {
+  if ( !instance.dtbox ) return;
+  if ( instance.dtbox.visible ) return;
   if ( ! xDown || ! yDown ) {
     return;
   }
@@ -57,16 +50,20 @@ function handleTouchMove(evt) {
   if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
     if ( xDiff > 0 ) {
       /* left swipe */
+      if(prev_date === null || prev_time === null) return;
       instance.dtbox.hours += 1;
       if(instance.dtbox.hours == 0)
         instance.dtbox.day += 1;
       instance.dtbox.setInputValue()
+      updatePrev(true);
     } else {
       /* right swipe */
+      if(prev_date === null || prev_time === null) return;
       instance.dtbox.hours -= 1;
       if(instance.dtbox.hours == -1)
         instance.dtbox.day -= 1;
       instance.dtbox.setInputValue()
+      updatePrev(true);
     }
   } else {
     if ( yDiff > 0 ) {
@@ -84,6 +81,7 @@ function handleTouchMove(evt) {
 
 function setTime(date){
   var value = date;
+  if(!instance.dtbox) return;
   instance.dtbox.value = value;
   instance.dtbox.year = value.getFullYear();
   instance.dtbox.month = value.getMonth();
@@ -94,8 +92,168 @@ function setTime(date){
   instance.dtbox.setInputValue()
 }
 
+var begLoc = "";
+var endLoc = "";
+var instance = null;
+var prev_date = null;
+var prev_time = null;
+
+function updatePrev(change){
+  if(instance.dtbox.value)
+    prev_date = instance.dtbox.value;
+  prev_time = instance.dtbox.time;
+
+  console.log(change);
+  if(prev_time !== null && prev_date !== null && change){
+    instance.dtbox.setInputValue();
+    // do ajax
+    console.log("do ajax");
+  }
+}
+
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
-    setTime(new Date());
+
+    //$('.bmb_rd')
+    //  .removeClass("bmb_rd_80plus")
+    //  .removeClass("bmb_rd_60_80")
+    //  .removeClass("bmb_rd_40_60")
+    //  .removeClass("bmb_rd_20_40")
+    //  .removeClass("bmb_rd_0_20")
+    //  .removeClass("bmb_rd_closure")
+
+    //$('.bmb_rd').addClass("bmb_rd_noinfo").text('');
+
+    instance = new dtsel.DTS('input[name="dateTimePicker"]',  {
+      direction: 'BOTTOM',
+      dateFormat: "yyyy-mm-dd",
+      showTime: true,
+      timeFormat: "HH:MM"
+    });
+
+    //setTime(new Date());
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    $("#reportButton").click(function(){
+      if(!instance.dtbox){
+        alert("未選擇時間");
+      }
+      else if(!begLoc){
+        alert("未設定起始站，請點選站點");
+      }
+      else if(!endLoc){
+        alert("未設定終點站，請點選站點");
+      }
+      else{
+        confirm(`申報 ${begLoc} 到 ${endLoc}？`);
+      }
+    })
+
+    function dateTimeHandler(state, prevState) {
+      //if (state.visible && !prevState.visible){})
+      var change = false;
+      if(state && state.visible) return;
+      if(prev_time === null || prev_date === null){
+        change = true;
+        console.log("onchange; from null");
+        //console.log('date', prev_date.getTime());
+        //console.log('time', prev_time);
+        if(instance.dtbox.value)
+          console.log(instance.dtbox.value.getTime());
+        console.log(instance.dtbox.time);
+      }
+      else if(prev_date !== null &&
+        (prev_date.getTime() != instance.dtbox.value.getTime()
+          || prev_time !== null && prev_time != instance.dtbox.time)){
+        change = true;
+        console.log("onchange;");
+        console.log('date', prev_date ? prev_date.getTime() : 'no date');
+        console.log('time', prev_time);
+        console.log(instance.dtbox.value.getTime());
+        console.log(instance.dtbox.time);
+      }
+      else{
+        console.log("no onchange;");
+        if(prev_time !== null)
+          console.log('time', prev_time);
+        if(prev_date !== null)
+          console.log('date', prev_date.getTime());
+        console.log(instance.dtbox.value.getTime());
+        console.log(instance.dtbox.time);
+      }
+
+      updatePrev(change);
+    }
+
+    instance.dtbox.addHandler("value", dateTimeHandler)
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+
+      if (!$(event.target).hasClass("cal-cell") &&
+        !$(event.target).hasClass("cal-nav") &&
+        !$(event.target).hasClass("cal-time-label") &&
+        !$(event.target).hasClass("dateTimePicker") ) {
+        if(instance.dtbox){
+          instance.dtbox.visible = false;
+          dateTimeHandler();
+        }
+      }
+    }
+
+    $('#setBegBtn').click(function(){
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+      if(begLoc) $('#' + begLoc).removeClass('active');
+      begLoc = $('#modal-loc').text();
+      $('#' + begLoc).addClass('active');
+    })
+
+    $('#setEndBtn').click(function(){
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+      if(endLoc) $('#' + endLoc).removeClass('active');
+      endLoc = $('#modal-loc').text();
+      $('#' + endLoc).addClass('active');
+    })
+
+    $('#setNonBtn').click(function(){
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+      if(endLoc == $('#modal-loc').text()){
+        $('#' + endLoc).removeClass('active');
+        endLoc = "";
+      }
+      if(begLoc == $('#modal-loc').text()){
+        $('#' + begLoc).removeClass('active');
+        begLoc = "";
+      }
+    })
   }
 };
+
+// When the user clicks the button, open the modal
+function getToFind(val, id, loc, sec){
+  if(!sec){
+    $('#modal-loc').text(loc);
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+  }
+}
+
+function Change(){
+}
