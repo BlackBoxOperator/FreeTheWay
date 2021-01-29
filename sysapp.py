@@ -90,10 +90,11 @@ def traffic_at_time():
 
     for key, value in section_ids[direction].items():
         tt = str(int(w/strip))
-        time = _travel_time_dict[key][tt]
+        time, level = _travel_time_dict[key][tt]
         rec = {'time': time,
                'start': value['Start'],
-               'end': value['End'] }
+               'end': value['End'],
+               'level': level}
 
         Dict[value['Start']] = rec
         w += time / 60
@@ -209,8 +210,9 @@ def report():
 
         report_num = tcol[tt].find({}).count()
         print(report_num)
+        t_time, level = _travel_time_dict[key][tt]
 
-        w +=  _travel_time_dict[key][tt] / 60
+        w += t_time / 60
 
 
         # if report_num + 1 > bound:
@@ -389,6 +391,7 @@ def init_travel_time(travel_time_dict):
     global section_ids
 
     speed_levels = [90, 60, 40]
+    level = 0
 
     l1 = list(section_ids['S'].items())
     l2 = list(section_ids['N'].items())
@@ -402,7 +405,7 @@ def init_travel_time(travel_time_dict):
         length = value['Length']
         # print(float(length) * 60 * 60 / 90)
         for i in range(0, maxv + 1):
-            travel_time_dict[key][str(i)] = float(length) * 60 * 60 / speed_levels[0]
+            travel_time_dict[key][str(i)] = (float(length) * 60 * 60 / speed_levels[level], level + 1)
 
     return travel_time_dict
     # 4.1km
