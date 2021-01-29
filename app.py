@@ -441,17 +441,13 @@ def fix_time(tcol, key, tt, num, tag):
 
 
 
-
-    # for x in current:
-
-    # for x in:
-    #     print(x)
-
     if report_num + num > bound2:
         num = int((report_num + num) / 2)
         # affetch the next timeline
         next_time = str(int(tt) + 1)
         fix_time(tcol, key, next_time, num, tag)
+
+
 
 
 
@@ -477,13 +473,20 @@ def report():
 
     userid = data['userid']
 
+
+
     # serach its car id from ucol
     key = {"userid": userid}
     if ucol.find(key).count() == 0:
         return jsonify({'message':f'should register the account first'})
 
+    ukey = key
     obj = ucol.find_one(key)
+
     carid = obj['carid']
+    print(obj)
+    reward = obj['reward:']
+
 
     # construct the data to insert from report
     start = data['start']
@@ -528,6 +531,13 @@ def report():
         tcol[tt].insert_one(rec)
 
         report_num = tcol[tt].find({}).count()
+
+        newvalues = { "$set": { "reward:": reward + (0.5 if report_num + 1 < bound else 0) } }
+        ucol.update_one(ukey, newvalues)
+
+
+
+
         # print(report_num)
         t_time, level = _travel_time_dict[key][tt]
 
@@ -539,6 +549,7 @@ def report():
             # affetch the next timeline
             next_time = str(int(tt) + 1)
             fix_time(tcol, key, next_time, num, tag)
+
 
 
     # # all location
@@ -621,6 +632,10 @@ def report():
     #            'time': time }
 
     # rcol.insert_one(record)
+    key = {"userid": userid}
+    obj = ucol.find_one(key)
+    reward = obj['reward:']
+    print('rewards: ', reward)
 
     return jsonify({'message':f'successful create a report {reportid}', 'time': time, 'report_id': reportid})
 
