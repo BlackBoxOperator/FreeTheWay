@@ -36,11 +36,11 @@ def index():
     return render_template("index.html")
 
 @app.route('/pbot')
-def psys():
+def pbot():
     return render_template("pbot.html")
 
 @app.route('/sbot', methods=['GET'])
-def ssys():
+def sbot():
     BOT_HOST = request.values.get('host')
     print(f'BOT_HOST = {BOT_HOST}')
     return 'OK'

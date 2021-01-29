@@ -7,3 +7,8 @@ Bootstrap-Flask
 line-bot-sdk
 wget
 xmltodict
+pymongo
+pandas
+flask-cors
+ckiptagger
+fuzzywuzzy

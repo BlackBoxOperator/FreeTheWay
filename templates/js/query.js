@@ -108,6 +108,21 @@ function updatePrev(change){
     instance.dtbox.setInputValue();
     // do ajax
     console.log("do ajax");
+    //$.post(`${window.location.host}`)
+
+    $.ajax({
+      url: 'http://localhost:8080/traffic',
+      type: 'post',
+      data: JSON.stringify({
+        time: `${instance.dtbox.month + 1}/${instance.dtbox.day} ${instance.dtbox.hours}:${instance.dtbox.minutes}`,
+      }),
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function (data) {
+        console.log(data);
+      }
+    });
+
   }
 }
 
