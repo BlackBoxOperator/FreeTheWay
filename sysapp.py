@@ -61,11 +61,28 @@ def traffic_at_time():
 
     data = request.get_json()
 
-    time = data['time']
+
+    reportid = data['reportid'] if 'reportid' in data else None
 
     direction = data['direction'] if 'direction' in data else None
 
-    reportid = data['reportid'] if 'reportid' in data else None
+    dl = reportid.split('.')
+
+    time = data['time'] if 'time' in data else dl[1]+'/'+dl[2]+' '+'0:00'
+
+    # print(time)
+
+
+
+
+    strip = 20
+    maxv = int(24 * 60 / strip)
+
+
+
+                # if a.count() != 0:
+                #     print(list(a))
+
 
     t = time.split(' ')[1].split(':')
     day = time.split(' ')[0].split('/')
@@ -83,10 +100,34 @@ def traffic_at_time():
     _travel_time_dict = travel_time_dict[tag]
     db = client['traffic_db_'+tag]
 
-    strip = 20
-    # maxv = int(24 * 60 / strip)
 
     Dict = {'N': {}, 'S': {}}
+
+    if reportid:
+        results = []
+        user_dir = reportid[0]
+        cols = [(db[key], key, value['Start'], value['End']) for key, value in section_ids[user_dir].items()]
+        for tcol, key, start, end in cols:
+            for i in range(0, maxv + 1):
+                a = tcol[(str(i))].find_one({'reportid': reportid})
+                if a:
+                    results.append((str(i), key, start, end))
+                    break
+                # if a:
+                #     print(a)
+        for tt, key, start, end in results:
+            time, level = _travel_time_dict[key][tt]
+            rec = {'time': time,
+                   'start': start,
+                   'end': end,
+                   'level': level }
+            Dict[user_dir][start] = rec
+
+        return Dict
+
+
+
+
 
     # Dict['N'] = {}
     # Dict['S'] = {}
@@ -204,6 +245,7 @@ def report():
 
     l = traffic_of_two_points(start, end, section_ids)
     cols = [(db[key], key) for key, _ in l]
+    direction = 'S' if int(cols[0][1]) & 1 else 'N'
 
     strip = 20
     w = int(t[0])*60 + int(t[1])
@@ -211,7 +253,7 @@ def report():
     now = datetime.now()
     sec = str(int(unix_time_secs(now)))
     r = str(int(random.uniform(100000, 999999)))
-    reportid = userid+r+sec
+    reportid = direction+userid+r+sec+'.'+day[0]+'.'+day[1]
     maxv = int(24 * 60 / strip)
 
     if tag not in travel_time_dict:
@@ -225,11 +267,11 @@ def report():
     bound = 200
     for tcol, key in cols:
         tt = str(int(w/strip))
-        rec = { 'reportid': reportid, "userid": userid }
+        rec = { 'reportid': reportid, "userid": userid, "time": time }
         tcol[tt].insert_one(rec)
 
-        report_num = tcol[tt].find({}).count()
-        print(report_num)
+        # report_num = tcol[tt].find({}).count()
+        # print(report_num)
         t_time, level = _travel_time_dict[key][tt]
 
         w += t_time / 60
@@ -324,7 +366,7 @@ def report():
 
     # rcol.insert_one(record)
 
-    return jsonify({'message':f'successful create a report {reportid}'})
+    return jsonify({'message':f'successful create a report {reportid}', 'time': time, 'report_id': reportid})
 
 
 
