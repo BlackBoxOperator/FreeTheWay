@@ -135,7 +135,7 @@ function updatePrev(change){
 
     time = `${instance.dtbox.month + 1}/${instance.dtbox.day} ${instance.dtbox.hours}:${instance.dtbox.minutes}`;
     $.ajax({
-      url: 'http://localhost:8080/traffic',
+      url: `${window.location.origin}/traffic`,
       type: 'post',
       data: JSON.stringify({
         time: time,
@@ -155,6 +155,7 @@ function updatePrev(change){
           name = k.replace('交流道', '')
           bmbRemoveClass($($(`#${name}`).parent().next().find('.bmb_rd')[1])).addClass(lv[data.S[k].level - 1])
         })
+        $('.bmb_trd').addClass('bmb_rd_80plus');
       },
       error: function(){
         console.log(time);
