@@ -12,3 +12,4 @@ pandas
 flask-cors
 ckiptagger
 fuzzywuzzy
+tensorflow
