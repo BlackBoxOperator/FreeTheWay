@@ -62,7 +62,8 @@ def traffic_at_time():
     data = request.get_json()
 
     time = data['time']
-    direction = data['direction']
+
+    direction = data['direction'] if 'direction' in data else None
 
     reportid = data['reportid'] if 'reportid' in data else None
 
@@ -82,22 +83,41 @@ def traffic_at_time():
     _travel_time_dict = travel_time_dict[tag]
     db = client['traffic_db_'+tag]
 
-    cols = [(db[key], key) for key, _ in section_ids[direction].items()]
     strip = 20
     # maxv = int(24 * 60 / strip)
 
-    Dict = {}
+    Dict = {'N': {}, 'S': {}}
 
-    for key, value in section_ids[direction].items():
-        tt = str(int(w/strip))
-        time, level = _travel_time_dict[key][tt]
-        rec = {'time': time,
-               'start': value['Start'],
-               'end': value['End'],
-               'level': level}
+    # Dict['N'] = {}
+    # Dict['S'] = {}
 
-        Dict[value['Start']] = rec
-        w += time / 60
+    # for key, value in section_ids[direction].items():
+    #     tt = str(int(w/strip))
+    #     time, level = _travel_time_dict[key][tt]
+    #     rec = {'time': time,
+    #            'start': value['Start'],
+    #            'end': value['End'],
+    #            'level': level }
+
+    #     Dict[value['Start']] = rec
+    #     w += time / 60
+
+
+
+
+    for sd, d in [(section_ids['N'], 'N'), (section_ids['S'], 'S')]:
+        w = int(t[0])*60 + int(t[1])
+        for key, value in sd.items():
+            tt = str(int(w/strip))
+            time, level = _travel_time_dict[key][tt]
+            rec = {'time': time,
+                   'start': value['Start'],
+                   'end': value['End'],
+                   'level': level }
+
+            Dict[d][value['Start']] = rec
+            w += time / 60
+
 
     # for tcol, key in cols:
     #     for i in range(0, maxv + 1):
@@ -106,7 +126,7 @@ def traffic_at_time():
 
     #             print(list(a))
 
-    return jsonify(Dict)
+    return jsonify(Dict[direction] if direction else Dict)
 
 
 
