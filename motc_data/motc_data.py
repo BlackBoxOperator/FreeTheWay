@@ -248,8 +248,8 @@ def main():
                         help='Collect dynamic traffic to data/')
   args = parser.parse_args()
 
-  if args.debug:
-    logging.enable(logging.DEBUG)
+  # if args.debug:
+  #   logging.enable(logging.DEBUG)
 
   # Usage
   ## Download the data from motc (static / dynamic / all)
