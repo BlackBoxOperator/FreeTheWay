@@ -1,7 +1,9 @@
+#coding=utf-8
 from datetime import datetime
 import pandas as pd
 from motc_data.motc_data import *
 import pymongo
+import random
 #from ckiptagger import WS
 from fuzzywuzzy import fuzz, process
 from flask import (
@@ -19,15 +21,15 @@ from decrypt import decrypt_token
 from pyngrok import ngrok
 import os
 
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
-)
+# from linebot import (
+#     LineBotApi, WebhookHandler
+# )
+# from linebot.exceptions import (
+#     InvalidSignatureError
+# )
+# from linebot.models import (
+#     MessageEvent, TextMessage, TextSendMessage,
+# )
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -77,7 +79,7 @@ def psys():
 @app.route('/ssys', methods=['GET'])
 def ssys():
     SYSTEM_HOST = request.values.get('host')
-    print(f'SYSTEM_HOST = {SYSTEM_HOST}')
+    # print(f'SYSTEM_HOST = {SYSTEM_HOST}')
     return 'OK'
 
 @app.route('/dist/<path:path>')
@@ -263,7 +265,7 @@ def pbot():
 @app.route('/sbot', methods=['GET'])
 def sbot():
     BOT_HOST = request.values.get('host')
-    print(f'BOT_HOST = {BOT_HOST}')
+    # print(f'BOT_HOST = {BOT_HOST}')
     return 'OK'
 
 @app.route('/traffic', methods=['POST'])
@@ -398,6 +400,7 @@ def sysquery():
     key = {"userid": userid}
     if ucol.find(key).count() == 0:
         return jsonify({'message':f'should register the account first'})
+        # return jsonify({'message':f'should register the account first'})
 
     result = rcol.find(key)
     ret = []
@@ -415,9 +418,44 @@ def sysquery():
     return jsonify(ret)
 
 
-def fix_time(db, key, time):
 
-    pass
+def fix_time(tcol, key, tt, num):
+    global bound
+    global bound2
+    global travel_time_dict
+    global speed_levels
+    print('fix time: ', tcol, key, tt)
+
+    level = 2
+
+    # report_num = tcol[tt].find({}).count()
+    current =  tcol[tt].find({})
+    report_num = current.count()
+
+    direction = 'S' if int(key) & 1 else 'N'
+    length = section_ids[direction][key]['Length']
+    # sec, value = section_ids[direction][key]
+
+    travel_time_dict[key][tt] = (float(length) * 60 * 60 / speed_levels[level], level + 1)
+
+
+
+    # for x in current:
+
+    # for x in:
+    #     print(x)
+
+    # # if report_num + num > bound2:
+    # #     num = int((report_num + num) / 2)
+    # #     # affetch the next timeline
+    # #     next_time = str(int(tt) + 1)
+    # #     fix_time(tcol, key, next_time, num)
+
+
+
+    # # tcol[time]
+
+    # pass
 
 @app.route('/report', methods=['POST'])
 def report():
@@ -427,6 +465,7 @@ def report():
     global traffic_db
     global section_ids
     global travel_time_dict
+    global bound
 
     rcol= user_db['Report']
     _rcol= user_db['_Report']
@@ -458,7 +497,7 @@ def report():
 
     # create a new db with date
     db = client['traffic_db_'+tag]
-    client.drop_database('traffic_db_'+tag)
+    # client.drop_database('traffic_db_'+tag)
 
     l = traffic_of_two_points(start, end, section_ids)
     cols = [(db[key], key) for key, _ in l]
@@ -481,8 +520,6 @@ def report():
 
     # report rate = 10%
     # 4500 * 10% = 450
-    bound = 400
-    bound2 = 450
     for tcol, key in cols:
         tt = str(int(w/strip))
         rec = { 'reportid': reportid, "userid": userid, "time": time }
@@ -495,25 +532,23 @@ def report():
         w += t_time / 60
 
         if report_num + 1 > bound and bound != -1:
-            bound = bound2
+            bound = -1
+            num = int((report_num + 1) / 2)
             # affetch the next timeline
             next_time = str(int(tt) + 1)
-            fix_time(db, key, next_time)
+            fix_time(tcol, key, next_time, num)
 
 
+    # # all location
+    # for tcol, key in cols:
+    #     # all time
+    #     for i in range(0, maxv + 1):
 
-
-
-    # all location
-    for tcol, key in cols:
-        # all time
-        for i in range(0, maxv + 1):
-
-            a = tcol[str(i)].find({})
-            if a.count() != 0:
-                print('time:', i)
-                print(list(a))
-        print('-------------------------------')
+    #         a = tcol[str(i)].find({})
+    #         if a.count() != 0:
+    #             print('time:', i)
+    #             print(list(a))
+    #     print('-------------------------------')
 
 
         # print(a)
@@ -680,7 +715,8 @@ def init_travel_time(travel_time_dict):
     l = l1 + l2
 
     strip = 20
-    maxv = int(24 * 60 / strip)
+    maxv = int(30 * 60 / strip)
+    maxv = 200
     for key, value in l:
         travel_time_dict[key] = {}
         length = value['Length']
@@ -745,7 +781,6 @@ def unix_time_secs(dt):
 
 
 if __name__ == '__main__':
-
     global travel_time_dict
     travel_time_dict = {}
     global client
@@ -753,6 +788,10 @@ if __name__ == '__main__':
     global travel_time_db
     global user_db
     global traffic_db
+    global bound
+    global bound2
+    bound = 8
+    bound2 = 6
     user_db = client.user_info
     traffic_db = client.traffic_info
     travel_time_db = client.travel_time_info
