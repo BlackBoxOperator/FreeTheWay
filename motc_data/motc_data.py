@@ -170,6 +170,7 @@ def id_process(root, road='000010', prefix=''):
 
 # Date, Time, Congestion, Speed
 def collect_dynamic_traffic(traffic_list, save='./data'):
+  etag_pair = extract_data('ETagPair.xml', callback=etag_pair_process)  
   while True:
     allfiles = OrderedDict()
     for traffic in traffic_list:
@@ -179,10 +180,21 @@ def collect_dynamic_traffic(traffic_list, save='./data'):
     # download dynamic data
     download('dynamic')
     live_traffic = extract_data('LiveTraffic.xml', callback=livetraffic_process)
+    etag_pair_live = extract_data('ETagPairLive.xml', callback=etag_pair_live_process)
+    etag_description_to_count = {}
+    for key, value in etag_pair_live.items():
+      if key in etag_pair:
+        etag_description_to_count[etag_pair[key]['Description']] = value['VehicleCount']
 
     # record time
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
+
+    for key, value in etag_description_to_count.items():
+      f = open(f"{save}/etag_{key}.txt", "a")
+      f.write(f'{current_time} {value}\n')
+      f.flush()
+      f.close()
 
     for traffic in traffic_list:
       new_traffic = []
