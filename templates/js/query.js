@@ -51,17 +51,30 @@ function handleTouchMove(evt) {
     if ( xDiff > 0 ) {
       /* left swipe */
       if(prev_date === null || prev_time === null) return;
-      instance.dtbox.hours += 1;
-      if(instance.dtbox.hours == 0)
-        instance.dtbox.day += 1;
+
+      date = new Date(instance.dtbox.year, instance.dtbox.month, instance.dtbox.day, instance.dtbox.hours, instance.dtbox.minutes);
+      date.setHours(date.getHours() + 1);
+      instance.dtbox.value = date;
+      instance.dtbox.year = date.getFullYear();
+      instance.dtbox.month = date.getMonth();
+      instance.dtbox.day = date.getDate();
+      instance.dtbox.hours = date.getHours();
+      instance.dtbox.minutes = date.getMinutes();
+      instance.dtbox.seconds = date.getSeconds();
       instance.dtbox.setInputValue()
       updatePrev(true);
     } else {
       /* right swipe */
       if(prev_date === null || prev_time === null) return;
-      instance.dtbox.hours -= 1;
-      if(instance.dtbox.hours == -1)
-        instance.dtbox.day -= 1;
+      date = new Date(instance.dtbox.year, instance.dtbox.month, instance.dtbox.day, instance.dtbox.hours, instance.dtbox.minutes);
+      date.setHours(date.getHours() - 1);
+      instance.dtbox.value = date;
+      instance.dtbox.year = date.getFullYear();
+      instance.dtbox.month = date.getMonth();
+      instance.dtbox.day = date.getDate();
+      instance.dtbox.hours = date.getHours();
+      instance.dtbox.minutes = date.getMinutes();
+      instance.dtbox.seconds = date.getSeconds();
       instance.dtbox.setInputValue()
       updatePrev(true);
     }
@@ -98,6 +111,16 @@ var instance = null;
 var prev_date = null;
 var prev_time = null;
 
+function bmbRemoveClass(s){
+    return s.removeClass("bmb_rd_80plus")
+     .removeClass("bmb_rd_60_80")
+     .removeClass("bmb_rd_40_60")
+     .removeClass("bmb_rd_20_40")
+     .removeClass("bmb_rd_0_20")
+     .removeClass("bmb_rd_closure")
+     .removeClass("bmb_rd_noinfo")
+}
+
 function updatePrev(change){
   if(instance.dtbox.value)
     prev_date = instance.dtbox.value;
@@ -110,16 +133,31 @@ function updatePrev(change){
     console.log("do ajax");
     //$.post(`${window.location.host}`)
 
+    time = `${instance.dtbox.month + 1}/${instance.dtbox.day} ${instance.dtbox.hours}:${instance.dtbox.minutes}`;
     $.ajax({
       url: 'http://localhost:8080/traffic',
       type: 'post',
       data: JSON.stringify({
-        time: `${instance.dtbox.month + 1}/${instance.dtbox.day} ${instance.dtbox.hours}:${instance.dtbox.minutes}`,
+        time: time,
       }),
       dataType: 'json',
       contentType: 'application/json',
       success: function (data) {
-        console.log(data);
+
+        lv = ["bmb_rd_80plus", "bmb_rd_60_80", "bmb_rd_40_60"]
+
+        Object.keys(data.N).forEach(k => {
+          name = k.replace('交流道', '')
+          bmbRemoveClass($($(`#${name}`).parent().prev().find('.bmb_rd')[0])).addClass(lv[data.N[k].level - 1])
+        })
+
+        Object.keys(data.S).forEach(k => {
+          name = k.replace('交流道', '')
+          bmbRemoveClass($($(`#${name}`).parent().next().find('.bmb_rd')[1])).addClass(lv[data.S[k].level - 1])
+        })
+      },
+      error: function(){
+        console.log(time);
       }
     });
 
