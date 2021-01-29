@@ -155,7 +155,7 @@ function updatePrev(change){
           name = k.replace('交流道', '')
           bmbRemoveClass($($(`#${name}`).parent().next().find('.bmb_rd')[1])).addClass(lv[data.S[k].level - 1])
         })
-        $('.bmb_trd').addClass('bmb_rd_80plus');
+        $('.bmb_trd').removeClass('bmb_rd_noinfo').addClass('bmb_rd_80plus');
       },
       error: function(){
         console.log(time);
