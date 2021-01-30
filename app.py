@@ -130,17 +130,17 @@ if not options.nobot:
                     TextSendMessage(text=f"https://liff.line.me/1655616509-K5V7eoER#{label['loc']}?m=q&date={label['date']}&time={label['time']}")
                 )
             else:
-                with open("Error.txt", "a") as f:
+                with open("Error_{}.txt".format(event.source.user_id), "a") as f:
                     f.writelines(text+"\n")
                 rtn = ""
                 for er in label["Error"]:
                     if er == "date":
-                        rtn += "日期錯誤，"
+                        rtn += "日期錯誤，格式為(ex : 1/20 or 今天)，\n"
                     if er == "time":
-                        rtn += "時間錯誤，"
+                        rtn += "時間錯誤，格式為(ex : 10:30 or 現在)，\n"
                     if er == "loc":
                         rtn += "地點錯誤或交流道不存在，"
-                rtn += "格式錯誤，\n 查詢請輸入 查詢(or query) + 地點 + 時間 \n(ex: query 新竹交流道 1/31 13:00) ，\n 申報請輸入 申報(or report) + 起點交流道 + 終點交流道 + 時間 \n(ex: report 新竹交流道 到 台北交流道 1/31 13:00)"
+                rtn += "格式錯誤，\n 查詢請輸入 查詢(or query) + 交流道 + 日期 + 時間 \n(ex: query 新竹交流道 1/31 13:00) ，\n 申報請輸入 申報(or report) + 起點交流道 + 終點交流道 + 日期 + 時間 \n(ex: report 新竹交流道 到 台北交流道 1/31 13:00)"
                 line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text=rtn)
@@ -155,38 +155,36 @@ if not options.nobot:
                     TextSendMessage(text="https://www.google.com/search?q="+label["date"]+label["time"]+label["loc_from"]+label["loc_to"])
                 )
             else:
-                with open("Error.txt", "a") as f:
+                with open("Error_{}.txt".format(event.source.user_id), "a") as f:
                     f.writelines(text+"\n")
                 rtn = ""
                 for er in label["Error"]:
                     if er == "date":
-                        rtn += "日期錯誤，"
+                        rtn += "日期錯誤，格式為(ex : 1/20 or 今天)，\n"
                     if er == "time":
-                        rtn += "時間錯誤，"
+                        rtn += "時間錯誤，格式為(ex : 10:30 or 現在)，\n"
                     if er == "loc_from":
                         rtn += "起點地點錯誤或交流道不存在，"
                     if er == "loc_to":
                         rtn += "終點地點錯誤或交流道不存在，"
-                rtn += "格式錯誤，\n 查詢請輸入 查詢(or query) + 地點 + 時間 \n(ex: query 新竹交流道 1/31 13:00) ，\n 申報請輸入 申報(or report) + 起點交流道 + 終點交流道 + 時間 \n(ex: report 新竹交流道 到 台北交流道 1/31 13:00)"
+                rtn += "格式錯誤，\n 查詢請輸入 查詢(or query) + 交流道 + 日期 + 時間 \n(ex: query 新竹交流道 1/31 13:00) ，\n 申報請輸入 申報(or report) + 起點交流道 + 終點交流道 + 日期 + 時間 \n(ex: report 新竹交流道 到 台北交流道 1/31 13:00)"
                 line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text=rtn)
                 )
         else:
-            with open("Error.txt", "a") as f:
-                f.writelines(text+"\n")
+            with open("Error_{}.txt".format(event.source.user_id), "a") as f:
+                    f.writelines(text+"\n")
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="格式錯誤，\n 查詢請輸入 查詢(or query) + 地點 + 時間 \n(ex: query 新竹交流道 1/31 13:00) ，\n 申報請輸入 申報(or report) + 起點交流道 + 終點交流道 + 時間 \n(ex: report 新竹交流道 到 台北交流道 1/31 13:00)")
+                TextSendMessage(text="格式錯誤，\n 查詢請輸入 查詢(or query) + 地點 + 日期 + 時間 \n(ex: query 新竹交流道 1/31 13:00) ，\n 申報請輸入 申報(or report) + 起點交流道 + 終點交流道 + 日期 + 時間 \n(ex: report 新竹交流道 到 台北交流道 1/31 13:00)")
             )
 loc_table = ["基隆端", "基隆", "八堵", "大華系統", "五堵", "汐止", "汐止系統", "高架汐止端", "東湖", "內湖", "圓山", "台北", "三重", "五股轉接道", "五股", "高公局", "泰山轉接道", "林口", "桃園", "機場系統", "中壢服務區", "內壢", "中壢轉接一", "中壢轉接二", "中壢", "平鎮系統", "幼獅", "楊梅", "高架楊梅端", "湖口", "湖口服務區", "竹北", "新竹", "新竹系統", "頭份", "頭屋", "苗栗", "銅鑼", "三義", "泰安服務區", "后里", "台中系統", "豐原", "大雅", "台中", "南屯", "王田", "彰化系統", "彰化", "埔鹽系統", "員林", "北斗", "西螺服務區", "西螺", "虎尾", "斗南", "雲林系統", "大林", "民雄", "嘉義", "水上", "嘉義系統", "新營服務區", "新營", "下營系統", "麻豆", "安定", "台南系統", "永康", "大灣", "仁德", "仁德系統", "仁德服務區", "路竹", "高科", "岡山", "楠梓", "鼎金系統", "高雄", "瑞隆路", "五甲系統", "五甲", "中山四路", "漁港路", "高雄端"]
 def parse_str(text):
-    if options.nobot:
-        return None
     data = ws([text])[0]
-
+    print(data)
     label = {"type":"","date":"","time":"","loc":"","loc_from":"","loc_to":"","Error":[]}
-    if any([("申報" in d or "report" in d) for d in data]):
+    if any([("申報" in d or "report" in d.lower()) for d in data]):
         label["type"] = "report"
         loc_list = []
         for i in range(len(data)):
@@ -195,6 +193,31 @@ def parse_str(text):
                 label = parse_time(data,i,label)
             elif "/" in data[i]: # date
                 label = parse_date(data,i,label)
+            elif "今天" in data[i]:
+                today = datetime.date.today()
+                d1 = today.strftime("%m/%d")
+                label["date"] = d1
+            elif "明天" in data[i]:
+                today = datetime.date.today()
+                today += datetime.timedelta(days=1)
+                d1 = today.strftime("%m/%d")
+                label["date"] = d1
+            elif "後天" in data[i]:
+                today = datetime.date.today()
+                today += datetime.timedelta(days=2)
+                d1 = today.strftime("%m/%d")
+                label["date"] = d1
+            elif "昨天" in data[i]:
+                today = datetime.date.today()
+                today += datetime.timedelta(days=-1)
+                d1 = today.strftime("%m/%d")
+                label["date"] = d1
+            elif "現在" in data[i]:
+                today = datetime.date.today()
+                d1 = today.strftime("%m/%d")
+                now = datetime.datetime.now()
+                label["time"] = now.strftime("%H:%M")
+                label["date"] = d1
             elif len(data[i]) >= 2: # loc
                 try:
                     blur_pro = process.extractOne(data[i], loc_table)
@@ -206,9 +229,9 @@ def parse_str(text):
             label["loc_from"] = loc_list[0]
             label["loc_to"] = loc_list[1]
         else:
-            label["Error"].append("loc_from")
-            label["Error"].append("loc_to")
-    elif any([("看" in d or "搜尋" in d  or "查詢" in d or "query" in d or "查" in d) for d in data]):
+            label["Error"].append("loc_from") 
+            label["Error"].append("loc_to") 
+    elif any([("看" in d or "搜尋" in d  or "查詢" in d or "query" in d.lower() or "查" in d) for d in data]):
         label["type"]="query"
         for i in range(len(data)):
             data[i] = data[i].replace(' ','')
@@ -216,16 +239,49 @@ def parse_str(text):
                 label = parse_time(data,i,label)
             elif "/" in data[i]: # date
                 label = parse_date(data,i,label)
+            elif "今天" in data[i]:
+                today = datetime.date.today()
+                d1 = today.strftime("%m/%d")
+                label["date"] = d1
+            elif "明天" in data[i]:
+                today = datetime.date.today()
+                today += datetime.timedelta(days=1)
+                d1 = today.strftime("%m/%d")
+                label["date"] = d1
+            elif "後天" in data[i]:
+                today = datetime.date.today()
+                today += datetime.timedelta(days=2)
+                d1 = today.strftime("%m/%d")
+                label["date"] = d1
+            elif "昨天" in data[i]:
+                today = datetime.date.today()
+                today += datetime.timedelta(days=-1)
+                d1 = today.strftime("%m/%d")
+                label["date"] = d1
+            elif "現在" in data[i]:
+                today = datetime.date.today()
+                d1 = today.strftime("%m/%d")
+                now = datetime.datetime.now()
+                label["time"] = now.strftime("%H:%M")
+                label["date"] = d1
+                print(now.strftime("%H:%M"),now)
             elif len(data[i]) >= 2: # loc
                 try:
                     blur_pro = process.extractOne(data[i], loc_table)
                     if blur_pro[1] > 40:
                         label["loc"] = blur_pro[0]
                 except:
-                    label["Error"].append("loc")
+                    label["Error"].append("loc") 
                     print(data[i])
 
-
+        if label["loc"] == "":
+            label["Error"].append("loc") 
+    if label["date"] == "":
+        label["Error"].append("date") 
+    if label["time"] == "":
+        label["Error"].append("time") 
+                
+    
     return label
 
 def parse_date(data,i,label):
@@ -236,23 +292,24 @@ def parse_date(data,i,label):
                 datetime.date(year,int(data[i-1]),int(data[i+1]))
                 label["time"] = data[i-1] + "/" + data[i+1]
             except:
-                label["Error"].append("date")
+                label["Error"].append("date") 
         else:
-            label["Error"].append("date")
+            label["Error"].append("date") 
     else:
         data[i] = data[i].replace('月','')
         data[i] = data[i].replace('日','')
         data[i] = data[i].replace('號','')
         date_data = data[i].split("/")
+        print(date_data)
         if len(date_data) == 2 and date_data[0].isnumeric() and date_data[1].isnumeric():
             try:
                 year = datetime.date.today().year
                 datetime.date(year,int(date_data[0]),int(date_data[1]))
                 label["date"] = date_data[0] + "/" + date_data[1]
             except:
-                label["Error"].append("date")
+                label["Error"].append("date") 
         else:
-            label["Error"].append("date")
+            label["Error"].append("date") 
     return label
 
 def parse_time(data,i,label):
@@ -261,18 +318,18 @@ def parse_time(data,i,label):
             if 0 <= int(data[i-1]) <= 24 and 0 <= int(data[i+1]) < 60:
                 label["time"] = data[i-1] + ":" + data[i+1]
             else:
-                label["Error"].append("time")
+                label["Error"].append("time") 
         else:
-            label["Error"].append("time")
+            label["Error"].append("time") 
     else:
         time_data = data[i].split(":")
         if len(time_data) == 2 and time_data[0].isnumeric() and time_data[1].isnumeric():
             if 0 <= int(time_data[0]) <= 24 and 0 <= int(time_data[1]) < 60:
                 label["time"] = time_data[0] + ":" + time_data[1]
             else:
-                label["Error"].append("time")
+                label["Error"].append("time") 
         else:
-            label["Error"].append("time")
+            label["Error"].append("time") 
     return label
 
 @app.route('/pbot')
