@@ -119,7 +119,8 @@ def callback():
 if not options.nobot:
     @handler.add(MessageEvent, message=TextMessage)
     def message_text(event):
-        label = parse_str(event.message.text)
+        text = event.message.text
+        label = parse_str(text)
         print(label)
         if label["type"] == "query":
             print(label["type"] == "query",label["type"])
