@@ -65,6 +65,125 @@ if __name__ == '__main__':
         line_bot_api = LineBotApi(channel_access_token)
         handler = WebhookHandler(channel_secret)
 
+def report2(data):
+    global client
+    global user_db
+    global travel_time_db
+    global traffic_db
+    global section_ids
+    global travel_time_dict
+    global bound
+
+    rcol= user_db['Report']
+    _rcol= user_db['_Report']
+    ucol = user_db['User']
+
+    userid = data['userid']
+
+    # serach its car id from ucol
+    key = {"userid": userid}
+    if ucol.find(key).count() == 0:
+        return f'should register the account first'
+
+    ukey = key
+    obj = ucol.find_one(key)
+
+    carid = obj['carid']
+    print(obj)
+    reward = obj['reward:']
+
+    # construct the data to insert from report
+    start = data['start']
+    end = data['end']
+    time = data['time']
+
+    t = time.split(' ')[1].split(':')
+    day = time.split(' ')[0].split('/')
+    # month / day
+    m = int(day[0]) * 100
+    d = int(day[1])
+    tag = str(m + d)
+
+    # create a new db with date
+    db = client['traffic_db_'+tag]
+    # client.drop_database('traffic_db_'+tag)
+
+    l = traffic_of_two_points(start, end, section_ids)
+    cols = [(db[key], key) for key, _ in l]
+    direction = 'S' if int(cols[0][1]) & 1 else 'N'
+
+    strip = 20
+    w = int(t[0])*60 + int(t[1])
+
+    now = datetime.now()
+    sec = str(int(unix_time_secs(now)))
+    r = str(int(random.uniform(100000, 999999)))
+    reportid = direction+userid+r+sec+'.'+day[0]+'.'+day[1]
+    maxv = int(24 * 60 / strip)
+
+    if tag not in travel_time_dict:
+        travel_time_dict[tag] = {}
+        travel_time_dict[tag]  = init_travel_time(travel_time_dict[tag])
+
+    _travel_time_dict = travel_time_dict[tag]
+
+    # report rate = 10%
+    # 4500 * 10% = 450
+    for tcol, key in cols:
+        tt = str(int(w/strip))
+        rec = { 'reportid': reportid, "userid": userid, "time": time }
+        tcol[tt].insert_one(rec)
+
+        report_num = tcol[tt].find({}).count()
+
+        newvalues = { "$set": { "reward:": reward + (0.5 if report_num + 1 < bound else 0) } }
+        ucol.update_one(ukey, newvalues)
+
+
+
+
+        # print(report_num)
+        t_time, level = _travel_time_dict[key][tt]
+
+        w += t_time / 60
+
+        if report_num + 1 > bound and bound != -1:
+            bound = -1
+            num = int((report_num + 1) / 2)
+            # affetch the next timeline
+            next_time = str(int(tt) + 1)
+            fix_time(tcol, key, next_time, num, tag)
+
+
+    key = {'reportid': reportid}
+
+    strip = 5
+    dim1 = int(12 * (60 / strip))
+    dim2 = len(section_ids['S'].items())
+
+
+    record = { 'reportid': reportid,
+               'userid': userid,
+               'carid': carid,
+               'start': start,
+               'end': end,
+               'time': time }
+
+    rcol.insert_one(record)
+    key = {"userid": userid}
+    obj = ucol.find_one(key)
+    reward = obj['reward:']
+    print('rewards: ', reward)
+
+    return f'new {reportid} {time}'
+
+def endRoadName(name):
+    if name.startswith('基隆端'):
+        return '基隆端'
+    if name.startswith('高雄端'):
+        return '高雄端'
+    return name
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -152,7 +271,12 @@ if not options.nobot:
                 # TODO
                 line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text="https://www.google.com/search?q="+label["date"]+label["time"]+label["loc_from"]+label["loc_to"])
+                    TextSendMessage(text=report2({
+                        'userid': event.source.user_id,
+                        'start': endRoadName(label["loc_from"]),
+                        'end': endRoadName(label["loc_to"]),
+                        'time': f'{label["date"]} {label["time"]}'
+                    }))
                 )
             else:
                 with open("Error_{}.txt".format(event.source.user_id), "a") as f:

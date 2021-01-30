@@ -1,5 +1,6 @@
 var liffID = '1655616509-K5V7eoER';
 var profile = null;
+var profile = {userId: "nobody"};
 /*
 {
   "userId": "U4af4980629...",
@@ -172,6 +173,12 @@ function updatePrev(change){
   }
 }
 
+function addRoad(name){
+  if(name == '基隆端' || name == '高雄端')
+    return name
+  return name + '交流道'
+}
+
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
 
@@ -212,27 +219,29 @@ document.onreadystatechange = () => {
         alert("未設定終點站，請點選站點");
       }
       else{
-        confirm(`申報 ${begLoc} 到 ${endLoc}？`);
-        time = `${instance.dtbox.month + 1}/${instance.dtbox.day} ${instance.dtbox.hours}:${instance.dtbox.minutes}`;
-        $.ajax({
-          url: `${window.location.origin}/report`,
-          type: 'post',
-          data: JSON.stringify({
-            userid: profile.userId,
-            start: begLoc + '交流道',
-            end: endLoc + '交流道',
-            time: time
-          }),
-          dataType: 'json',
-          contentType: 'application/json',
-          success: function (data) {
-            // map data
-            alert(data.message)
-          },
-          error: function(){
-            alert("error");
-          }
-        });
+        reply = confirm(`申報 ${begLoc} 到 ${endLoc}？`);
+        if(reply){
+          time = `${instance.dtbox.month + 1}/${instance.dtbox.day} ${instance.dtbox.hours}:${instance.dtbox.minutes}`;
+          $.ajax({
+            url: `${window.location.origin}/report`,
+            type: 'post',
+            data: JSON.stringify({
+              userid: profile.userId,
+              start: addRoad(begLoc),
+              end: addRoad(endLoc),
+              time: time
+            }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+              // map data
+              alert(data.message)
+            },
+            error: function(){
+              alert("error");
+            }
+          });
+        }
       }
     })
 
