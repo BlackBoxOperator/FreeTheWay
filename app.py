@@ -129,6 +129,8 @@ if not options.nobot:
                     TextSendMessage(text=f"https://liff.line.me/1655616509-K5V7eoER#{label['loc']}?m=q&date={label['date']}&time={label['time']}")
                 )
             else:
+                with open("Error.txt", "a") as f:
+                    f.writelines(text+"\n")
                 rtn = ""
                 for er in label["Error"]:
                     if er == "date":
@@ -152,6 +154,8 @@ if not options.nobot:
                     TextSendMessage(text="https://www.google.com/search?q="+label["date"]+label["time"]+label["loc_from"]+label["loc_to"])
                 )
             else:
+                with open("Error.txt", "a") as f:
+                    f.writelines(text+"\n")
                 rtn = ""
                 for er in label["Error"]:
                     if er == "date":
@@ -168,6 +172,8 @@ if not options.nobot:
                     TextSendMessage(text=rtn)
                 )
         else:
+            with open("Error.txt", "a") as f:
+                f.writelines(text+"\n")
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text="格式錯誤，\n 查詢請輸入 查詢(or query) + 地點 + 時間 \n(ex: query 新竹交流道 1/31 13:00) ，\n 申報請輸入 申報(or report) + 起點交流道 + 終點交流道 + 時間 \n(ex: report 新竹交流道 到 台北交流道 1/31 13:00)")
@@ -183,6 +189,7 @@ def parse_str(text):
         label["type"] = "report"
         loc_list = []
         for i in range(len(data)):
+            data[i] = data[i].replace(' ','')
             if ":" in data[i]: # time
                 label = parse_time(data,i,label)
             elif "/" in data[i]: # date
@@ -203,6 +210,7 @@ def parse_str(text):
     elif any([("看" in d or "搜尋" in d  or "查詢" in d or "query" in d or "查" in d) for d in data]):
         label["type"]="query"
         for i in range(len(data)):
+            data[i] = data[i].replace(' ','')
             if ":" in data[i]: # time
                 label = parse_time(data,i,label)
             elif "/" in data[i]: # date
