@@ -271,7 +271,12 @@ if not options.nobot:
                 # TODO
                 line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text="https://www.google.com/search?q="+label["date"]+label["time"]+label["loc_from"]+label["loc_to"])
+                    TextSendMessage(text=report2({
+                        'userid': event.source.user_id,
+                        'start': endRoadName(label["loc_from"]),
+                        'end': endRoadName(label["loc_to"]),
+                        'time': f'{label["date"]} {label["time"]}'
+                    }))
                 )
             else:
                 with open("Error_{}.txt".format(event.source.user_id), "a") as f:
