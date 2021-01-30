@@ -333,6 +333,64 @@ document.onreadystatechange = () => {
         begLoc = "";
       }
     })
+
+
+
+    function findGetParameter(parameterName) {
+      var result = null,
+        tmp = [];
+      location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+      return result;
+    }
+
+    cdate = new Date();
+    dat = findGetParameter('date');
+    if(dat !== null){
+      [m, d] = dat.split('/');
+      instance.dtbox.month = Number(m) - 1;
+      instance.dtbox.day = Number(d);
+      console.log(m, d)
+    }
+    else{
+      instance.dtbox.month = cdate.getMonth();
+      instance.dtbox.day = cdate.getDate();
+    }
+    tim = findGetParameter('time');
+    if(tim !== null){
+      [h, m] = tim.split(':');
+      instance.dtbox.hours = Number(h);
+      instance.dtbox.minutes = Number(m);
+      console.log(h, m)
+    }
+    else{
+      instance.dtbox.hours = cdate.getHours();
+      instance.dtbox.minutes = cdate.getMinutes();
+    }
+
+    if(dat !== null || tim !== null){
+      date = new Date(
+        cdate.getFullYear(),
+        instance.dtbox.month,
+        instance.dtbox.day,
+        instance.dtbox.hours,
+        instance.dtbox.minutes);
+      instance.dtbox.value = date;
+      instance.dtbox.year = date.getFullYear();
+      instance.dtbox.month = date.getMonth();
+      instance.dtbox.day = date.getDate();
+      instance.dtbox.hours = date.getHours();
+      instance.dtbox.minutes = date.getMinutes();
+      instance.dtbox.seconds = date.getSeconds();
+      instance.dtbox.setInputValue()
+      updatePrev(true);
+    }
+    else alert("null");
   }
 };
 

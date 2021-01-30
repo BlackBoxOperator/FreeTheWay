@@ -182,7 +182,7 @@ def endRoadName(name):
         return '基隆端'
     if name.startswith('高雄端'):
         return '高雄端'
-    return name
+    return name + '交流道'
 
 @app.route('/')
 def index():
@@ -246,7 +246,7 @@ if not options.nobot:
             if len(label["Error"])==0:
                 line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=f"https://liff.line.me/1655616509-K5V7eoER#{label['loc']}?m=q&date={label['date']}&time={label['time']}")
+                    TextSendMessage(text=f"https://liff.line.me/1655616509-K5V7eoER?m=q&date={label['date']}&time={label['time']}#{label['loc']}")
                 )
             else:
                 with open("Error_{}.txt".format(event.source.user_id), "a") as f:
