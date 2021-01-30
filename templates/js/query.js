@@ -1,12 +1,19 @@
 var liffID = '1655616509-K5V7eoER';
+var profile = null;
+/*
+{
+  "userId": "U4af4980629...",
+  "displayName": "Brown",
+  "pictureUrl": "https://profile.line-scdn.net/abcdefghijklmn",
+  "statusMessage": "Hello, LINE!"
+}
+*/
 
 liff.init({
   liffId: liffID
 }).then(function() {
   console.log('LIFF init');
-
-  // 這邊開始寫使用其他功能
-
+  profile = liff.getProfile()
 }).catch(function(error) {
   console.log(error);
 });
@@ -112,13 +119,13 @@ var prev_date = null;
 var prev_time = null;
 
 function bmbRemoveClass(s){
-    return s.removeClass("bmb_rd_80plus")
-     .removeClass("bmb_rd_60_80")
-     .removeClass("bmb_rd_40_60")
-     .removeClass("bmb_rd_20_40")
-     .removeClass("bmb_rd_0_20")
-     .removeClass("bmb_rd_closure")
-     .removeClass("bmb_rd_noinfo")
+  return s.removeClass("bmb_rd_80plus")
+    .removeClass("bmb_rd_60_80")
+    .removeClass("bmb_rd_40_60")
+    .removeClass("bmb_rd_20_40")
+    .removeClass("bmb_rd_0_20")
+    .removeClass("bmb_rd_closure")
+    .removeClass("bmb_rd_noinfo")
 }
 
 function updatePrev(change){
@@ -135,7 +142,7 @@ function updatePrev(change){
 
     time = `${instance.dtbox.month + 1}/${instance.dtbox.day} ${instance.dtbox.hours}:${instance.dtbox.minutes}`;
     $.ajax({
-      url: 'http://localhost:8080/traffic',
+      url: `${window.location.origin}/traffic`,
       type: 'post',
       data: JSON.stringify({
         time: time,
@@ -155,6 +162,7 @@ function updatePrev(change){
           name = k.replace('交流道', '')
           bmbRemoveClass($($(`#${name}`).parent().next().find('.bmb_rd')[1])).addClass(lv[data.S[k].level - 1])
         })
+        $('.bmb_trd').removeClass('bmb_rd_noinfo').addClass('bmb_rd_80plus');
       },
       error: function(){
         console.log(time);
@@ -205,6 +213,26 @@ document.onreadystatechange = () => {
       }
       else{
         confirm(`申報 ${begLoc} 到 ${endLoc}？`);
+        time = `${instance.dtbox.month + 1}/${instance.dtbox.day} ${instance.dtbox.hours}:${instance.dtbox.minutes}`;
+        $.ajax({
+          url: `${window.location.origin}/report`,
+          type: 'post',
+          data: JSON.stringify({
+            userid: profile.userId,
+            start: begLoc + '交流道',
+            end: endLoc + '交流道',
+            time: time
+          }),
+          dataType: 'json',
+          contentType: 'application/json',
+          success: function (data) {
+            // map data
+            alert(data.message)
+          },
+          error: function(){
+            alert("error");
+          }
+        });
       }
     })
 
