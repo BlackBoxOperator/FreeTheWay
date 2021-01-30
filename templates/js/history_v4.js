@@ -1,6 +1,6 @@
 var liffID = '1655616509-ldoQx2kG';
 var profile = null;
-var profile = {userId: "nobody"};
+var profile = {userId: "demo"};
 /*
 {
   "userId": "U4af4980629...",

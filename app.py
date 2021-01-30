@@ -1,5 +1,6 @@
 #coding=utf-8
 from datetime import datetime
+import datetime as DT
 import pandas as pd
 from motc_data.motc_data import *
 import pymongo
@@ -272,7 +273,7 @@ if not options.nobot:
                 line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text=report2({
-                        'userid': event.source.user_id,
+                        'userid': 'demo',
                         'start': endRoadName(label["loc_from"]),
                         'end': endRoadName(label["loc_to"]),
                         'time': f'{label["date"]} {label["time"]}'
@@ -318,37 +319,35 @@ def parse_str(text):
             elif "/" in data[i]: # date
                 label = parse_date(data,i,label)
             elif "今天" in data[i]:
-                today = datetime.date.today()
+                today = DT.date.today()
                 d1 = today.strftime("%m/%d")
                 label["date"] = d1
             elif "明天" in data[i]:
-                today = datetime.date.today()
-                today += datetime.timedelta(days=1)
+                today = DT.date.today()
+                today += DT.timedelta(days=1)
                 d1 = today.strftime("%m/%d")
                 label["date"] = d1
             elif "後天" in data[i]:
-                today = datetime.date.today()
-                today += datetime.timedelta(days=2)
+                today = DT.date.today()
+                today += DT.timedelta(days=2)
                 d1 = today.strftime("%m/%d")
                 label["date"] = d1
             elif "昨天" in data[i]:
-                today = datetime.date.today()
-                today += datetime.timedelta(days=-1)
+                today = DT.date.today()
+                today += DT.timedelta(days=-1)
                 d1 = today.strftime("%m/%d")
                 label["date"] = d1
             elif "現在" in data[i]:
-                today = datetime.date.today()
+                today = DT.date.today()
                 d1 = today.strftime("%m/%d")
-                now = datetime.datetime.now()
+                now = DT.datetime.now()
                 label["time"] = now.strftime("%H:%M")
                 label["date"] = d1
             elif len(data[i]) >= 2: # loc
-                try:
-                    blur_pro = process.extractOne(data[i], loc_table)
-                    if blur_pro[1] > 40:
-                        loc_list.append(blur_pro[0])
-                except:
-                    print(data[i])
+                blur_pro = process.extractOne(data[i], loc_table)
+                if blur_pro[1] > 40:
+                    loc_list.append(blur_pro[0])
+                print(data[i])
         if len(loc_list) == 2:
             label["loc_from"] = loc_list[0]
             label["loc_to"] = loc_list[1]
@@ -364,39 +363,36 @@ def parse_str(text):
             elif "/" in data[i]: # date
                 label = parse_date(data,i,label)
             elif "今天" in data[i]:
-                today = datetime.date.today()
+                today = DT.date.today()
                 d1 = today.strftime("%m/%d")
                 label["date"] = d1
             elif "明天" in data[i]:
-                today = datetime.date.today()
-                today += datetime.timedelta(days=1)
+                today = DT.date.today()
+                today += DT.timedelta(days=1)
                 d1 = today.strftime("%m/%d")
                 label["date"] = d1
             elif "後天" in data[i]:
-                today = datetime.date.today()
-                today += datetime.timedelta(days=2)
+                today = DT.date.today()
+                today += DT.timedelta(days=2)
                 d1 = today.strftime("%m/%d")
                 label["date"] = d1
             elif "昨天" in data[i]:
-                today = datetime.date.today()
-                today += datetime.timedelta(days=-1)
+                today = DT.date.today()
+                today += DT.timedelta(days=-1)
                 d1 = today.strftime("%m/%d")
                 label["date"] = d1
             elif "現在" in data[i]:
-                today = datetime.date.today()
+                today = DT.date.today()
                 d1 = today.strftime("%m/%d")
-                now = datetime.datetime.now()
+                now = DT.datetime.now()
                 label["time"] = now.strftime("%H:%M")
                 label["date"] = d1
                 print(now.strftime("%H:%M"),now)
             elif len(data[i]) >= 2: # loc
-                try:
-                    blur_pro = process.extractOne(data[i], loc_table)
-                    if blur_pro[1] > 40:
-                        label["loc"] = blur_pro[0]
-                except:
-                    label["Error"].append("loc") 
-                    print(data[i])
+                blur_pro = process.extractOne(data[i], loc_table)
+                if blur_pro[1] > 40:
+                    label["loc"] = blur_pro[0]
+                print(data[i])
 
         if label["loc"] == "":
             label["Error"].append("loc") 
@@ -411,12 +407,9 @@ def parse_str(text):
 def parse_date(data,i,label):
     if len(data[i])==1:
         if (i != 0 or i != len(data)-1) and data[i-1].isnumeric() and data[i+1].isnumeric():
-            try:
-                year = datetime.date.today().year
-                datetime.date(year,int(data[i-1]),int(data[i+1]))
-                label["time"] = data[i-1] + "/" + data[i+1]
-            except:
-                label["Error"].append("date") 
+            year = DT.date.today().year
+            DT.date(year,int(data[i-1]),int(data[i+1]))
+            label["time"] = data[i-1] + "/" + data[i+1]
         else:
             label["Error"].append("date") 
     else:
@@ -426,12 +419,9 @@ def parse_date(data,i,label):
         date_data = data[i].split("/")
         print(date_data)
         if len(date_data) == 2 and date_data[0].isnumeric() and date_data[1].isnumeric():
-            try:
-                year = datetime.date.today().year
-                datetime.date(year,int(date_data[0]),int(date_data[1]))
-                label["date"] = date_data[0] + "/" + date_data[1]
-            except:
-                label["Error"].append("date") 
+            year = DT.date.today().year
+            DT.date(year,int(date_data[0]),int(date_data[1]))
+            label["date"] = date_data[0] + "/" + date_data[1]
         else:
             label["Error"].append("date") 
     return label
