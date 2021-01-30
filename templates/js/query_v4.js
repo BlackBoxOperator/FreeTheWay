@@ -1,6 +1,6 @@
 var liffID = '1655616509-K5V7eoER';
 var profile = null;
-var profile = {userId: "nobody"};
+var profile = {userId: "demo"};
 /*
 {
   "userId": "U4af4980629...",
@@ -14,10 +14,10 @@ liff.init({
   liffId: liffID
 }).then(function() {
   console.log('LIFF init');
-  profile = liff.getProfile()
+  //profile = liff.getProfile()
 }).catch(function(error) {
   console.log(error);
-  alert(error)
+  //alert(error)
 });
 
 function cctvChange(){
@@ -220,7 +220,7 @@ document.onreadystatechange = () => {
         alert("未設定終點站，請點選站點");
       }
       else{
-        if(confirm(`${profile.userId} 確定申報 ${begLoc} 到 ${endLoc}？`)){
+        if(confirm(`確定申報 ${begLoc} 到 ${endLoc}？`)){
           alert(`申報至 ${window.location.origin}/report`);
           time = `${instance.dtbox.month + 1}/${instance.dtbox.day} ${instance.dtbox.hours}:${instance.dtbox.minutes}`;
           $.ajax({
@@ -243,7 +243,7 @@ document.onreadystatechange = () => {
             }
           });
         }
-        else alert("no reply");
+        else alert("取消申報");
       }
     })
 

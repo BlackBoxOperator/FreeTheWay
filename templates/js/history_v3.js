@@ -14,7 +14,7 @@ liff.init({
   liffId: liffID
 }).then(function() {
   console.log('LIFF init');
-  profile = liff.getProfile()
+  //profile = liff.getProfile()
   update_history();
 }).catch(function(error) {
   console.log(error);
