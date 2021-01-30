@@ -1,4 +1,4 @@
-var liffID = 'https://liff.line.me/1655616509-ldoQx2kG';
+var liffID = '1655616509-ldoQx2kG';
 var profile = null;
 var profile = {userId: "nobody"};
 /*
@@ -46,8 +46,7 @@ function update_history(){
 }
 
 $(document).ready(function(){
-  update_history();
-
+  //update_history();
   $('#reg').click(function(){
     $.ajax({
       url: `${window.location.origin}/register`,
