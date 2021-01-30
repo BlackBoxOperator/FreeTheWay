@@ -392,7 +392,7 @@ document.onreadystatechange = () => {
       instance.dtbox.setInputValue()
       updatePrev(true);
     }
-    else alert("null");
+    //else alert("null");
   }
 };
 
