@@ -20,15 +20,15 @@ from decrypt import decrypt_token
 from pyngrok import ngrok
 import os
 
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
-)
+# from linebot import (
+#     LineBotApi, WebhookHandler
+# )
+# from linebot.exceptions import (
+#     InvalidSignatureError
+# )
+# from linebot.models import (
+#     MessageEvent, TextMessage, TextSendMessage,
+# )
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -229,8 +229,8 @@ def parse_str(text):
             label["loc_from"] = loc_list[0]
             label["loc_to"] = loc_list[1]
         else:
-            label["Error"].append("loc_from") 
-            label["Error"].append("loc_to") 
+            label["Error"].append("loc_from")
+            label["Error"].append("loc_to")
     elif any([("看" in d or "搜尋" in d  or "查詢" in d or "query" in d.lower() or "查" in d) for d in data]):
         label["type"]="query"
         for i in range(len(data)):
@@ -271,17 +271,17 @@ def parse_str(text):
                     if blur_pro[1] > 40:
                         label["loc"] = blur_pro[0]
                 except:
-                    label["Error"].append("loc") 
+                    label["Error"].append("loc")
                     print(data[i])
 
         if label["loc"] == "":
-            label["Error"].append("loc") 
+            label["Error"].append("loc")
     if label["date"] == "":
-        label["Error"].append("date") 
+        label["Error"].append("date")
     if label["time"] == "":
-        label["Error"].append("time") 
-                
-    
+        label["Error"].append("time")
+
+
     return label
 
 def parse_date(data,i,label):
@@ -292,9 +292,9 @@ def parse_date(data,i,label):
                 datetime.date(year,int(data[i-1]),int(data[i+1]))
                 label["time"] = data[i-1] + "/" + data[i+1]
             except:
-                label["Error"].append("date") 
+                label["Error"].append("date")
         else:
-            label["Error"].append("date") 
+            label["Error"].append("date")
     else:
         data[i] = data[i].replace('月','')
         data[i] = data[i].replace('日','')
@@ -307,9 +307,9 @@ def parse_date(data,i,label):
                 datetime.date(year,int(date_data[0]),int(date_data[1]))
                 label["date"] = date_data[0] + "/" + date_data[1]
             except:
-                label["Error"].append("date") 
+                label["Error"].append("date")
         else:
-            label["Error"].append("date") 
+            label["Error"].append("date")
     return label
 
 def parse_time(data,i,label):
@@ -318,18 +318,18 @@ def parse_time(data,i,label):
             if 0 <= int(data[i-1]) <= 24 and 0 <= int(data[i+1]) < 60:
                 label["time"] = data[i-1] + ":" + data[i+1]
             else:
-                label["Error"].append("time") 
+                label["Error"].append("time")
         else:
-            label["Error"].append("time") 
+            label["Error"].append("time")
     else:
         time_data = data[i].split(":")
         if len(time_data) == 2 and time_data[0].isnumeric() and time_data[1].isnumeric():
             if 0 <= int(time_data[0]) <= 24 and 0 <= int(time_data[1]) < 60:
                 label["time"] = time_data[0] + ":" + time_data[1]
             else:
-                label["Error"].append("time") 
+                label["Error"].append("time")
         else:
-            label["Error"].append("time") 
+            label["Error"].append("time")
     return label
 
 @app.route('/pbot')
@@ -486,8 +486,8 @@ def reported():
                   'end': obj['end'],
                   'time': obj['time'] }
         ret.append(record)
-        l = traffic_of_two_points(obj['start'], obj['end'], section_ids)
-        print([key for key, _ in l])
+        # l = traffic_of_two_points(obj['start'], obj['end'], section_ids)
+        # print([key for key, _ in l])
 
     return jsonify(ret)
 
@@ -698,14 +698,14 @@ def report():
 
 
 
-    # record = { 'reportid': userid+r+sec,
-    #            'userid': userid,
-    #            'carid': carid,
-    #            'start': start,
-    #            'end': end,
-    #            'time': time }
+    record = { 'reportid': reportid,
+               'userid': userid,
+               'carid': carid,
+               'start': start,
+               'end': end,
+               'time': time }
 
-    # rcol.insert_one(record)
+    rcol.insert_one(record)
     key = {"userid": userid}
     obj = ucol.find_one(key)
     reward = obj['reward:']
